@@ -369,11 +369,11 @@ a.btn-cmd {
 .playlist .pl-entry, .database .db-entry {
 	margin-right: 70px; /* era: right: 70px; */
 	height: 60px;
-	padding: 5px 10px;
+	padding: 10px;
 	white-space: nowrap;
 }
 .database .db-folder, .database .db-other, .database .levelup {
-	line-height: 39px;
+	line-height: 50px;
 }
 .database .db-icon {
 	display: block;

@@ -86,12 +86,14 @@
 		</ul>
 	</div>
 	<div id="db-back">
-				<button class="btn"><i class="fa fa-arrow-left sx"></i> <em id="db-back-text">back</em></button>
-			
-			<span id="webradio-add">
-				<a href="#webradio-modal" data-toggle="modal" title="Add New WebRadio"><button class="btn"><i class="fa fa-plus"></i><em id="webradio-add-text"></em></button></a>
-			</span>
-			</div>
+		<button class="btn">
+			<i class="fa fa-arrow-left sx"></i> 
+			<em id="db-back-text">back</em>
+		</button>
+		<span id="webradio-add">
+			<a href="#webradio-modal" data-toggle="modal" title="Add New WebRadio"><button class="btn"><i class="fa fa-plus"></i><em id="webradio-add-text"></em></button></a>
+		</span>
+	</div>
 	<a class="home" href="index.php"><img src="images/logo.png" class="logo" alt="RaspyFi"></a>
 </div>
 <div id="menu-bottom" class="ui-footer ui-bar-f ui-footer-fixed slidedown" data-position="fixed" data-role="footer"  role="banner">
