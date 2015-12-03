@@ -85,12 +85,13 @@
 			<li><a href="#poweroff-modal" data-toggle="modal"><i class="fa fa-power-off sx"></i> Turn off</a></li>
 		</ul>
 	</div>
-	<div class="playback-controls">	
-		<button id="previous" class="btn btn-cmd" title="Previous"><i class="fa fa-step-backward"></i></button>
-		<button id="stop" class="btn btn-cmd" title="Stop"><i class="fa fa-stop"></i></button>
-		<button id="play" class="btn btn-cmd" title="Play/Pause"><i class="fa fa-play"></i></button>
-		<button id="next" class="btn btn-cmd" title="Next"><i class="fa fa-step-forward"></i></button>
-	</div>
+	<div id="db-back">
+				<button class="btn"><i class="fa fa-arrow-left sx"></i> <em id="db-back-text">back</em></button>
+			
+			<span id="webradio-add">
+				<a href="#webradio-modal" data-toggle="modal" title="Add New WebRadio"><button class="btn"><i class="fa fa-plus"></i><em id="webradio-add-text"></em></button></a>
+			</span>
+			</div>
 	<a class="home" href="index.php"><img src="images/logo.png" class="logo" alt="RaspyFi"></a>
 </div>
 <div id="menu-bottom" class="ui-footer ui-bar-f ui-footer-fixed slidedown" data-position="fixed" data-role="footer"  role="banner">

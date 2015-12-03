@@ -319,7 +319,7 @@ a.btn-cmd {
 -------------------------------------------------------------- */
 
 #playlist, #database {
-	padding: 120px 0;
+	padding: 60px 0;
 	background: #525C66;
 }
 .playlist, .database {
@@ -332,7 +332,7 @@ a.btn-cmd {
 .playlist li, .database li {
 	display: block;
 	position: relative;
-	height: 49px;
+	height: 60px;
 	margin: 0;
 	background: #525C66;
 	border-bottom: 1px solid #fff;
@@ -368,7 +368,7 @@ a.btn-cmd {
 }
 .playlist .pl-entry, .database .db-entry {
 	margin-right: 70px; /* era: right: 70px; */
-	height: 39px;
+	height: 60px;
 	padding: 5px 10px;
 	white-space: nowrap;
 }
@@ -889,7 +889,7 @@ body { background: #cf0; } */
 		font-size: 14px;
 	}
 	.playlist li, .database li {
-		font-size: 15px;
+		font-size: 17px;
 	}
 	.db-icon.db-browse, .playlist li:before {
 		display: none;
