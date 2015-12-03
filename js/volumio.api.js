@@ -207,13 +207,19 @@ function getPlaylist(json){
 }
 
 function parsePath(str) {
-	var cutpos=str.lastIndexOf("/");
-	//-- verify this switch! (Orion)
-	if (cutpos !=-1) {
-        var songpath = str.slice(0,cutpos);
-	}  else {
-        songpath = '';
+	var songpath = '';
+	
+	if(str) {
+		var cutpos = str.lastIndexOf("/");
+
+		//-- verify this switch! (Orion)
+		if (cutpos !== -1) {
+	        songpath = str.slice(0,cutpos);
+		}  else {
+	        songpath = '';
+		}
 	}
+	
 	return songpath;
 }
 
