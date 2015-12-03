@@ -394,8 +394,8 @@ a.btn-cmd {
 }
 .playlist .pl-action, .database .db-action {
 	float: right;
-	height: 49px;
-	line-height: 49px;
+	height: 60px;
+	line-height: 60px;
 	padding: 0 10px;
 }
 .playlist .pl-action a, .playlist .db-action a {
@@ -1133,5 +1133,5 @@ body { background: #cf0; } */
 }
 
 a .fa-ellipsis-v {
-	color: black;
+	color: #333;
 }
