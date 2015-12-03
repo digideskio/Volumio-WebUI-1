@@ -85,7 +85,7 @@
 			<li><a href="#poweroff-modal" data-toggle="modal"><i class="fa fa-power-off sx"></i> Turn off</a></li>
 		</ul>
 	</div>
-	<div>
+	<div id="db-back">
 		<a class="back-btn">
 			<i class="fa fa-chevron-left sx"></i>
 		</a>
