@@ -177,7 +177,7 @@ function getPlaylist(json){
                     content = '<li id="pl-' + (i + 1) + '" class="clearfix">';
                 }
                 content += '<div class="pl-action"><a class="btn" href="#notarget" title="Remove song from playlist"><i class="icon-remove-sign"></i></a></div>';
-                if (typeof data[i].Title != 'undefined') {
+                if (typeof data[i].Title !== 'undefined') {
                     content += '<div class="pl-entry">';
                     content += data[i].Title + ' <em class="songtime">' + timeConvert(data[i].Time) + '</em>';
                     content += ' <span>';
@@ -186,7 +186,7 @@ function getPlaylist(json){
                     content += data[i].Album;
                     content += '</span></div></li>';
                     output = output + content;
-                } else {
+                } else if (typeof data[i].file !== 'undefined') {
                     songpath = parsePath(data[i].file);
                     content += '<div class="pl-entry">';
                     content += data[i].file.replace(songpath + '/', '') + ' <em class="songtime">' + timeConvert(data[i].Time) + '</em>';
@@ -208,7 +208,7 @@ function getPlaylist(json){
 
 function parsePath(str) {
 	var songpath = '';
-	
+
 	if(str) {
 		var cutpos = str.lastIndexOf("/");
 
