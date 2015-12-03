@@ -87,8 +87,7 @@
 	</div>
 	<div id="db-back">
 		<button class="btn">
-			<i class="fa fa-arrow-left sx"></i> 
-			<em id="db-back-text">back</em>
+			<i class="fa fa-chevron-left sx"></i>
 		</button>
 		<span id="webradio-add">
 			<a href="#webradio-modal" data-toggle="modal" title="Add New WebRadio"><button class="btn"><i class="fa fa-plus"></i><em id="webradio-add-text"></em></button></a>

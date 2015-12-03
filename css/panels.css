@@ -565,13 +565,12 @@ a.btn-cmd {
 }
 
 #db-back {
-        display: none;
-        margin: 6px 0 0 -6px;
+	margin: 6px 0 0 -6px;
 }
 
 #db-back .btn {
     color: #DDDDDD;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
 }
 #webradio-add {
