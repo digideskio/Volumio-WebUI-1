@@ -158,7 +158,6 @@ html, body {
 	left: 0;
 	right: 0;
 	height: 60px;
-	line-height: 60px;
 	background: #7A848E;
 	color: #fff;
 	z-index: 1000;
@@ -513,9 +512,8 @@ a.btn-cmd {
 	margin-top: 6px;
 }
 #db-search, #pl-search {
-	display: block;
-	float: right;
-	margin: 6px 0 0 20px;
+	display: inline-block;
+	margin-top: 15px;
 	z-index: 1001;
 }
 #pl-save {
@@ -1126,4 +1124,8 @@ body { background: #cf0; } */
 
 a .fa-ellipsis-v {
 	color: #333;
+}
+
+#db-back {
+	display: inline-block;
 }
