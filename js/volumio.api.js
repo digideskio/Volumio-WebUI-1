@@ -429,17 +429,17 @@ function populateDB(data, path, uplevel, keyword){
 		var results = (data.length) ? data.length : '0';
 		var s = (data.length == 1) ? '' : 's';
 		var text = "" + results + ' result' + s + ' for "<em class="keyword">' + keyword + '</em>"';
-		$("#db-back").attr("title", "Close search results and go back to the DB");
-		$("#db-back-text").html(text);
-		$("#db-back").show();
+		//$("#db-back").attr("title", "Close search results and go back to the DB");
+		//$("#db-back-text").html(text);
+		//$("#db-back").show();
 
 	} else if (path != '') {
-		$("#db-back").attr("title", "");
-		$("#db-back-text").html("back");
-		$("#db-back").show();
+		//$("#db-back").attr("title", "");
+		//$("#db-back-text").html("back");
+		//$("#db-back").show();
 
 	} else {
-        $("#db-back").hide();
+        //$("#db-back").hide();
 
         if (library && library.isEnabled && !library.displayAsTab) {
             DBlist.append(pluginListItem("db-plug-lib", "LIBRARY", "fa-columns", "showLibraryView()"));
