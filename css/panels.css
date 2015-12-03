@@ -157,8 +157,8 @@ html, body {
 	position: fixed;
 	left: 0;
 	right: 0;
-	height: 40px;
-	line-height: 40px;
+	height: 60px;
+	line-height: 60px;
 	background: #7A848E;
 	color: #fff;
 	z-index: 1000;
@@ -174,8 +174,8 @@ html, body {
 #menu-top .dropdown {
 	display: block;
 	float: right;
-	height: 40px;
-	line-height: 40px;
+	height: 60px;
+	line-height: 60px;
 	margin: 0 20px 0 0;
 }
 #menu-top .dropdown-menu,
@@ -273,11 +273,11 @@ html, body {
 	display: block;
 	float: left;
 	width: 33.333%;
-	line-height: 40px;
+	line-height: 60px;
 	margin: 0;
 	padding: 0;
 	background: #7A848E;
-	font-size: 16px;
+	font-size: 18px;
 	text-decoration: none;
 	text-align: center;
 	color: #fff;
@@ -319,12 +319,12 @@ a.btn-cmd {
 -------------------------------------------------------------- */
 
 #playlist, #database {
-	padding: 80px 0;
+	padding: 120px 0;
 	background: #525C66;
 }
 .playlist, .database {
 	display: block;
-	margin: 00 0 125px 0;
+	margin: 0 0 125px 0;
 	padding: 0;
 	list-style: none;
 	counter-reset: item;
@@ -435,7 +435,7 @@ a.btn-cmd {
 	right: 0;
 	display: block;
 	width: auto;
-	height: 40px;
+	height: 60px;
 	padding: 0;
 	background: #525C66;
 	-webkit-border-radius: 0px;
@@ -449,7 +449,7 @@ a.btn-cmd {
 .btnlist.pl-prevPage, .btnlist.db-prevPage,
 .btnlist.pl-firstPage, .btnlist.db-firstPage,
 .btnlist.btnlist-top {
-	top: 40px;
+	top: 60px;
 	padding: 0 10px;
 	border-top: 0px solid #1B2D3F;
 }
