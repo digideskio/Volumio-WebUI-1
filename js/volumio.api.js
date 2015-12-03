@@ -482,7 +482,7 @@ function updateGUI(objectInputState){
         $('#play i').removeClass('fa fa-play').addClass('fa fa-pause');
 
     } else if (objectInputState['state'] == 'pause') {
-        $('#playlist-position').html('Not playing');
+        //$('#playlist-position').html('Not playing');
         $('#play i').removeClass('fa fa-pause').addClass('fa fa-play');
 
     } else if (objectInputState['state'] == 'stop') {
@@ -503,7 +503,7 @@ function updateGUI(objectInputState){
 	var fileinfo = (objectInputState['audio_channels'] && objectInputState['audio_sample_depth'] && objectInputState['audio_sample_rate']) ? (objectInputState['audio_channels'] + ' - ' + objectInputState['audio_sample_depth'] + ' bit - ' + objectInputState['audio_sample_rate'] +' kHz ') : '&nbsp;';
 	$('#format-bitrate').html(fileinfo);
 
-	$('#playlist-position').html('Playlist position ' + (parseInt(objectInputState['song']) + 1) +'/'+objectInputState['playlistlength']);
+	//$('#playlist-position').html('Playlist position ' + (parseInt(objectInputState['song']) + 1) +'/'+objectInputState['playlistlength']);
 	$('.playlist li').removeClass('active');
 	var current = parseInt(objectInputState['song']) + 1;
 	if (!isNaN(current)) {

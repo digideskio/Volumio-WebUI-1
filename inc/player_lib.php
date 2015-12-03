@@ -278,7 +278,7 @@ function getSpopState($sock, $mode) {
 	}
 
 	if (array_key_exists("album", $arrayResponse) == TRUE) {
-		$arrayReturn["currentalbum"] = $arrayResponse["album"] . "<br />[Spotify Temporary Playback Queue]</b>";
+		$arrayReturn["currentalbum"] = $arrayResponse["album"];
 
 	}
 
