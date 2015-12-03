@@ -77,7 +77,7 @@ html, body {
 }
 #timeknob {
 	position: relative;
-	padding: 30px 0 13px;
+	padding: 10px 0;
 }
 #timeknob.pulse, #timeflow.pulse {		
 	box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
