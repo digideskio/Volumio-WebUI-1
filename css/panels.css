@@ -58,7 +58,7 @@ html, body {
 	text-align: center;
 }
 
-#currentartist, #currentsong, #currentalbum, #format-bitrate, #elapsed, #countdown-display {
+#currentartist, #currentsong, #currentalbum, #elapsed, #countdown-display {
 	display: block;
 }
 #currentartist, #currentalbum {
@@ -72,7 +72,7 @@ html, body {
 	font-weight: bold;
 	color: #4BBE87;
 }
-#playlist-position, #format-bitrate {
+#playlist-position {
 	color: #8FA7BF;
 }
 #timeknob {

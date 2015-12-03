@@ -491,17 +491,12 @@ function updateGUI(objectInputState){
         $('#elapsed').html('00:00');
         $('#total').html('');
         $('#time').val(0).trigger('change');
-        $('#format-bitrate').html('&nbsp;');
         $('.playlist li').removeClass('active');
 
     }
 
 	$('#elapsed').html(timeConvert(objectInputState['elapsed']));
 	$('#total').html(timeConvert(objectInputState['time']));
-	//$('#time').val(objectInputState['song_percent']).trigger('change');
-
-	var fileinfo = (objectInputState['audio_channels'] && objectInputState['audio_sample_depth'] && objectInputState['audio_sample_rate']) ? (objectInputState['audio_channels'] + ' - ' + objectInputState['audio_sample_depth'] + ' bit - ' + objectInputState['audio_sample_rate'] +' kHz ') : '&nbsp;';
-	$('#format-bitrate').html(fileinfo);
 
 	//$('#playlist-position').html('Playlist position ' + (parseInt(objectInputState['song']) + 1) +'/'+objectInputState['playlistlength']);
 	$('.playlist li').removeClass('active');
@@ -512,7 +507,6 @@ function updateGUI(objectInputState){
 	}
 
 	// show UpdateDB icon
-	// console.log('dbupdate = ', GUI.MpdState['updating_db']);
 	if (typeof GUI.MpdState['updating_db'] != 'undefined') {
 		$('.open-panel-sx').html('<i class="fa fa-refresh fa-spin"></i> Updating');
 	} else {
