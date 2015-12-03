@@ -1131,3 +1131,7 @@ body { background: #cf0; } */
 #lib-content .tab-content {
     height: 100%;
 }
+
+a .fa-ellipsis-v {
+	color: black;
+}
