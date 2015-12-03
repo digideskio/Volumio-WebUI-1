@@ -85,10 +85,10 @@
 			<li><a href="#poweroff-modal" data-toggle="modal"><i class="fa fa-power-off sx"></i> Turn off</a></li>
 		</ul>
 	</div>
-	<div id="db-back">
-		<button class="btn">
+	<div>
+		<a class="back-btn">
 			<i class="fa fa-chevron-left sx"></i>
-		</button>
+		</a>
 		<span id="webradio-add">
 			<a href="#webradio-modal" data-toggle="modal" title="Add New WebRadio"><button class="btn"><i class="fa fa-plus"></i><em id="webradio-add-text"></em></button></a>
 		</span>

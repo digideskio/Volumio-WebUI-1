@@ -225,7 +225,7 @@ html, body {
 	background: #4BBE87;
 }
 #menu-top a, #context-menus .dropdown-menu a {
-	font-size: 16px;
+	font-size: 20px;
 	text-decoration: none;
 	color: #fff;
 }
@@ -235,6 +235,10 @@ html, body {
 	text-decoration: none;
 	outline: none;
 	color: #fff;
+}
+
+a.back-btn {
+	padding-left: 13px;
 }
 
 .logo {
@@ -564,21 +568,10 @@ a.btn-cmd {
     color: white;
 }
 
-#db-back {
-	margin: 6px 0 0 -6px;
-}
-
-#db-back .btn {
-    color: #DDDDDD;
-    font-size: 20px;
-    font-weight: bold;
-}
 #webradio-add {
     margin: 0px 0 0px 0px;
     float: right;
 }
-
-
 
 /* Pages */
 .pl-pages {
