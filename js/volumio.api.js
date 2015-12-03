@@ -239,7 +239,7 @@ function parseResponse(inputArr,respType,i,inpath) {
 				// This is a local file with a title
 					content = '<li id="db-' + (i + 1) + '" class="clearfix" data-path="';
 					content += inputArr[i].file;
-					content += '"><div class="db-icon db-song db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-reorder"></i></a></div><div class="db-entry db-song db-browse">';
+					content += '"><div class="db-icon db-song db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry db-song db-browse">';
 					content += inputArr[i].Title + ' <em class="songtime">' + timeConvert(inputArr[i].Time) + '</em>';
 					content += ' <span>';
 					content +=  inputArr[i].Artist;
@@ -256,12 +256,12 @@ function parseResponse(inputArr,respType,i,inpath) {
 
 					if (inpath == 'WEBRADIO') {
 					// This is a webradio stream
-                        content += '"><div class="db-icon ' + dbItemClass + ' db-browse"><i class="fa fa-microphone sx db-browse"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-reorder"></i></a></div><div class="db-entry ' + dbItemClass + ' db-browse">';
+                        content += '"><div class="db-icon ' + dbItemClass + ' db-browse"><i class="fa fa-microphone sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry ' + dbItemClass + ' db-browse">';
                         showtype = 'radio'
 
 					} else {
 					// This is an unknown file type
-                        content += '"><div class="db-icon ' + dbItemClass + ' db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-reorder"></i></a></div><div class="db-entry ' + dbItemClass + ' db-browse">';
+                        content += '"><div class="db-icon ' + dbItemClass + ' db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry ' + dbItemClass + ' db-browse">';
                         showtype = 'file'
 
 					}
@@ -280,23 +280,23 @@ function parseResponse(inputArr,respType,i,inpath) {
 
 				if (inpath != '') {
 				// This is a generic folder not at the root level
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-folder-open sx"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-reorder"></i></a></div><div class="db-entry db-folder db-browse">';
+					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-folder-open sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
 
 				} else if (inputArr[i].directory == 'WEBRADIO') {
 				// This is the WEBRADIO root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-microphone icon-root sx"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-reorder"></i></a></div><div class="db-entry db-folder db-browse">';
+					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-microphone icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
 
 				} else if (inputArr[i].directory == 'NAS') {
 				// This is the NAS root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-code-fork icon-root sx"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-reorder"></i></a></div><div class="db-entry db-folder db-browse">';
+					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-code-fork icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
 
 				} else if (inputArr[i].directory == 'USB') {
 				// This is the USB root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-hdd-o icon-root sx"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-reorder"></i></a></div><div class="db-entry db-folder db-browse">';
+					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-hdd-o icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
 
 				} else if (inputArr[i].directory == 'RAMPLAY') {
 				// This is the RAMPLAY root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-spinner icon-root sx"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-reorder"></i></a></div><div class="db-entry db-folder db-browse">';
+					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-spinner icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
 
 				}
  
@@ -341,7 +341,7 @@ content += '"><div class="db-icon db-spop db-browse"><i class="fa fa-spotify sx 
 				// This is a Spotify folder not at the root level
 					if (typeof inputArr[i].SpopPlaylistIndex != 'undefined') {
 					// This is a browsable Spotify playlist
-						content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-list-ol sx"></i></div><div class="db-action"><a class="btn" href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifyplaylist"><i class="fa fa-reorder"></i></a></div><div class="db-entry db-folder db-browse">';
+						content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-list-ol sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifyplaylist"><i class="fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
 
 					} else {
 					// This is a generic Spotify folder
