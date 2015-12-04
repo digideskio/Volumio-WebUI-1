@@ -141,7 +141,7 @@ function getPlaylist(json) {
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'db/?cmd=qls',
+        url: 'db/?cmd=spop-qls',
         cache: false,
         async: true,
 
