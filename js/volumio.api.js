@@ -396,6 +396,7 @@ function getDB(cmd, path, browsemode, uplevel){
 }
 
 function populateDB(data, path, uplevel, keyword){
+	console.log(data);
 	if (path) GUI.currentpath = path;
 	var DBlist = $('ul.database');
 	DBlist.html('');
