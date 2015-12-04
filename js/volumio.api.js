@@ -92,10 +92,11 @@ function backendRequestSpop() {
 }
 
 function toggleActive($ele, $parent) {
-    $ele.find('li').removeClass('active');
     if(!$parent) {
     	$parent = $ele.parent();
     }
+    //$ele.find('li').removeClass('active');
+    $parent.siblings().removeClass('active');
 
     $parent.addClass('active');
 }
