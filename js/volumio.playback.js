@@ -301,7 +301,7 @@ jQuery(document).ready(function($){ 'use strict';
         var $parent = $this.parent();
         toggleActive($this, $parent);
         var path = $parent.data('path');
-        $.post('db/?cmd=spop-playtrackuri', { 'path': path, 'playlist':  }, function(data) {
+        $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
             $("#open-playback").find("a").click();
         }, 'json');
         //notify('add', path);
