@@ -149,7 +149,7 @@ function getPlaylist(json) {
         	console.log("queue list");
         	console.log(data);
         	new Vue({
-				el: '#app',
+				el: '#playlist',
 				data: {
 			    	songs: data.tracks
 			  	}
