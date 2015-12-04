@@ -305,8 +305,8 @@ jQuery(document).ready(function($){ 'use strict';
             $("#open-playback").find("a").click();
         }, 'json');
 
-        $.each($parent.nextAll(), function($song) {
-            var songPath = $song.data("path");
+        $.each($parent.nextAll(), function(index, song) {
+            var songPath = song.dataset.path;
 
             if(songPath) {
                 $.post('db/?cmd=spop-addtrackuri', { 'path': songPath }, function(data) {
