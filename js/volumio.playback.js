@@ -105,14 +105,18 @@ jQuery(document).ready(function($){ 'use strict';
         inline: false,
 		change : function (value) {
             if (GUI.state != 'stop') {
+				// console.log('GUI.halt (Knobs)= ', GUI.halt);
 				window.clearInterval(GUI.currentKnob)
-
+				//$('#time').val(value);
+				//console.log('click percent = ', value);
 				// implementare comando
 			} else $('#time').val(0);
         },
         release : function (value) {
 			if (GUI.state != 'stop') {
+				//console.log('release percent = ', value);
 				GUI.halt = 1;
+				// console.log('GUI.halt (Knobs2)= ', GUI.halt);
 				window.clearInterval(GUI.currentKnob);
 
 				var seekto = 0;
@@ -153,14 +157,14 @@ jQuery(document).ready(function($){ 'use strict';
     });
 
     // volume knob
-    var volumeKnob = $('#volume')[0];
-    volumeKnob.isSliding = function() {
-        return volumeKnob.knobEvents.isSliding;
+    var volumeKnob = $('#volume');
+    volumeKnob[0].isSliding = function() {
+        return volumeKnob[0].knobEvents.isSliding;
     }
-    volumeKnob.setSliding = function(sliding) {
-        volumeKnob.knobEvents.isSliding = sliding;
+    volumeKnob[0].setSliding = function(sliding) {
+        volumeKnob[0].knobEvents.isSliding = sliding;
     }
-    volumeKnob.knobEvents = {
+    volumeKnob[0].knobEvents = {
         isSliding: false,
         // on release => set volume
     	release: function (value) {
@@ -168,14 +172,14 @@ jQuery(document).ready(function($){ 'use strict';
                 clearTimeout(this.hTimeout);
                 this.hTimeout = null;
     	    }
-    	    volumeKnob.setSliding(false);
+    	    volumeKnob[0].setSliding(false);
             adjustKnobVolume(value);
     	    setVolume(value);
         },
     	hTimeout: null,
     	// on change => set volume only after a given timeout, to avoid flooding with volume requests
     	change: function (value) {
-            volumeKnob.setSliding(true);
+            volumeKnob[0].setSliding(true);
             var that = this;
             if (this.hTimeout == null) {
                 this.hTimeout = setTimeout(function(){
@@ -186,7 +190,7 @@ jQuery(document).ready(function($){ 'use strict';
             }
         },
         cancel : function () {
-            volumeKnob.setSliding(false);
+            volumeKnob[0].setSliding(false);
         },
         draw : function () {
             // "tron" case
@@ -231,7 +235,7 @@ jQuery(document).ready(function($){ 'use strict';
             }
         }
     };
-    volumeKnob.knob(volumeKnob.knobEvents);
+    volumeKnob.knob(volumeKnob[0].knobEvents);
 
     // PLAYLIST
     // ----------------------------------------------------------------------------------------------------
