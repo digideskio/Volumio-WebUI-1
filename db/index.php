@@ -176,7 +176,9 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '') {
 						echo sendSpopCommand($spop, "add " . $sSpopPlaylistIndex);
 					}
 					break;
-
+				case 'spop-qls':
+					echo sendSpopCommand($spop, "qls");
+					break;
 			}
 
 		}

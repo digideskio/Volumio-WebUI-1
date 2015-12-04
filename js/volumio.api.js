@@ -126,6 +126,7 @@ function renderUI() {
     }
 
     if (GUI.MpdState['playlist'] != GUI.playlist) {
+    	console.log("get the playlist?");
         getPlaylist(GUI.MpdState);
         GUI.playlist = GUI.MpdState['playlist'];
     }
