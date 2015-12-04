@@ -381,7 +381,7 @@ jQuery(document).ready(function($){ 'use strict';
         var path = $(this).parent().data('path');
         //console.log('doubleclicked path = ', path);
         $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
-            window.location.href = window.location.host + "/#playback";
+            window.location.href = "/#playback";
         }, 'json');
         notify('add', path);
     }); 
