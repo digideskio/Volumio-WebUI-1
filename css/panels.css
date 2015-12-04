@@ -54,6 +54,10 @@ html, body {
 	text-align: center;
 }
 
+.playback-controls .btn {
+	width: 30px;
+}
+
 #currentartist, #currentsong, #currentalbum, #elapsed, #countdown-display {
 	display: block;
 }
