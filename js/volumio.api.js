@@ -15,6 +15,13 @@
     DBupdate: 0
 };
 
+var Playlist = new Vue({
+	el: '#playlist',
+	data: {
+		songs: []
+	}
+});
+
 // FUNCTIONS
 // ----------------------------------------------------------------------------------------------------
 
@@ -148,12 +155,8 @@ function getPlaylist() {
         success: function (data) {
         	console.log("queue list");
         	console.log(data);
-        	new Vue({
-				el: '#playlist',
-				data: {
-			    	songs: data.tracks
-			  	}
-        	});
+        	
+        	Playlist.data.songs = data.tracks; 
             // var i = 0;
             // var content = '';
             // var output = '';
