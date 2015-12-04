@@ -342,7 +342,7 @@ h6 {
       -webkit-font-smoothing: antialiased; }
 
 .demo-browser-content {
-  background-color: #002B56;
+  background-color: #001B35;
   border-radius: 0 0 6px;
   overflow: hidden;
   padding: 21px 0 0 20px; }
@@ -376,7 +376,7 @@ h6 {
       content: "";
       border-style: solid;
       border-width: 0 9px 9px 9px;
-      border-color: transparent transparent #002B56 transparent;
+      border-color: transparent transparent #001B35 transparent;
       height: 0px;
       position: absolute;
       left: 15px;
@@ -425,7 +425,7 @@ h6 {
       left: 95%;
       padding-left: 5px; }
     .navbar .nav ul li {
-      background-color: #002B56;
+      background-color: #001B35;
       padding: 0 3px 3px; }
       .navbar .nav ul li:first-child {
         border-radius: 4px 4px 0 0;
@@ -455,7 +455,7 @@ h6 {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); }
 
 .navbar-inverse .navbar-inner {
-  background: #002B56;
+  background: #001B35;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); }
 .navbar-inverse .nav > li > a {
   color: white; }
@@ -543,7 +543,7 @@ h6 {
     content: "";
     border-style: solid;
     border-width: 0 9px 9px 9px;
-    border-color: transparent transparent #002B56 transparent;
+    border-color: transparent transparent #001B35 transparent;
     height: 0px;
     position: absolute;
     left: 15px;
@@ -568,7 +568,7 @@ h6 {
   background-color: #00793F; }
 
 .dk_options_inner {
-  background-color: #002B56;
+  background-color: #001B35;
   border-radius: 5px;
   margin: 0;
   max-height: 244px;
@@ -655,7 +655,7 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   border: 2px solid #dce4ec;
-  color: #002B56;
+  color: #001B35;
   font-family: "Lato", sans-serif;
   font-size: 14px;
   padding: 8px 0 9px 10px;
@@ -999,7 +999,7 @@ textarea,
     background-image: url("../images/radio-2x.png");
     background-size: 110px 110px; } }
 .toggle {
-  background-color: #002B56;
+  background-color: #001B35;
   border-radius: 60px;
   color: white;
   height: 29px;
@@ -1120,7 +1120,7 @@ textarea,
   .tagsinput input {
     background: transparent;
     border: none;
-    color: #002B56;
+    color: #001B35;
     font-family: "Lato", sans-serif;
     font-size: 14px;
     margin: 0px;
@@ -1252,7 +1252,7 @@ textarea,
   width: 6px; }
 
 .pager {
-  background-color: #002B56;
+  background-color: #001B35;
   border-radius: 6px;
   color: white;
   font-size: 16px;
@@ -1431,30 +1431,30 @@ textarea,
   .tooltip.top {
     padding-bottom: 9px; }
     .tooltip.top .tooltip-arrow {
-      border-top-color: #002B56;
+      border-top-color: #001B35;
       border-width: 9px 9px 0;
       bottom: 0;
       margin-left: -9px; }
   .tooltip.right .tooltip-arrow {
-    border-right-color: #002B56;
+    border-right-color: #001B35;
     border-width: 9px 9px 9px 0;
     margin-top: -9px;
     left: -3px; }
   .tooltip.bottom {
     padding-top: 8px; }
     .tooltip.bottom .tooltip-arrow {
-      border-bottom-color: #002B56;
+      border-bottom-color: #001B35;
       border-width: 0 9px 9px;
       margin-left: -9px;
       top: -1px; }
   .tooltip.left .tooltip-arrow {
-    border-right-color: #002B56;
+    border-right-color: #001B35;
     border-width: 9px 9px 9px 0;
     margin-top: -3px;
     top: -3px; }
 
 .tooltip-inner {
-  background-color: #002B56;
+  background-color: #001B35;
   line-height: 18px;
   padding: 12px 12px;
   text-align: center;
@@ -1508,7 +1508,7 @@ textarea,
   background-color: #dc2d1b; }
 
 .palette-night {
-  background-color: #002B56; }
+  background-color: #001B35; }
 
 .palette-night-dark {
   background-color: #2c3e50; }
@@ -1615,7 +1615,7 @@ textarea,
     margin: 0;
     list-style-type: none; }
   .todo li {
-    background: #002B56 url("../images/todo/todo.png") 92% center no-repeat;
+    background: #001B35 url("../images/todo/todo.png") 92% center no-repeat;
     background-size: 20px 20px;
     cursor: pointer;
     margin-top: 2px;
@@ -1642,13 +1642,13 @@ textarea,
   background: #00793F url("../images/todo/search.png") 92% center no-repeat;
   background-size: 16px 16px;
   border-radius: 6px 6px 0 0;
-  color: #002B56;
+  color: #001B35;
   padding: 19px 25px 20px; }
 
 input.todo-search-field {
   background: none;
   border: none;
-  color: #002B56;
+  color: #001B35;
   font-size: 19px;
   font-weight: 700;
   margin: 0;
@@ -1659,11 +1659,11 @@ input.todo-search-field {
   -moz-box-shadow: none;
   box-shadow: none; }
   input.todo-search-field:-moz-placeholder {
-    color: #002B56; }
+    color: #001B35; }
   input.todo-search-field::-webkit-input-placeholder {
-    color: #002B56; }
+    color: #001B35; }
   input.todo-search-field.placeholder {
-    color: #002B56; }
+    color: #001B35; }
 
 .todo-icon {
   float: left;
@@ -1735,7 +1735,7 @@ footer {
         padding-top: 1px; }
 
 .video-js {
-  background-color: #002B56;
+  background-color: #001B35;
   border-radius: 6px 6px 0 0;
   margin-top: -95px;
   position: relative;
