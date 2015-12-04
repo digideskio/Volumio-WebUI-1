@@ -1,33 +1,3 @@
-/*
- *      PlayerUI Copyright (C) 2013 Andrea Coiutti & Simone De Gregori
- *		 Tsunamp Team
- *      http://www.tsunamp.com
- *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with TsunAMP; see the file COPYING.  If not, see
- *  <http://www.gnu.org/licenses/>.
- *
- *  Authors:
- *  - v1, 1.1: Andrea Coiutti (aka ACX)
- *  - v1, 1.1: Simone De Gregori (aka Orion)
- *  - v2: Michelangelo Guarise
- *  - v2: Joel Takvorian
- * 
- *  file:                    volumio.api.js
- *  version:                 2
- */
-
- // Global GUI object
  GUI = {
     MpdState: 0,
 	SpopState: 0,
@@ -121,6 +91,15 @@ function backendRequestSpop() {
     });
 }
 
+function toggleActive($ele, $parent) {
+    $ele.find('li').removeClass('active');
+    if(!$parent) {
+    	$parent = $ele.parent();
+    }
+
+    $parent.addClass('active');
+}
+
 function renderUI() {
 	if (GUI.SpopState['state'] == 'play' || GUI.SpopState['state'] == 'pause') {
 	// If Spop is playing, temporarily redirect button control and title display to Spop
@@ -143,22 +122,18 @@ function renderUI() {
 
     if (GUI.state != 'disconnected') {
         $('#loader').hide();
-
     }
-
 
     if (GUI.MpdState['playlist'] != GUI.playlist) {
         getPlaylist(GUI.MpdState);
         GUI.playlist = GUI.MpdState['playlist'];
-
     }
 
     GUI.halt = 0;
-
 }
 
 // Non-caching version of getPlaylist
-function getPlaylist(json){
+function getPlaylist(json) {
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -412,11 +387,10 @@ function getDB(cmd, path, browsemode, uplevel){
 		}, 'json');
 
 	} else if (cmd == 'playall') {
-			$.post('db/?cmd=playall', { 'path': path }, function(data) {}, 'json');
+		$.post('db/?cmd=playall', { 'path': path }, function(data) {}, 'json');
 
 	} else if (cmd == 'addall') {
-			$.post('db/?cmd=addall', { 'path': path }, function(data) {}, 'json');
-
+		$.post('db/?cmd=addall', { 'path': path }, function(data) {}, 'json');
 	}
 
 }
@@ -478,33 +452,36 @@ function populateDB(data, path, uplevel, keyword){
 
 // update interface
 function updateGUI(objectInputState){
+
+	var $elapsed = $("#elapsed");
+	var $total = $('#total');
+	var $playlistItem = $("#playlist").find('.playlist li');
+	var $playI = $("#play").find("i");
+	
     // check MPD status
     if (objectInputState['state'] == 'play') {
-        $('#play i').removeClass('fa fa-play').addClass('fa fa-pause');
+        $playI.removeClass('fa fa-play').addClass('fa fa-pause');
 
     } else if (objectInputState['state'] == 'pause') {
         //$('#playlist-position').html('Not playing');
-        $('#play i').removeClass('fa fa-pause').addClass('fa fa-play');
+        $playI.removeClass('fa fa-pause').addClass('fa fa-play');
 
     } else if (objectInputState['state'] == 'stop') {
-        $('#play i').removeClass('fa fa-pause').addClass('fa fa-play');
+        $playI.removeClass('fa fa-pause').addClass('fa fa-play');
         $('#countdown-display').countdown('destroy');
-        $('#elapsed').html('00:00');
-        $('#total').html('');
+        $elapsed.html('00:00');
+        $total.html('');
         $('#time').val(0).trigger('change');
-        $('.playlist li').removeClass('active');
-
+        $playlistItem.removeClass('active');
     }
 
-	$('#elapsed').html(timeConvert(objectInputState['elapsed']));
-	$('#total').html(timeConvert(objectInputState['time']));
-
-	//$('#playlist-position').html('Playlist position ' + (parseInt(objectInputState['song']) + 1) +'/'+objectInputState['playlistlength']);
-	$('.playlist li').removeClass('active');
+	$elapsed.html(timeConvert(objectInputState['elapsed']));
+	$total.html(timeConvert(objectInputState['time']));
+	$playlistItem.removeClass('active');
 	var current = parseInt(objectInputState['song']) + 1;
+
 	if (!isNaN(current)) {
 		$('.playlist li:nth-child(' + current + ')').addClass('active');
-
 	}
 
 	// show UpdateDB icon
@@ -562,25 +539,24 @@ function updateGUI(objectInputState){
 		document.title = objectInputState['currentsong'] + ' - ' + objectInputState['currentartist'] + ' - ' + 'Volumio';
 
 	} else {
-            document.title = 'Volumio - Audiophile Music Player';
-
+		document.title = 'Volumio - Audiophile Music Player';
     }
-
 }
 
 // update countdown
 function refreshTimer(startFrom, stopTo, state){
+	var $countdownDisplay = $('#countdown-display');
     if (state == 'play') {
-        $('#countdown-display').countdown('destroy');
-        $('#countdown-display').countdown({since: -(startFrom), compact: true, format: 'MS'});
+        $countdownDisplay.countdown('destroy');
+        $countdownDisplay.countdown({since: -(startFrom), compact: true, format: 'MS'});
     } else if (state == 'pause') {
-        $('#countdown-display').countdown('destroy');
-        $('#countdown-display').countdown({since: -(startFrom), compact: true, format: 'MS'});
-        $('#countdown-display').countdown('pause');
+        $countdownDisplay.countdown('destroy');
+        $countdownDisplay.countdown({since: -(startFrom), compact: true, format: 'MS'});
+        $countdownDisplay.countdown('pause');
     } else if (state == 'stop') {
-        $('#countdown-display').countdown('destroy');
-        $('#countdown-display').countdown({since: 0, compact: true, format: 'MS'});
-        $('#countdown-display').countdown('pause');
+        $countdownDisplay.countdown('destroy');
+        $countdownDisplay.countdown({since: 0, compact: true, format: 'MS'});
+        $countdownDisplay.countdown('pause');
     }
 }
 
@@ -589,7 +565,8 @@ function refreshKnob(json){
     window.clearInterval(GUI.currentKnob)
     var initTime = json['song_percent'];
     var delta = json['time'] / 1000;
-    $('#time').val(initTime*10).trigger('change');
+    var $time = $("#time");
+    $time.val(initTime*10).trigger('change');
     if (GUI.state == 'play') {
         GUI.currentKnob = setInterval(function() {
             if (GUI.visibility == 'visible') {
@@ -597,7 +574,7 @@ function refreshKnob(json){
             } else {
                 initTime = initTime + 100/json['time'];
             }
-            $('#time').val(initTime*10).trigger('change');
+            $time.val(initTime*10).trigger('change');
             //document.title = Math.round(initTime*10) + ' - ' + GUI.visibility;
         }, delta * 1000);
     }
@@ -619,8 +596,9 @@ function timeConvert(seconds) {
 
 // reset countdown
 function countdownRestart(startFrom) {
-    $('#countdown-display').countdown('destroy');
-    $('#countdown-display').countdown({since: -(startFrom), compact: true, format: 'MS'});
+	var $countdownDisplay = $("#countdown-display");
+    $countdownDisplay.countdown('destroy');
+    $countdownDisplay.countdown({since: -(startFrom), compact: true, format: 'MS'});
 }
 
 // set volume with knob
@@ -631,7 +609,6 @@ function setVolume(val) {
 	// volume change updates from MPD daemon
 	if ("volume" in GUI.MpdState) {
 		GUI.MpdState.volume = val;
-
 	}
 
     GUI.halt = 1;
@@ -648,9 +625,11 @@ function adjustKnobVolume(val) {
 // scrolling
 function customScroll(list, destination, speed) {
     if (typeof(speed) === 'undefined') speed = 500;
+
+    var $window = $(window);
     var entryheight = parseInt(1 + $('#' + list + '-1').height());
-    var centerheight = parseInt($(window).height()/2);
-    var scrolltop = $(window).scrollTop();
+    var centerheight = parseInt($window.height()/2);
+    var scrolltop = $window.scrollTop();
     if (list == 'db') {
         var scrollcalc = parseInt((destination)*entryheight - centerheight);
         var scrolloffset = scrollcalc;
@@ -668,7 +647,6 @@ function customScroll(list, destination, speed) {
     } else {
         $.scrollTo( 0 , speed );
     }
-    //$('#' + list + '-' + (destination + 1)).addClass('active');
 }
 
 function randomScrollPL() {
@@ -676,22 +654,9 @@ function randomScrollPL() {
     var random = 1 + Math.floor(Math.random() * n);
     customScroll('pl', random);
 }
+
 function randomScrollDB() {
     var n = $(".database li").size();
     var random = 1 + Math.floor(Math.random() * n);
     customScroll('db', random);
 }
-
-//Social Sharing
-$('a.tweet').click(function(e){
-    var urlTwitter = 'https://twitter.com/home?status=%E2%99%AB%20%23NowPlaying+' + GUI.currentartist.replace(/\s+/g, '+') + '+-+' + GUI.currentsong.replace(/\s+/g, '+') + '+with+%40Volumio+http%3A%2F%2Fvolumio.org%2F+';
-    $('a.tweet').attr('href', urlTwitter);
-});
-$('a.facebook').click(function(e){
-    var urlFacebook = 'https://www.facebook.com/sharer.php?u=http%3A%2F%2Fvolumio.org%2F&display=popup';
-    $('a.facebook').attr('href', urlFacebook);
-});
-$('a.googleplus').click(function(e){
-    var urlGooglePlus = 'https://plus.google.com/share?url=http%3A%2F%2Fvolumio.org%2F';;
-    $('a.googleplus').attr('href', urlGooglePlus);
-});

@@ -1,32 +1,3 @@
-/*
- *  PlayerUI Copyright (C) 2013 Andrea Coiutti & Simone De Gregori
- *	 Tsunamp Team
- *  http://www.tsunamp.com
- *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with TsunAMP; see the file COPYING.  If not, see
- *  <http://www.gnu.org/licenses/>.
- *
- *  Authors:
- *  - v1, 1.1: Andrea Coiutti (aka ACX)
- *  - v1, 1.1: Simone De Gregori (aka Orion)
- *  - v2: Michelangelo Guarise
- *  - v2: Joel Takvorian
- * 
- *  file:                    volumio.playback.js
- *  version:                 2
- */
-
 jQuery(document).ready(function($){ 'use strict';
 
     // INITIALIZATION
@@ -50,15 +21,16 @@ jQuery(document).ready(function($){ 'use strict';
     // playback
     $('.btn-cmd').click(function(){
         var cmd;
+        var $this = $(this);
         // stop
-        if ($(this).attr('id') == 'stop') {
+        if ($this.attr('id') == 'stop') {
             refreshTimer(0, 0, 'stop')
 			window.clearInterval(GUI.currentKnob);
             $('.playlist li').removeClass('active');
             $('#total').html('');
         }
         // play/pause
-        else if ($(this).attr('id') == 'play') {
+        else if ($this.attr('id') == 'play') {
             //if (json['currentsong'] != null) {
                 if (GUI.state == 'play') {
                     cmd = 'pause';
@@ -70,45 +42,40 @@ jQuery(document).ready(function($){ 'use strict';
                     cmd = 'play';
                     $('#countdown-display').countdown({since: 0, compact: true, format: 'MS'});
                 }
-                //$(this).find('i').toggleClass('icon-play').toggleClass('icon-pause');
+
                 window.clearInterval(GUI.currentKnob);
                 sendCmd(cmd);
-                //console.log('sendCmd(' + cmd + ');');
+
                 return;
-            // } else {
-                // $(this).addClass('btn-primary');
-                // $('#stop').removeClass('btn-primary');
-                // $('#time').val(0).trigger('change');
-                // $('#countdown-display').countdown({since: 0, compact: true, format: 'MS'});
-            // }
         }
         // previous/next
-        else if ($(this).attr('id') == 'previous' || $(this).attr('id') == 'next') {
+        else if ($this.attr('id') == 'previous' || $this.attr('id') == 'next') {
             GUI.halt = 1;
-            // console.log('GUI.halt (next/prev)= ', GUI.halt);
+
 			$('#countdown-display').countdown('pause');
 			window.clearInterval(GUI.currentKnob);
         }
         // step volume control
-        else if ($(this).hasClass('btn-volume')) {
+        else if ($this.hasClass('btn-volume')) {
             if (GUI.volume == null ) {
                 GUI.volume = $('#volume').val();
             }
-            if ($(this).attr('id') == 'volumedn') {
+            if ($this.attr('id') == 'volumedn') {
                 var vol = parseInt(GUI.volume) - 1;
                 GUI.volume = vol;
                 $('#volumemute').removeClass('btn-primary');
-            } else if ($(this).attr('id') == 'volumeup') {
+            } else if ($this.attr('id') == 'volumeup') {
                 var vol = parseInt(GUI.volume) + 1;
                 GUI.volume = vol;
                 $('#volumemute').removeClass('btn-primary');
-            } else if ($(this).attr('id') == 'volumemute') {
-                if ($('#volume').val() != 0 ) {
-                    GUI.volume = $('#volume').val();
-                    $(this).addClass('btn-primary');
+            } else if ($this.attr('id') == 'volumemute') {
+                var $volume = $('#volume');
+                if ($volume.val() != 0 ) {
+                    GUI.volume = $volume.val();
+                    $this.addClass('btn-primary');
                     var vol = 0;
                 } else {
-                    $(this).removeClass('btn-primary');
+                    $this.removeClass('btn-primary');
                     var vol = GUI.volume;
                 }
             }
@@ -118,18 +85,17 @@ jQuery(document).ready(function($){ 'use strict';
         }
 
         // toggle buttons
-        if ($(this).hasClass('btn-toggle')) {
-            if ($(this).hasClass('btn-primary')) {
-                cmd = $(this).attr('id') + ' 0';
+        if ($this.hasClass('btn-toggle')) {
+            if ($this.hasClass('btn-primary')) {
+                cmd = $this.attr('id') + ' 0';
             } else {
-                cmd = $(this).attr('id') + ' 1';
+                cmd = $this.attr('id') + ' 1';
             }
         // send command
         } else {
-            cmd = $(this).attr('id');
+            cmd = $this.attr('id');
         }
         sendCmd(cmd);
-        //console.log('sendCmd(' + cmd + ');');
     });
 
     // KNOBS
@@ -139,18 +105,14 @@ jQuery(document).ready(function($){ 'use strict';
         inline: false,
 		change : function (value) {
             if (GUI.state != 'stop') {
-				// console.log('GUI.halt (Knobs)= ', GUI.halt);
 				window.clearInterval(GUI.currentKnob)
-				//$('#time').val(value);
-				//console.log('click percent = ', value);
+
 				// implementare comando
 			} else $('#time').val(0);
         },
         release : function (value) {
 			if (GUI.state != 'stop') {
-				//console.log('release percent = ', value);
 				GUI.halt = 1;
-				// console.log('GUI.halt (Knobs2)= ', GUI.halt);
 				window.clearInterval(GUI.currentKnob);
 
 				var seekto = 0;
@@ -178,10 +140,10 @@ jQuery(document).ready(function($){ 'use strict';
 
 				}
 
-				//console.log('seekto = ', seekto);
+                var $countdownDisplay = $('#countdown-display');
 				$('#time').val(value);
-				$('#countdown-display').countdown('destroy');
-				$('#countdown-display').countdown({since: -seekto, compact: true, format: 'MS'});
+				$countdownDisplay.countdown('destroy');
+				$countdownDisplay.countdown({since: -seekto, compact: true, format: 'MS'});
 			}
         },
         cancel : function () {
@@ -191,14 +153,14 @@ jQuery(document).ready(function($){ 'use strict';
     });
 
     // volume knob
-    var volumeKnob = $('#volume');
-    volumeKnob[0].isSliding = function() {
-        return volumeKnob[0].knobEvents.isSliding;
+    var volumeKnob = $('#volume')[0];
+    volumeKnob.isSliding = function() {
+        return volumeKnob.knobEvents.isSliding;
     }
-    volumeKnob[0].setSliding = function(sliding) {
-        volumeKnob[0].knobEvents.isSliding = sliding;
+    volumeKnob.setSliding = function(sliding) {
+        volumeKnob.knobEvents.isSliding = sliding;
     }
-    volumeKnob[0].knobEvents = {
+    volumeKnob.knobEvents = {
         isSliding: false,
         // on release => set volume
     	release: function (value) {
@@ -206,14 +168,14 @@ jQuery(document).ready(function($){ 'use strict';
                 clearTimeout(this.hTimeout);
                 this.hTimeout = null;
     	    }
-    	    volumeKnob[0].setSliding(false);
+    	    volumeKnob.setSliding(false);
             adjustKnobVolume(value);
     	    setVolume(value);
         },
     	hTimeout: null,
     	// on change => set volume only after a given timeout, to avoid flooding with volume requests
     	change: function (value) {
-            volumeKnob[0].setSliding(true);
+            volumeKnob.setSliding(true);
             var that = this;
             if (this.hTimeout == null) {
                 this.hTimeout = setTimeout(function(){
@@ -224,7 +186,7 @@ jQuery(document).ready(function($){ 'use strict';
             }
         },
         cancel : function () {
-            volumeKnob[0].setSliding(false);
+            volumeKnob.setSliding(false);
         },
         draw : function () {
             // "tron" case
@@ -269,22 +231,7 @@ jQuery(document).ready(function($){ 'use strict';
             }
         }
     };
-    volumeKnob.knob(volumeKnob[0].knobEvents);
-
-    // "pulse" effect knob
-    /*
-    setInterval(function() {
-        if (GUI.MpdState['state'] == 'play') {
-            if (GUI.MpdState['state'] == 'play') {
-                $('#timeflow').toggleClass('pulse');
-                setTimeout(function(){
-                    $('#timeknob').toggleClass('pulse');
-                }, 1000);
-            }
-        }
-    }, 1000);
-    */
-
+    volumeKnob.knob(volumeKnob.knobEvents);
 
     // PLAYLIST
     // ----------------------------------------------------------------------------------------------------
@@ -295,7 +242,7 @@ jQuery(document).ready(function($){ 'use strict';
         var cmd = 'play ' + pos;
         sendCmd(cmd);
         GUI.halt = 1;
-        // console.log('GUI.halt (playlist)= ', GUI.halt);
+
         $('.playlist li').removeClass('active');
         $(this).parent().addClass('active');
     });
@@ -311,13 +258,13 @@ jQuery(document).ready(function($){ 'use strict';
 
     // click on playlist save button
     $('#pl-controls').on('click', '#pl-btnSave', function(event) {
-	var plname = $("#pl-saveName").val();
-	if (plname) {
-	        sendPLCmd('savepl&plname=' + plname);
-		notify('savepl', plname);
-	} else {
-		notify('needplname', '');
-	}
+    	var plname = $("#pl-saveName").val();
+    	if (plname) {
+    	        sendPLCmd('savepl&plname=' + plname);
+    		notify('savepl', plname);
+    	} else {
+    		notify('needplname', '');
+    	}
     });
 
     // click on playlist tab
@@ -325,13 +272,6 @@ jQuery(document).ready(function($){ 'use strict';
         var current = parseInt(GUI.MpdState['song']);
         customScroll('pl', current, 200); // runs when tab ready!
     });
-
-    // click on playback tab
-    $('#open-playback a').click(function(){
-        // do something
-        // console.log('JSON = ', GUI.MpdState);
-    });
-
 
     // DATABASE
     // ----------------------------------------------------------------------------------------------------
@@ -351,12 +291,13 @@ jQuery(document).ready(function($){ 'use strict';
 
     // click on database entry
     $('.database').on('click', '.db-browse', function() {
-        $('.database li').removeClass('active');
-        $(this).parent().addClass('active');
-        if (!$(this).hasClass('sx')) {
-            if ($(this).hasClass('db-folder')) {
-                var path = $(this).parent().data('path');
-                var entryID = $(this).parent().attr('id');
+        var $this = $(this);
+        var $parent = $this.parent();
+        toggleActive($this, $parent);
+        if (!$this.hasClass('sx')) {
+            if ($this.hasClass('db-folder')) {
+                var path = $parent.data('path');
+                var entryID = $parent.attr('id');
                 entryID = entryID.replace('db-','');
                 GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
                 ++GUI.currentDBpos[10];
@@ -366,20 +307,21 @@ jQuery(document).ready(function($){ 'use strict';
     });
 	// Double-click play 
     $('.database').on('dblclick', '.db-song', function() {
-        $('.database li').removeClass('active');
-        $(this).parent().addClass('active');
-        var path = $(this).parent().data('path');
-        //console.log('doubleclicked path = ', path);
-	$.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
+        var $this = $(this);
+        var $parent = $this.parent();
+        toggleActive($this, $parent);
+
+        var path = $parent.data('path');
+	   $.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
         getDB('addplay', path);
         notify('add', path);
     });
     
     $('.database').on('dblclick', '.db-spop', function() {
-        $('.database li').removeClass('active');
-        $(this).parent().addClass('active');
-        var path = $(this).parent().data('path');
-        //console.log('doubleclicked path = ', path);
+        var $this = $(this);
+        var parent = $this.parent();
+        toggleActive($this, $parent);
+        var path = parent.data('path');
         $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
             $("#open-playback a").click();
         }, 'json');
@@ -387,10 +329,10 @@ jQuery(document).ready(function($){ 'use strict';
     }); 
     
     $('.database').on('dblclick', '.db-other', function() {
-        $('.database li').removeClass('active');
-        $(this).parent().addClass('active');
-        var path = $(this).parent().data('path');
-        //console.log('doubleclicked path = ', path);
+        var $this = $(this);
+        var $parent = $this.parent();
+        toggleActive($this, $parent);
+        var path = $parent.data('path');
         $.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
         getDB('addplay', path);
         notify('add', path);
@@ -398,15 +340,12 @@ jQuery(document).ready(function($){ 'use strict';
 
     // click on ADD button
     $('.database').on('click', '.db-action', function() {
-        var path = $(this).parent().attr('data-path');
-        var title = $(this).parent().attr('data-title');
-        var artist = $(this).parent().attr('data-artist');
-        var album = $(this).parent().attr('data-album');
-        GUI.DBentry[0] = path;
-        GUI.DBentry[3] = title;
-        GUI.DBentry[4] = artist;
-        GUI.DBentry[5] = album;
-        // console.log('getDB path = ', GUI.DBentry);
+        var $song = $(this).parent();
+
+        GUI.DBentry[0] = $song.attr('data-path');
+        GUI.DBentry[3] = $song.attr('data-title');
+        GUI.DBentry[4] = $song.attr('data-artist');
+        GUI.DBentry[5] = $song.attr('data-album');
     });
 
     // click search results in DB
@@ -420,15 +359,17 @@ jQuery(document).ready(function($){ 'use strict';
         var artist = GUI.DBentry[4];
         var album = GUI.DBentry[5];
         GUI.DBentry[0] = '';
-        if ($(this).data('cmd') == 'add') {
+        var $this = $(this);
+
+        if ($this.data('cmd') == 'add') {
             getDB('add', path);
             notify('add', path);
         }
-        if ($(this).data('cmd') == 'addplay') {
+        if ($this.data('cmd') == 'addplay') {
             getDB('addplay', path);
             notify('add', path);
         }
-        if ($(this).data('cmd') == 'addreplaceplay') {
+        if ($this.data('cmd') == 'addreplaceplay') {
             getDB('addreplaceplay', path);
             notify('addreplaceplay', path);
             if (path.indexOf("/") == -1) {
@@ -437,42 +378,42 @@ jQuery(document).ready(function($){ 'use strict';
 	            $("#pl-saveName").val("");
 			}
         }
-        if ($(this).data('cmd') == 'update') {
+        if ($this.data('cmd') == 'update') {
             getDB('update', path);
             notify('update', path);
         }
-        if ($(this).data('cmd') == 'spop-playtrackuri') {
+        if ($this.data('cmd') == 'spop-playtrackuri') {
 			$.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {}, 'json');
 
         }
-        if ($(this).data('cmd') == 'spop-addtrackuri') {
+        if ($this.data('cmd') == 'spop-addtrackuri') {
 			$.post('db/?cmd=spop-addtrackuri', { 'path': path }, function(data) {}, 'json');
 
         }
-        if ($(this).data('cmd') == 'spop-playplaylistindex') {
+        if ($this.data('cmd') == 'spop-playplaylistindex') {
 			$.post('db/?cmd=spop-playplaylistindex', { 'path': path }, function(data) {}, 'json');
 
         }
-        if ($(this).data('cmd') == 'spop-addplaylistindex') {
+        if ($this.data('cmd') == 'spop-addplaylistindex') {
 			$.post('db/?cmd=spop-addplaylistindex', { 'path': path }, function(data) {}, 'json');
 
         }
-        if ($(this).data('cmd') == 'spop-searchtitle') {
+        if ($this.data('cmd') == 'spop-searchtitle') {
 			$('#db-search-keyword').val('track:' + title);
 			getDB('search', '', 'file');
 
         }
-        if ($(this).data('cmd') == 'spop-searchartist') {
+        if ($this.data('cmd') == 'spop-searchartist') {
 			$('#db-search-keyword').val('artist:' + artist);
 			getDB('search', '', 'file');
 
         }
-        if ($(this).data('cmd') == 'spop-searchalbum') {
+        if ($this.data('cmd') == 'spop-searchalbum') {
 			$('#db-search-keyword').val('album:' + album);
 			getDB('search', '', 'file');
 
         }
-        if ($(this).data('cmd') == 'spop-stop') {
+        if ($this.data('cmd') == 'spop-stop') {
 			$.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
 
         }
@@ -535,14 +476,15 @@ jQuery(document).ready(function($){ 'use strict';
     });
 
     // playlist search
-    $("#pl-filter").keyup(function(){
+    $("#pl-filter").keyup(function() {
         $.scrollTo(0 , 500);
         var filter = $(this).val(), count = 0;
-        $(".playlist li").each(function(){
-            if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                $(this).hide();
+        $(".playlist li").each(function() {
+            var $this = $(this);
+            if ($this.text().search(new RegExp(filter, "i")) < 0) {
+                $this.hide();
             } else {
-                $(this).show();
+                $this.show();
                 count++;
             }
         });
