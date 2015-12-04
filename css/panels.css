@@ -355,14 +355,14 @@ a.btn-cmd {
 	display: block;
 	font-size: 12px;
 	font-weight: normal;
-	color: #8FA7BF;
+	color: #AFAFAF;
 }
 .playlist .active, .database .active { /* era: .playlist li.active, .database li.active */
 	color: #fff;
 	background: #00793F;
 }
 .playlist .active span, .database .active span { /* era: .playlist li.active span, .database li.active span */
-	color: #34495E;
+	color: #E0E0E0;
 }
 .playlist .pl-entry, .database .db-entry {
 	margin-right: 70px; /* era: right: 70px; */
