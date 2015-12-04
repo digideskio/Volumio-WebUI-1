@@ -3,7 +3,7 @@
 
 html, body {
 	height: 100%;
-	background: #525C66;
+	background: #1B1B1B;
 	color: #eee;
 }
 
@@ -303,7 +303,7 @@ a.back-btn {
 	padding: 50px 0;
 }
 #timeknob, #timeflow {
-	background-color: #525C66;
+	background-color: #1B1B1B;
 }
 #timeknob.pulse, #timeflow.pulse {
 	box-shadow: 0 0 0 0 rgba(255,255,255,0.3);
@@ -323,7 +323,7 @@ a.btn-cmd {
 
 #playlist, #database {
 	padding: 60px 0;
-	background: #525C66;
+	background: #1B1B1B;
 }
 .playlist, .database {
 	display: block;
@@ -337,7 +337,7 @@ a.btn-cmd {
 	position: relative;
 	height: 60px;
 	margin: 0;
-	background: #525C66;
+	background: #1B1B1B;
 	border-bottom: 1px solid #fff;
 	color: #ddd;
 	cursor: pointer;
@@ -440,7 +440,7 @@ a.btn-cmd {
 	width: auto;
 	height: 60px;
 	padding: 0;
-	background: #525C66;
+	background: #1B1B1B;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
