@@ -148,6 +148,12 @@ function getPlaylist(json) {
         success: function (data) {
         	console.log("queue list");
         	console.log(data);
+        	new View({
+				el: '#app',
+				data: {
+			    	songs: data.tracks
+			  	}
+        	});
             // var i = 0;
             // var content = '';
             // var output = '';

@@ -68,6 +68,7 @@
 <script src="js/notify.js"></script>
 <script src="js/jquery.countdown.js"></script>
 <script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/vue.min.js"></script>
 <script src="js/volumio.api.js"></script>
 <script src="js/volumio.lazyloader.js"></script>
 <script src="js/volumio.library.js"></script>
