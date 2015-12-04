@@ -50,6 +50,7 @@ html, body {
 
 .playback-controls {
 	text-align: center;
+	margin: 20px 0;
 }
 
 .playback-controls .btn {
@@ -200,11 +201,10 @@ html, body {
 }
 #menu-top .dropdown-menu > li > a,
 #context-menus .dropdown-menu > li > a {
-    line-height: 40px;
     margin: 0;
-	padding: 0 10px;
+	padding: 15px 20px;
 	background: #7A848E;
-	border-bottom: 0px solid #000;
+	border-bottom: 1px solid #000;
 }
 #context-menus .dropdown-menu > li > a {
 	border-left: 0px solid #000;
@@ -392,7 +392,7 @@ a.btn-cmd {
 	float: right;
 	height: 60px;
 	line-height: 60px;
-	padding: 0 10px;
+	padding: 0 20px;
 }
 .playlist .pl-action a, .playlist .db-action a {
 	position: relative;
