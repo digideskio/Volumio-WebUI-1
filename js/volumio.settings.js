@@ -95,7 +95,7 @@ jQuery(document).ready(function($){ 'use strict';
             $('#network-manual-config').show();
         }
         $dhcp.change(function() {
-            if ($(this).val() == 'true') {
+            if ($this.val() == 'true') {
                 $('#network-manual-config').hide();
             } else {
                 $('#network-manual-config').show();

@@ -55,13 +55,13 @@ function backendRequest() {
             backendRequest();
         },
         error : function() {
-            setTimeout(function() {
-                GUI.state = 'disconnected';
-                $('#loader').show();
-                $('#countdown-display').countdown('pause');
-                window.clearInterval(GUI.currentKnob);
-                backendRequest();
-            }, 2000);
+            // setTimeout(function() {
+            //     GUI.state = 'disconnected';
+            //     $('#loader').show();
+            //     $('#countdown-display').countdown('pause');
+            //     window.clearInterval(GUI.currentKnob);
+            //     backendRequest();
+            // }, 2000);
         }
     });
 }

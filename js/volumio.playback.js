@@ -293,24 +293,36 @@ jQuery(document).ready(function($){ 'use strict';
         getDB('filepath', path, GUI.browsemode, 1);
     });
 
+    var $database = $("#database").find(".database");
+
     // click on database entry
-    $('.database').on('click', '.db-browse', function() {
+    $database.on('click', '.db-browse', function() {
         var $this = $(this);
         var $parent = $this.parent();
         toggleActive($this, $parent);
-        if (!$this.hasClass('sx')) {
-            if ($this.hasClass('db-folder')) {
-                var path = $parent.data('path');
-                var entryID = $parent.attr('id');
-                entryID = entryID.replace('db-','');
-                GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
-                ++GUI.currentDBpos[10];
-                getDB('filepath', path, 'file', 0);
-            }
-        }
+        var path = $parent.data('path');
+        $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
+            $("#open-playback a").click();
+        }, 'json');
+        notify('add', path);
+
+        // var $this = $(this);
+        // var $parent = $this.parent();
+        // toggleActive($this, $parent);
+        // if (!$this.hasClass('sx')) {
+        //     if ($this.hasClass('db-folder')) {
+        //         var path = $parent.data('path');
+        //         var entryID = $parent.attr('id');
+        //         entryID = entryID.replace('db-','');
+        //         GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
+        //         ++GUI.currentDBpos[10];
+        //         getDB('filepath', path, 'file', 0);
+        //     }
+        // }
     });
+
 	// Double-click play 
-    $('.database').on('dblclick', '.db-song', function() {
+    $database.on('dblclick', '.db-song', function() {
         var $this = $(this);
         var $parent = $this.parent();
         toggleActive($this, $parent);
@@ -321,7 +333,7 @@ jQuery(document).ready(function($){ 'use strict';
         notify('add', path);
     });
     
-    $('.database').on('dblclick', '.db-spop', function() {
+    $database.on('dblclick', '.db-spop', function() {
         var $this = $(this);
         var $parent = $this.parent();
         toggleActive($this, $parent);
@@ -332,7 +344,7 @@ jQuery(document).ready(function($){ 'use strict';
         notify('add', path);
     }); 
     
-    $('.database').on('dblclick', '.db-other', function() {
+    $database.on('dblclick', '.db-other', function() {
         var $this = $(this);
         var $parent = $this.parent();
         toggleActive($this, $parent);
@@ -343,7 +355,7 @@ jQuery(document).ready(function($){ 'use strict';
     });
 
     // click on ADD button
-    $('.database').on('click', '.db-action', function() {
+    $database.on('click', '.db-action', function() {
         var $song = $(this).parent();
 
         GUI.DBentry[0] = $song.attr('data-path');
@@ -353,7 +365,7 @@ jQuery(document).ready(function($){ 'use strict';
     });
 
     // click search results in DB
-    $('.database').on('click', '.search-results', function() {
+    $database.on('click', '.search-results', function() {
         getDB('filepath', GUI.currentpath);
     });
 
@@ -502,8 +514,9 @@ jQuery(document).ready(function($){ 'use strict';
     });
 
     // tooltips
-    if( $('.ttip').length ){
-        $('.ttip').tooltip();
+    var $toolTip = $('.ttip');
+    if( $toolTip.length ){
+        $toolTip.tooltip();
     }
 
 });

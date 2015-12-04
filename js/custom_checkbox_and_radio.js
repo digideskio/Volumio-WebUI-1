@@ -42,10 +42,11 @@ function setupLabel() {
 $(document).ready(function(){
     $("html").addClass("has-js");
 
+    var $checkboxRadio = $(".checkbox, .radio");
     // First let's prepend icons (needed for effects)
-    $(".checkbox, .radio").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
+    $checkboxRadio.prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
 
-    $(".checkbox, .radio").click(function(){
+    $checkboxRadio.click(function(){
         setupLabel();
     });
     setupLabel();
