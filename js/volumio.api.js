@@ -245,13 +245,13 @@ function parseResponse(inputArr,respType,i,inpath) {
 				// This is a local file with a title
 					content = '<li id="db-' + (i + 1) + '" class="clearfix" data-path="';
 					content += inputArr[i].file;
-					content += '"><a href="#notarget" data-cmd="spop-playtrackuri"><div><div class="db-icon db-song db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-song db-browse">';
+					content += '"><div class="db-icon db-song db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-song db-browse">';
 					content += inputArr[i].Title + ' <em class="songtime">' + timeConvert(inputArr[i].Time) + '</em>';
 					content += ' <span>';
 					content +=  inputArr[i].Artist;
 					content += ' - ';
 					content +=  inputArr[i].Album;
-					content += '</span></div></div></li>';
+					content += '</span></div></li>';
 					showtype = 'music'
 
 				} else {
@@ -328,13 +328,13 @@ function parseResponse(inputArr,respType,i,inpath) {
 				content += inputArr[i].Album;
 				content += '" data-title="';
 				content += inputArr[i].Title;
-content += '"><div class="db-icon db-spop db-browse"><i class="fa fa-spotify sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifytrack"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-spop db-browse">';
+content += '"><a href="#notarget" data-cmd="spop-playtrackuri"><div><div class="db-icon db-spop db-browse"><i class="fa fa-spotify sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifytrack"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-spop db-browse">';
 				content += inputArr[i].Title + ' <em class="songtime">' + timeConvert(inputArr[i].Time) + '</em>';
 				content += ' <span>';
 				content +=  inputArr[i].Artist;
 				content += ' - ';
 				content +=  inputArr[i].Album;
-				content += '</span></div></li>';
+				content += '</span></div></div></a></li>';
 				showtype = 'music';
 
 			} else if (inputArr[i].Type == 'SpopDirectory') {
