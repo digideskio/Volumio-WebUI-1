@@ -423,7 +423,7 @@ a.btn-cmd {
 	color: #000F1D;
 }
 #db-search-keyword, #pl-filter, #pl-saveName {
-	width: 126px;
+	width: 100%;
 	height: 20px;
 }
 
