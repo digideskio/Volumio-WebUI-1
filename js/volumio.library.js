@@ -1,23 +1,3 @@
-/*
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  See <http://www.gnu.org/licenses/>
- *
- *  Authors:
- *  - v1:                    Joel Takvorian
- * 
- *  file:                    volumio.library.js
- *  version:                 1
- */
-
 library = {
     isEnabled: false,
     shouldLoad: false,
@@ -52,9 +32,11 @@ function loadLibraryIfNeeded() {
         library.shouldLoad = false;
         // Load MPD content
         decideViewLayout();
-        $("#lib-loader").show();
+
+        var $libLoader = $("#lib-loader");
+        $libLoader.show();
         $.post('db/?cmd=loadlib', {}, function(data) {
-            $("#lib-loader").hide();
+            $libLoader.hide();
             $("#lib-content").show();
             onLoadedLibData(data);
         }, 'json');
@@ -93,18 +75,24 @@ function disableLibrary() {
 function updatePanelsTabs() {
     var visiblePanels = $("#menu-bottom li:visible");
     if (visiblePanels.length > 0) {
+        var $menuBottom = $("#menu-bottom");
         var panelWidth = Math.round(100000 / visiblePanels.length) / 1000;
-        $("#menu-bottom a").width(panelWidth + "%");
-        $("#menu-bottom a:visible").filter(":odd").addClass("odd");
-        $("#menu-bottom a:visible").filter(":even").removeClass("odd");
+        var $menuLinks = $menuBottom.find("a");
+        $menuLinks.width(panelWidth + "%");
+        var $menuVisibleLinks = $menuBottom.find("a:visible");
+        $menuVisibleLinks.filter(":odd").addClass("odd");
+        $menuVisibleLinks.filter(":even").removeClass("odd");
     }
 }
 
 function showLibraryView() {
-    $(".tab-content div.active").removeClass("active");
-    $(".tab-content #panel-lib").addClass("active");
-    $("#menu-bottom li.active").removeClass("active");
-    $("#menu-bottom #open-panel-lib").addClass("active");
+    var $tabContent = $(".tab-content");
+    $tabContent.find("div.active").removeClass("active");
+    $("#panel-lib").addClass("active");
+
+    var $menuBottom = $("#menu-bottom");
+    $menuBottom("li.active").removeClass("active");
+    $("#open-panel-lib").addClass("active");
 }
 
 function toggleLazyLoading() {
@@ -505,7 +493,7 @@ jQuery(document).ready(function($) {
 
     //click on ARTIST
     $('#artistsList').on('click', '.lib-entry', function(e) {
-        var pos = $('#artistsList .lib-entry').index(this);
+        var pos = $('#artistsList').find('.lib-entry').index(this);
         if (library.containerArtist) {
             pos += library.containerArtist.getOffset();
         }
@@ -514,7 +502,7 @@ jQuery(document).ready(function($) {
 
     //click on ALBUM
     $('#albumsList').on('click', '.lib-entry', function(e) {
-        var pos = $('#albumsList .lib-entry').index(this);
+        var pos = $('#artistsList').find('.lib-entry').index(this);
         if (library.containerAlbums) {
             pos += library.containerAlbums.getOffset();
         }
@@ -523,7 +511,7 @@ jQuery(document).ready(function($) {
 
     //click on PLAY
     $('#songsList').on('click', '.lib-play', function(e) {
-        var pos = $('#songsList .lib-play').index(this);
+        var pos = $('#songsList').find('.lib-play').index(this);
         if (library.containerSongs) {
             pos += library.containerSongs.getOffset();
         }
@@ -533,7 +521,7 @@ jQuery(document).ready(function($) {
 
     //click on ENQUEUE
     $('#songsList').on('click', '.lib-add', function(e) {
-        var pos = $('#songsList .lib-add').index(this);
+        var pos = $('#songsList').find('.lib-add').index(this);
         if (library.containerSongs) {
             pos += library.containerSongs.getOffset();
         }

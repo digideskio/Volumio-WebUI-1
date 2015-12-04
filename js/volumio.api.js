@@ -392,7 +392,6 @@ function getDB(cmd, path, browsemode, uplevel){
 	} else if (cmd == 'addall') {
 		$.post('db/?cmd=addall', { 'path': path }, function(data) {}, 'json');
 	}
-
 }
 
 function populateDB(data, path, uplevel, keyword){
@@ -418,15 +417,12 @@ function populateDB(data, path, uplevel, keyword){
 
         if (library && library.isEnabled && !library.displayAsTab) {
             DBlist.append(pluginListItem("db-plug-lib", "LIBRARY", "fa-columns", "showLibraryView()"));
-
         }
-
     }
 
 	var i = 0;
-	for (i = 0; i < data.length; i++){
+	for (i = 0; i < data.length; i++) {
 	 	DBlist.append(parseResponse(data,'db',i,path));
-
 	}
 
 	if (typeof data[0].DisplayPath != 'undefined') {
@@ -457,7 +453,7 @@ function updateGUI(objectInputState){
 	var $total = $('#total');
 	var $playlistItem = $("#playlist").find('.playlist li');
 	var $playI = $("#play").find("i");
-	
+
     // check MPD status
     if (objectInputState['state'] == 'play') {
         $playI.removeClass('fa fa-play').addClass('fa fa-pause');
