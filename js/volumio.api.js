@@ -183,6 +183,13 @@ function getPlaylist(json) {
             // if (current != json && GUI.halt != 1) {
             //     customScroll('pl', current, 200); // active current song
             // }
+        },
+
+        error: function(jqXHR, textStatus, errorThrown) {
+        	console.log("something went wrong...");
+        	console.log(jqXHR);
+        	console.log(textStatus);
+        	console.log(errorThrown);
         }
     });
 }
