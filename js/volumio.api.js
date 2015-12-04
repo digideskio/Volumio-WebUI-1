@@ -148,7 +148,7 @@ function getPlaylist(json) {
         success: function (data) {
         	console.log("queue list");
         	console.log(data);
-        	new View({
+        	new Vue({
 				el: '#app',
 				data: {
 			    	songs: data.tracks
