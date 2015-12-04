@@ -420,9 +420,6 @@ a.btn-cmd {
 #db-0 em, #pl-filter-results i {
 	color: #000F1D;
 }
-#db-search-keyword, #pl-filter, #pl-saveName {
-	height: 42px;
-}
 
 .btnlist {
 	position: fixed;
@@ -858,6 +855,10 @@ body { background: #cf0; } */
 	#currentartist {
 		margin-top: 15px;
 	}
+	#db-search-keyword, #pl-filter, #pl-saveName {
+		height: 42px;
+	}
+
 }
 @media (max-width: 479px) {
 	img.logo {
