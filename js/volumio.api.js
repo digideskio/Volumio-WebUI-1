@@ -156,7 +156,7 @@ function getPlaylist() {
         	console.log("queue list");
         	console.log(data);
         	
-        	Playlist.data.songs = data.tracks; 
+        	Playlist.songs = data.tracks; 
             // var i = 0;
             // var content = '';
             // var output = '';
