@@ -296,7 +296,7 @@ jQuery(document).ready(function($){ 'use strict';
     var $database = $("#database").find(".database");
 
     // click on database entry
-    $database.on('click', '.db-browse', function() {
+    $database.on('click', '.db-spop', function() {
         var $this = $(this);
         var $parent = $this.parent();
         toggleActive($this, $parent);
@@ -305,20 +305,22 @@ jQuery(document).ready(function($){ 'use strict';
             $("#open-playback a").click();
         }, 'json');
         notify('add', path);
+    });
 
-        // var $this = $(this);
-        // var $parent = $this.parent();
-        // toggleActive($this, $parent);
-        // if (!$this.hasClass('sx')) {
-        //     if ($this.hasClass('db-folder')) {
-        //         var path = $parent.data('path');
-        //         var entryID = $parent.attr('id');
-        //         entryID = entryID.replace('db-','');
-        //         GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
-        //         ++GUI.currentDBpos[10];
-        //         getDB('filepath', path, 'file', 0);
-        //     }
-        // }
+    $database.on('click', '.db-browse', function() {
+        var $this = $(this);
+        var $parent = $this.parent();
+        toggleActive($this, $parent);
+        if (!$this.hasClass('sx')) {
+            if ($this.hasClass('db-folder')) {
+                var path = $parent.data('path');
+                var entryID = $parent.attr('id');
+                entryID = entryID.replace('db-','');
+                GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
+                ++GUI.currentDBpos[10];
+                getDB('filepath', path, 'file', 0);
+            }
+        }
     });
 
 	// Double-click play 
