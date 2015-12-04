@@ -325,7 +325,7 @@ jQuery(document).ready(function($){ 'use strict';
         var $this = $(this);
         var $parent = $this.parent();
         toggleActive($this, $parent);
-        var path = parent.data('path');
+        var path = $parent.data('path');
         $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
             $("#open-playback a").click();
         }, 'json');
