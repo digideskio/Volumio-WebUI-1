@@ -303,6 +303,8 @@ jQuery(document).ready(function($){ 'use strict';
         var path = $parent.data('path');
         $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
             $("#open-playback").find("a").click();
+            //get the playlist
+            getPlaylist();
         }, 'json');
 
         $.each($parent.nextAll(), function(index, song) {
@@ -313,6 +315,8 @@ jQuery(document).ready(function($){ 'use strict';
                 }, 'json');
             }
         });
+
+        getPlaylist();
         //notify('add', path);
     });
 
@@ -353,6 +357,7 @@ jQuery(document).ready(function($){ 'use strict';
             $("#open-playback a").click();
         }, 'json');
         notify('add', path);
+        getPlaylist();
     }); 
     
     $database.on('dblclick', '.db-other', function() {

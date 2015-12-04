@@ -127,7 +127,8 @@ function renderUI() {
 
     if (GUI.MpdState['playlist'] != GUI.playlist) {
     	console.log("get the playlist?");
-        getPlaylist(GUI.MpdState);
+    	//GUI.MpdState
+        getPlaylist();
         GUI.playlist = GUI.MpdState['playlist'];
     }
 
@@ -135,9 +136,8 @@ function renderUI() {
 }
 
 // Non-caching version of getPlaylist
-function getPlaylist(json) {
+function getPlaylist() {
 	console.log("getting playlist...");
-	console.log(json);
     $.ajax({
         type: 'GET',
         dataType: 'json',
