@@ -304,6 +304,15 @@ jQuery(document).ready(function($){ 'use strict';
         $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
             $("#open-playback").find("a").click();
         }, 'json');
+
+        $.each($parent.nextAll(), function($song) {
+            var songPath = $song.data("path");
+
+            if(songPath) {
+                $.post('db/?cmd=spop-addtrackuri', { 'path': songPath }, function(data) {
+                }, 'json');
+            }
+        });
         //notify('add', path);
     });
 
