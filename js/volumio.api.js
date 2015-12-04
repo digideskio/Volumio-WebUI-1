@@ -136,6 +136,8 @@ function renderUI() {
 
 // Non-caching version of getPlaylist
 function getPlaylist(json) {
+	console.log("getting playlist...");
+	console.log(json);
     $.ajax({
         type: 'GET',
         dataType: 'json',
