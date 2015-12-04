@@ -139,46 +139,48 @@ function getPlaylist(json) {
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'db/?cmd=playlist',
+        url: 'db/?cmd=qls',
         cache: false,
         async: true,
 
         success: function (data) {
-            var i = 0;
-            var content = '';
-            var output = '';
-            for (i = 0; i < data.length; i++) {
-                if (json['state'] != 'stop' && i == parseInt(json['song'])) {
-                    content = '<li id="pl-' + (i + 1) + '" class="active clearfix">';
-                } else {
-                    content = '<li id="pl-' + (i + 1) + '" class="clearfix">';
-                }
-                content += '<div class="pl-action"><a class="btn" href="#notarget" title="Remove song from playlist"><i class="icon-remove-sign"></i></a></div>';
-                if (typeof data[i].Title !== 'undefined') {
-                    content += '<div class="pl-entry">';
-                    content += data[i].Title + ' <em class="songtime">' + timeConvert(data[i].Time) + '</em>';
-                    content += ' <span>';
-                    content += data[i].Artist;
-                    content += ' - ';
-                    content += data[i].Album;
-                    content += '</span></div></li>';
-                    output = output + content;
-                } else if (typeof data[i].file !== 'undefined') {
-                    songpath = parsePath(data[i].file);
-                    content += '<div class="pl-entry">';
-                    content += data[i].file.replace(songpath + '/', '') + ' <em class="songtime">' + timeConvert(data[i].Time) + '</em>';
-                    content += ' <span>';
-                    content += ' path \: ';
-                    content += songpath;
-                    content += '</span></div></li>';
-                    output = output + content;
-                }
-            }
-            $('ul.playlist').html(output);
-            var current = parseInt(json['song']);
-            if (current != json && GUI.halt != 1) {
-                customScroll('pl', current, 200); // active current song
-            }
+        	console.log("queue list");
+        	console.log(data);
+            // var i = 0;
+            // var content = '';
+            // var output = '';
+            // for (i = 0; i < data.length; i++) {
+            //     if (json['state'] != 'stop' && i == parseInt(json['song'])) {
+            //         content = '<li id="pl-' + (i + 1) + '" class="active clearfix">';
+            //     } else {
+            //         content = '<li id="pl-' + (i + 1) + '" class="clearfix">';
+            //     }
+            //     content += '<div class="pl-action"><a class="btn" href="#notarget" title="Remove song from playlist"><i class="icon-remove-sign"></i></a></div>';
+            //     if (typeof data[i].Title !== 'undefined') {
+            //         content += '<div class="pl-entry">';
+            //         content += data[i].Title + ' <em class="songtime">' + timeConvert(data[i].Time) + '</em>';
+            //         content += ' <span>';
+            //         content += data[i].Artist;
+            //         content += ' - ';
+            //         content += data[i].Album;
+            //         content += '</span></div></li>';
+            //         output = output + content;
+            //     } else if (typeof data[i].file !== 'undefined') {
+            //         songpath = parsePath(data[i].file);
+            //         content += '<div class="pl-entry">';
+            //         content += data[i].file.replace(songpath + '/', '') + ' <em class="songtime">' + timeConvert(data[i].Time) + '</em>';
+            //         content += ' <span>';
+            //         content += ' path \: ';
+            //         content += songpath;
+            //         content += '</span></div></li>';
+            //         output = output + content;
+            //     }
+            // }
+            // $('ul.playlist').html(output);
+            // var current = parseInt(json['song']);
+            // if (current != json && GUI.halt != 1) {
+            //     customScroll('pl', current, 200); // active current song
+            // }
         }
     });
 }
