@@ -177,7 +177,7 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '') {
 					}
 					break;
 				case 'spop-qls':
-					echo sendSpopCommand($spop, "qls");
+					echo json_encode(sendSpopCommand($spop, "qls"));
 					break;
 			}
 
