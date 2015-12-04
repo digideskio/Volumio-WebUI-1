@@ -380,7 +380,9 @@ jQuery(document).ready(function($){ 'use strict';
         $(this).parent().addClass('active');
         var path = $(this).parent().data('path');
         //console.log('doubleclicked path = ', path);
-        $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {}, 'json');
+        $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
+            window.location.href = window.location.host + "/#playback";
+        }, 'json');
         notify('add', path);
     }); 
     
