@@ -408,6 +408,7 @@ function getDB(cmd, path, browsemode, uplevel){
 		var keyword = $('#db-search-keyword').val();
 		$.post('db/?querytype=' + browsemode + '&cmd=search', { 'query': keyword }, function(data) {
 			populateDB(data, path, uplevel, keyword);
+			window.location.hash = 'panel-sx';
 		}, 'json');
 
 	} else if (cmd == 'playall') {
