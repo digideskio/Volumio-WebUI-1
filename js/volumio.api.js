@@ -328,7 +328,7 @@ function parseResponse(inputArr,respType,i,inpath) {
 				content += inputArr[i].Album;
 				content += '" data-title="';
 				content += inputArr[i].Title;
-content += '"><div data-cmd="spop-playtrackuri"><div class="db-icon db-spop db-browse"><i class="fa fa-spotify sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifytrack"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-spop db-browse">';
+content += '"><div><div class="db-icon db-spop db-browse"><i class="fa fa-spotify sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifytrack"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-spop db-browse">';
 				content += inputArr[i].Title + ' <em class="songtime">' + timeConvert(inputArr[i].Time) + '</em>';
 				content += ' <span>';
 				content +=  inputArr[i].Artist;
