@@ -49,13 +49,11 @@ html, body {
 -------------------------------------------------------------- */
 
 .playback-controls {
-	width: 220px;
-	margin: 0 auto;
 	text-align: center;
 }
 
 .playback-controls .btn {
-	width: 30px;
+	width: 60px;
 }
 
 #currentartist, #currentsong, #currentalbum, #elapsed, #countdown-display {
