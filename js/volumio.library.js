@@ -91,7 +91,7 @@ function showLibraryView() {
     $("#panel-lib").addClass("active");
 
     var $menuBottom = $("#menu-bottom");
-    $menuBottom("li.active").removeClass("active");
+    $menuBottom.find("li.active").removeClass("active");
     $("#open-panel-lib").addClass("active");
 }
 
