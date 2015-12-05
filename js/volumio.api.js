@@ -139,7 +139,6 @@ function renderUI() {
     }
 
     if (GUI.MpdState['playlist'] != GUI.playlist) {
-    	console.log("get the playlist?");
     	//GUI.MpdState
         getPlaylist();
         GUI.playlist = GUI.MpdState['playlist'];
@@ -158,7 +157,9 @@ function getPlaylist() {
         async: true,
 
         success: function (data) {
-        	Playlist.songs = data.tracks; 
+        	if(data) {
+        		Playlist.songs = data.tracks; 
+        	}
             // var i = 0;
             // var content = '';
             // var output = '';
