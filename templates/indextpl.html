@@ -115,7 +115,7 @@
 				</li>		
 				<li id="db-{{ $index + 1 }}" v-for="dir in spotifyDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
-						<i class="fa sx" v-bind:class="{ 'fa-folder-open' : dir.SpopPlaylistIndex === undefined && dir.directory !== 'SPOTIFY', 'fa-list-ol': dir.SpopPlaylistIndex !== undefined, 'fa-spotify icon-root': dir.directory == 'SPOTIFY'}"></i>
+						<i class="fa sx" v-bind:class="{ 'fa-folder-open' : dir.SpopPlaylistIndex === undefined && dir.directory !== 'SPOTIFY', 'fa-list-ol': dir.SpopPlaylistIndex !== undefined, 'fa-spotify icon-root' : dir.directory == 'SPOTIFY'}"></i>
 					</div>
 					<template v-if="dir.SpopPlaylistIndex !== undefined">
 						<div class="db-action">
