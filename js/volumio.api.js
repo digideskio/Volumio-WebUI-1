@@ -200,157 +200,20 @@ function pluginListItem(id, text, faicon, onclick) {
         + text + '</div></li>';
 }
 
-function parseResponse(inputArr,respType,i,inpath) {		
-	var content = "";
-
-	switch (respType) {
-		case 'playlist':		
-			// code placeholder
-		break;
-
-		case 'db':
-			if (inputArr[i].Type == 'MpdFile') {
-			// This is a MPD playable file
-				if (typeof inputArr[i].Title != 'undefined') {
-				// This is a local file with a title
-					content = '<li id="db-' + (i + 1) + '" class="clearfix" data-path="';
-					content += inputArr[i].file;
-					content += '"><div class="db-icon db-song db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-song db-browse">';
-					content += inputArr[i].Title + ' <em class="songtime">' + timeConvert(inputArr[i].Time) + '</em>';
-					content += ' <span>';
-					content +=  inputArr[i].Artist;
-					content += ' - ';
-					content +=  inputArr[i].Album;
-					content += '</span></div></li>';
-					showtype = 'music'
-
-				} else {
-				// This is some other format (eg. streams)
-                    var dbItemClass = (inputArr[i].Time === undefined) ? "db-other" : "db-song";
-					content = '<li id="db-' + (i + 1) + '" class="clearfix" data-path="';
-					content += inputArr[i].file;
-
-					if (inpath == 'WEBRADIO') {
-					// This is a webradio stream
-                        content += '"><div class="db-icon ' + dbItemClass + ' db-browse"><i class="fa fa-microphone sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry ' + dbItemClass + ' db-browse">';
-                        showtype = 'radio'
-
-					} else {
-					// This is an unknown file type
-                        content += '"><div class="db-icon ' + dbItemClass + ' db-browse"><i class="fa fa-music sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry ' + dbItemClass + ' db-browse">';
-                        showtype = 'file'
-
-					}
-
-					// Strip the leading path and trailing '.pls', and display only the filename
-					content += inputArr[i].file.replace(inpath + '/', '').replace('.pls', '') + ' <em class="songtime">' + timeConvert(inputArr[i].Time) + '</em>';
-					content += '</div></li>';
-					
-				}
-
-			} else if (inputArr[i].Type == 'MpdDirectory') {
-			// This is a MPD folder
-				content = '<li id="db-' + (i + 1) + '" class="clearfix" data-path="';
-				content += inputArr[i].directory;
-				showtype = 'file';
-
-				if (inpath != '') {
-				// This is a generic folder not at the root level
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-folder-open sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
-
-				} else if (inputArr[i].directory == 'WEBRADIO') {
-				// This is the WEBRADIO root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-microphone icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
-
-				} else if (inputArr[i].directory == 'NAS') {
-				// This is the NAS root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-code-fork icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
-
-				} else if (inputArr[i].directory == 'USB') {
-				// This is the USB root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-hdd-o icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
-
-				} else if (inputArr[i].directory == 'RAMPLAY') {
-				// This is the RAMPLAY root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-spinner icon-root sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-root"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
-
-				}
- 
-				if (inputArr[i].DisplayName) {
-				// If a DisplayName is available for this entry, use it
-					content += inputArr[i].DisplayName;
-
-				} else {
-				// Else strip the leading path and slash, and display the folder name
-					content += inputArr[i].directory.replace(inpath + '/', '');
-
-				}
-
-				content += '</div></li>';
-
-			} else if (inputArr[i].Type == 'SpopTrack') {
-			// This is a Spotify file
-				content = '<li id="db-' + (i + 1) + '" class="clearfix" data-path="';
-				content += inputArr[i].SpopTrackUri;
-				content += '" data-artist="';
-				content += inputArr[i].Artist;
-				content += '" data-album="';
-				content += inputArr[i].Album;
-				content += '" data-title="';
-				content += inputArr[i].Title;
-				content += '"><div class="db-icon db-spop db-browse"><i class="fa fa-spotify sx db-browse"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifytrack"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-spop db-browse">';
-				content += inputArr[i].Title + ' <em class="songtime">' + timeConvert(inputArr[i].Time) + '</em>';
-				content += ' <span>';
-				content +=  inputArr[i].Artist;
-				content += ' - ';
-				content +=  inputArr[i].Album;
-				content += '</span></div></li>';
-				showtype = 'music';
-
-			} else if (inputArr[i].Type == 'SpopDirectory') {
-			// This is a Spotify folder or playlist
-				content = '<li id="db-' + (i + 1) + '" class="clearfix" data-path="';
-				content += inputArr[i].directory;
-				showtype = 'file';
-
-				if (inpath != '') {
-				// This is a Spotify folder not at the root level
-					if (typeof inputArr[i].SpopPlaylistIndex != 'undefined') {
-					// This is a browsable Spotify playlist
-						content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-list-ol sx"></i></div><div class="db-action"><a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu-spotifyplaylist"><i class="fa fa-ellipsis-v"></i></a></div><div class="db-entry db-folder db-browse">';
-
-					} else {
-					// This is a generic Spotify folder
-						content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-folder-open sx"></i></div><div class="db-entry db-folder db-browse">';
-
-					}
-
-				} else if (inputArr[i].directory == 'SPOTIFY') {
-				// This is the SPOTIFY root folder
-					content += '"><div class="db-icon db-folder db-browse"><i class="fa fa-spotify icon-root sx"></i></div><div class="db-entry db-folder db-browse">';
-
-				}
-
-				if (inputArr[i].DisplayName) {
-				// If a DisplayName is available for this entry, use it
-					content += inputArr[i].DisplayName;
-
-				} else {
-				// Else strip the leading path and slash, and display the folder name
-					content += inputArr[i].directory.replace(inpath + '/', '');
-
-				}
-
-				content += '</div></li>';
-
-			}	
-
-		break;
-		
+var MPDFile = new Vue({
+	el: '#database',
+	data: {
+		files: [],
+        mpdDirectories: [],
+        spotifyTracks: [],
+        spotifyDirectories: []
+	},
+	methods: {
+	    playSong: function (song) {
+	      //getDB("spop-goto", song.index);
+	    }
 	}
-
-	return content;
-} // end parseResponse()
+});	
 
 function getDB(cmd, path, browsemode, uplevel, callback, fail){
 
@@ -383,8 +246,13 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 function populateDB(data, path, uplevel, keyword){
 	console.log(data);
 	if (path) GUI.currentpath = path;
-	var DBlist = $('ul.database');
-	DBlist.html('');
+    
+    MPDFile.files = [];
+    MPDFile.mpdDirectories = [];
+    MPDFile.spotifyTracks = [];
+    MPDFile.spotifyDirectories = [];
+	//var DBlist = $('ul.database');
+	//DBlist.html('');
 
 	if (keyword) {
 		var results = (data.length) ? data.length : '0';
@@ -407,9 +275,17 @@ function populateDB(data, path, uplevel, keyword){
         }
     }
 
-	var i = 0;
-	for (i = 0; i < data.length; i++) {
-	 	DBlist.append(parseResponse(data,'db',i,path));
+	for (var i = 0; i < data.length; i++) {
+        var dataItem = data[i];
+        if (dataItem.Type == 'MpdFile') {
+            MPDFile.files.push(dataItem);
+        } else if (dataItem.Type == 'MpdDirectory')  {
+            MPDFile.mpdDirectories.push(dataItem);            
+        } else if (dataItem.Type == 'SpopTrack') {
+            MPDFile.spotifyTracks.push(dataItem);            
+        } else if (dataItem.Type == 'SpopDirectory') {
+            MPDFile.spotifyDirectories.push(dataItem);            
+        }
 	}
 
 	if (typeof data[0].DisplayPath != 'undefined') {
@@ -417,7 +293,6 @@ function populateDB(data, path, uplevel, keyword){
 
 	} else {
 		$('#db-currentpath span').html(path);
-
 	}
 
 	if (uplevel) {
@@ -425,11 +300,6 @@ function populateDB(data, path, uplevel, keyword){
 		customScroll('db', GUI.currentDBpos[GUI.currentDBpos[10]]);
 	} else {
 		customScroll('db', 0, 0);
-	}
-	if (showtype == 'radio') {
-        $("#webradio-add").show();
-	} else {
-        $("#webradio-add").hide();
 	}
 }
 

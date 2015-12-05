@@ -347,8 +347,9 @@ a.btn-cmd {
 	text-align: right;
 	counter-increment: item;
 	content: counter(item) '. ';
-	color: #717171;
+	color: #414141;
 }
+
 .playlist span, .database span { /* era: .playlist li span, .database li span */
 	display: block;
 	font-size: 12px;
