@@ -372,8 +372,11 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 		};
 	}
 
-	$.post('db/?cmd=' + cmd, data, callback, 'json').fail(function() {
+	$.post('db/?cmd=' + cmd, data, callback, 'json').fail(function(a, b, c) {
 		console.error("Error: command " + cmd + ", path: " + path);
+		console.log(a);
+		console.log(b);
+		console.log(c);
 	});
 }
 

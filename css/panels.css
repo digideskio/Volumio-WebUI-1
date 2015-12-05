@@ -375,7 +375,7 @@ a.btn-cmd {
 	display: block;
 	float: left;
 	height: 19px;
-	line-height: 19px;
+	line-height: 40px;
 	padding: 15px 0 5px 10px;
 	color: #00793F;
 }
@@ -1117,7 +1117,7 @@ body { background: #cf0; } */
 
 #database a .fa,
 #playlist a .fa {
-	color: #333;
+	color: #414141;
 }
 
 #db-back {
