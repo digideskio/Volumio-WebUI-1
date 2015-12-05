@@ -22,7 +22,8 @@ var Playlist = new Vue({
 	},
 	methods: {
 	    playSong: function (song) {
-	      console.log(song);
+	      console.log(song.uri);
+	      getDB("spop-goto", song.index);
 	    }
 	}
 });
@@ -149,7 +150,6 @@ function renderUI() {
 
 // Non-caching version of getPlaylist
 function getPlaylist() {
-	console.log("getting playlist...");
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -158,9 +158,6 @@ function getPlaylist() {
         async: true,
 
         success: function (data) {
-        	console.log("queue list");
-        	console.log(data);
-        	
         	Playlist.songs = data.tracks; 
             // var i = 0;
             // var content = '';
@@ -200,10 +197,6 @@ function getPlaylist() {
         },
 
         error: function(jqXHR, textStatus, errorThrown) {
-        	console.log("something went wrong...");
-        	console.log(jqXHR);
-        	console.log(textStatus);
-        	console.log(errorThrown);
         }
     });
 }
@@ -217,8 +210,8 @@ function parsePath(str) {
 		//-- verify this switch! (Orion)
 		if (cutpos !== -1) {
 	        songpath = str.slice(0,cutpos);
-		}  else {
-	        songpath = '';
+		} else {
+			songpath = '';
 		}
 	}
 	
@@ -390,22 +383,6 @@ function getDB(cmd, path, browsemode, uplevel){
 			populateDB(data, path, uplevel);
 		}, 'json');
 
-	} else if (cmd == 'add') {
-		$.post('db/?cmd=add', { 'path': path }, function(path) {
-		}, 'json');
-
-	} else if (cmd == 'addplay') {
-		$.post('db/?cmd=addplay', { 'path': path }, function(path) {
-		}, 'json');
-
-	} else if (cmd == 'addreplaceplay') {
-		$.post('db/?cmd=addreplaceplay', { 'path': path }, function(path) {
-		}, 'json');
-
-	} else if (cmd == 'update') {
-		$.post('db/?cmd=update', { 'path': path }, function(path) {
-		}, 'json');
-
 	} else if (cmd == 'search') {
 		var keyword = $('#db-search-keyword').val();
 		$.post('db/?querytype=' + browsemode + '&cmd=search', { 'query': keyword }, function(data) {
@@ -413,11 +390,9 @@ function getDB(cmd, path, browsemode, uplevel){
 			$("#open-panel-sx a").click();
 		}, 'json');
 
-	} else if (cmd == 'playall') {
-		$.post('db/?cmd=playall', { 'path': path }, function(data) {}, 'json');
-
-	} else if (cmd == 'addall') {
-		$.post('db/?cmd=addall', { 'path': path }, function(data) {}, 'json');
+	} else {
+		$.post('db/?cmd=' + cmd, { 'path': path }, function(path) {
+		}, 'json');
 	}
 }
 

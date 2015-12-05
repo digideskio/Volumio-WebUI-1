@@ -179,6 +179,11 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '') {
 				case 'spop-qls':
 					echo json_encode(sendSpopCommand($spop, "qls"));
 					break;
+				case 'spop-goto':
+					if (isset($_POST['path']) && $_POST['path'] != '') {
+						echo sendSpopCommand($spop, "goto " . $_POST['path']);
+					}
+					break;
 			}
 
 		}
