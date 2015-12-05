@@ -184,6 +184,11 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '') {
 						echo sendSpopCommand($spop, "goto " . $_POST['path']);
 					}
 					break;
+				case 'spop-qrm':
+					if (isset($_POST['path']) && $_POST['path'] != '') {
+						echo sendSpopCommand($spop, "qrm " . $_POST['path']);
+					}
+					break;
 			}
 
 		}

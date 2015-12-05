@@ -22,7 +22,6 @@ var Playlist = new Vue({
 	},
 	methods: {
 	    playSong: function (song) {
-	      console.log(song.uri);
 	      getDB("spop-goto", song.index);
 	    }
 	}
