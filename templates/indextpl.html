@@ -73,9 +73,9 @@
 		<div id="playlist">
 			<ul class="playlist">
 				<li id="pl-{{ song.index }}" v-for="song in songs">
-					<div class="pl-action">
+					<div class="pl-action" v-on:click="removeSong(song)">
 						<a class="btn" href="#notarget" title="Remove song from playlist">
-							<i class="icon-remove-sign"></i>
+							<i class="fa fa-trash"></i>
 						</a>
 					</div>
 					<div class="pl-entry" v-on:click="playSong(song)">

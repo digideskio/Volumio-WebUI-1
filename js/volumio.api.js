@@ -23,6 +23,11 @@ var Playlist = new Vue({
 	methods: {
 	    playSong: function (song) {
 	      getDB("spop-goto", song.index);
+	    },
+	    removeSong: function (song) {
+	    	getDB("spop-qrm", song.index, null, null, function() {
+	    		getPlaylist();
+	    	});
 	    }
 	}
 });
