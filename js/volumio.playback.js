@@ -302,10 +302,15 @@ jQuery(document).ready(function($){ 'use strict';
         var $parent = $this.parent();
         toggleActive($this, $parent);
         var path = $parent.data('path');
-        getDB("spop-playtrackuri", path, null, null, function(data, textStatus, jqXHR) {
+        getDB("spop-playtrackuri", path, null, null, function(data) {
             $("#open-playback").find("a").click();
             console.log('get playlist');
             getPlaylist();
+        }, function(a, b, c) {
+            console.log("failed?");
+            console.log(a);
+            console.log(b);
+            console.log(c);
         });
         // $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
         //     $("#open-playback").find("a").click();
