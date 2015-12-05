@@ -302,7 +302,7 @@ jQuery(document).ready(function($){ 'use strict';
         var $parent = $this.parent();
         toggleActive($this, $parent);
         var path = $parent.data('path');
-        getDB("spop-playtrackuri", path, null, null, function() {
+        getDB("spop-playtrackuri", path, null, null, function(data, textStatus, jqXHR) {
             $("#open-playback").find("a").click();
             console.log('get playlist');
             getPlaylist();
