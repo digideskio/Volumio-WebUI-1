@@ -158,7 +158,7 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '') {
 
 				case 'spop-addtrackuri':
 					if (isset($_POST['path']) && $_POST['path'] != '') {
-						echo sendSpopCommand($spop, "uadd " . $_POST['path']);
+						echo json_encode(sendSpopCommand($spop, "uadd " . $_POST['path']));
 					}
 					break;
 
