@@ -1115,7 +1115,8 @@ body { background: #cf0; } */
     height: 100%;
 }
 
-a .fa {
+#database a .fa,
+#playlist a .fa {
 	color: #333;
 }
 
