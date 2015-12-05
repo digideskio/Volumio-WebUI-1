@@ -181,12 +181,12 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '') {
 					break;
 				case 'spop-goto':
 					if (isset($_POST['path']) && $_POST['path'] != '') {
-						echo sendSpopCommand($spop, "goto " . $_POST['path']);
+						echo json_encode(sendSpopCommand($spop, "goto " . $_POST['path']));
 					}
 					break;
 				case 'spop-qrm':
 					if (isset($_POST['path']) && $_POST['path'] != '') {
-						echo sendSpopCommand($spop, "qrm " . $_POST['path']);
+						echo json_encode(sendSpopCommand($spop, "qrm " . $_POST['path']));
 					}
 					break;
 			}

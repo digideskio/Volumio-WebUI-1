@@ -25,7 +25,8 @@ var Playlist = new Vue({
 	      getDB("spop-goto", song.index);
 	    },
 	    removeSong: function (song) {
-	    	getDB("spop-qrm", song.index, null, null, function() {
+	    	getDB("spop-qrm", song.index, null, null, function(data) {
+	    		console.log(data);
 	    		getPlaylist();
 	    	});
 	    }
