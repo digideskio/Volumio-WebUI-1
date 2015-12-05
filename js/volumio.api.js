@@ -193,16 +193,10 @@ function parsePath(str) {
 	return songpath;
 }
 
-function pluginListItem(id, text, faicon, onclick) {
-    return '<li id="#' + id + '" class="db-plugin" onclick="'
-        + onclick + '"><div class="db-icon db-other"><i class="fa '
-        + faicon + ' icon-root sx"></i></div><div class="db-entry db-other">'
-        + text + '</div></li>';
-}
-
 var MPDFile = new Vue({
 	el: '#database',
 	data: {
+        isLibrary: false,
 		files: [],
         mpdDirectories: [],
         spotifyTracks: [],
@@ -251,6 +245,7 @@ function populateDB(data, path, uplevel, keyword){
     MPDFile.mpdDirectories = [];
     MPDFile.spotifyTracks = [];
     MPDFile.spotifyDirectories = [];
+    MPDFile.isLibrary = false;
 	//var DBlist = $('ul.database');
 	//DBlist.html('');
 
@@ -271,7 +266,7 @@ function populateDB(data, path, uplevel, keyword){
         //$("#db-back").hide();
 
         if (library && library.isEnabled && !library.displayAsTab) {
-            DBlist.append(pluginListItem("db-plug-lib", "LIBRARY", "fa-columns", "showLibraryView()"));
+            MPDFile.isLibrary = true;
         }
     }
 
