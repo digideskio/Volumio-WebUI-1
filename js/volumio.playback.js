@@ -243,22 +243,22 @@ jQuery(document).ready(function($){ 'use strict';
     var $playlist = $('.playlist');
     // click on playlist entry
     $playlist.on('click', '.pl-entry', function() {
-        var pos = $('.playlist .pl-entry').index(this);
-        var cmd = 'play ' + pos;
-        sendCmd(cmd);
-        GUI.halt = 1;
+        // var pos = $('.playlist .pl-entry').index(this);
+        // var cmd = 'play ' + pos;
+        // sendCmd(cmd);
+        // GUI.halt = 1;
 
-        $('.playlist li').removeClass('active');
-        $(this).parent().addClass('active');
+        // $('.playlist li').removeClass('active');
+        // $(this).parent().addClass('active');
     });
 
     // click on playlist actions
     $playlist.on('click', '.pl-action', function(event) {
-        event.preventDefault();
-        var pos = $('.playlist .pl-action').index(this);
-        var cmd = 'trackremove&songid=' + pos;
-        notify('remove', '');
-        sendPLCmd(cmd);
+        // event.preventDefault();
+        // var pos = $('.playlist .pl-action').index(this);
+        // var cmd = 'trackremove&songid=' + pos;
+        // notify('remove', '');
+        // sendPLCmd(cmd);
     });
 
     // click on playlist save button
