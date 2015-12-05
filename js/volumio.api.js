@@ -21,8 +21,8 @@ var Playlist = new Vue({
 		songs: []
 	},
 	methods: {
-	    playSong: function (event) {
-	      console.log(event);
+	    playSong: function (song) {
+	      console.log(song);
 	    }
 	}
 });
