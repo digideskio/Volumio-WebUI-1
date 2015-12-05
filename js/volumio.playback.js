@@ -304,21 +304,10 @@ jQuery(document).ready(function($){ 'use strict';
         var path = $parent.data('path');
         getDB("spop-playtrackuri", path, null, null, function(data) {
             $("#open-playback").find("a").click();
-            console.log('get playlist');
             getPlaylist();
-        }, function(a, b, c) {
-            console.log("failed?");
-            console.log(a);
-            console.log(b);
-            console.log(c);
         });
-        // $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
-        //     $("#open-playback").find("a").click();
-        //     //get the playlist
-        //     getPlaylist();
-        // }, 'json');
 
-        $.each($parent.nextAll(), function(index, song) {
+        $.each($parent.siblings(), function(index, song) {
             var songPath = song.dataset.path;
 
             if(songPath) {
