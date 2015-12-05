@@ -152,7 +152,7 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '') {
 				case 'spop-playtrackuri':
 					if (isset($_POST['path']) && $_POST['path'] != '') {
 						sendMpdCommand($mpd,'stop');
-						echo sendSpopCommand($spop, "uplay " . $_POST['path']);
+						echo json_encode(sendSpopCommand($spop, "uplay " . $_POST['path']));
 					}
 					break;
 
