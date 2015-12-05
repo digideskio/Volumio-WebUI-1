@@ -240,8 +240,9 @@ jQuery(document).ready(function($){ 'use strict';
     // PLAYLIST
     // ----------------------------------------------------------------------------------------------------
 
+    var $playlist = $('.playlist');
     // click on playlist entry
-    $('.playlist').on('click', '.pl-entry', function() {
+    $playlist.on('click', '.pl-entry', function() {
         var pos = $('.playlist .pl-entry').index(this);
         var cmd = 'play ' + pos;
         sendCmd(cmd);
@@ -252,7 +253,7 @@ jQuery(document).ready(function($){ 'use strict';
     });
 
     // click on playlist actions
-    $('.playlist').on('click', '.pl-action', function(event) {
+    $playlist.on('click', '.pl-action', function(event) {
         event.preventDefault();
         var pos = $('.playlist .pl-action').index(this);
         var cmd = 'trackremove&songid=' + pos;
@@ -301,18 +302,22 @@ jQuery(document).ready(function($){ 'use strict';
         var $parent = $this.parent();
         toggleActive($this, $parent);
         var path = $parent.data('path');
-        $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
+        getDB("spop-playtrackuri", path, null, null, function() {
             $("#open-playback").find("a").click();
-            //get the playlist
+            console.log('get playlist');
             getPlaylist();
-        }, 'json');
+        });
+        // $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
+        //     $("#open-playback").find("a").click();
+        //     //get the playlist
+        //     getPlaylist();
+        // }, 'json');
 
         $.each($parent.nextAll(), function(index, song) {
             var songPath = song.dataset.path;
 
             if(songPath) {
-                $.post('db/?cmd=spop-addtrackuri', { 'path': songPath }, function(data) {
-                }, 'json');
+                getDB("spop-addtrackuri", songPath);
             }
         });
 
@@ -334,40 +339,6 @@ jQuery(document).ready(function($){ 'use strict';
                 getDB('filepath', path, 'file', 0);
             }
         }
-    });
-
-	// Double-click play 
-    $database.on('dblclick', '.db-song', function() {
-        var $this = $(this);
-        var $parent = $this.parent();
-        toggleActive($this, $parent);
-
-        var path = $parent.data('path');
-	   $.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
-        getDB('addplay', path);
-        notify('add', path);
-    });
-    
-    $database.on('dblclick', '.db-spop', function() {
-        var $this = $(this);
-        var $parent = $this.parent();
-        toggleActive($this, $parent);
-        var path = $parent.data('path');
-        $.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {
-            $("#open-playback a").click();
-        }, 'json');
-        notify('add', path);
-        getPlaylist();
-    }); 
-    
-    $database.on('dblclick', '.db-other', function() {
-        var $this = $(this);
-        var $parent = $this.parent();
-        toggleActive($this, $parent);
-        var path = $parent.data('path');
-        $.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
-        getDB('addplay', path);
-        notify('add', path);
     });
 
     // click on ADD button
@@ -392,96 +363,40 @@ jQuery(document).ready(function($){ 'use strict';
         var album = GUI.DBentry[5];
         GUI.DBentry[0] = '';
         var $this = $(this);
+        var validCommands = ['add', 'addplay', 'addreplaceplay',
+                             'update', 'spop-playtrackuri', 'spop-addtrackuri',
+                             'spop-playplaylistindex',
+                             'spop-addplaylistindex']
 
-        if ($this.data('cmd') == 'add') {
-            getDB('add', path);
-            notify('add', path);
+        if (validCommands.indexOf($this.data('cmd')) !== -1) {
+            getDB($this.data('cmd'), path);
+            notify($this.data('cmd'), path);
         }
-        if ($this.data('cmd') == 'addplay') {
-            getDB('addplay', path);
-            notify('add', path);
-        }
+
         if ($this.data('cmd') == 'addreplaceplay') {
-            getDB('addreplaceplay', path);
-            notify('addreplaceplay', path);
             if (path.indexOf("/") == -1) {
 	            $("#pl-saveName").val(path);
             } else {
 	            $("#pl-saveName").val("");
 			}
         }
-        if ($this.data('cmd') == 'update') {
-            getDB('update', path);
-            notify('update', path);
-        }
-        if ($this.data('cmd') == 'spop-playtrackuri') {
-			$.post('db/?cmd=spop-playtrackuri', { 'path': path }, function(data) {}, 'json');
 
-        }
-        if ($this.data('cmd') == 'spop-addtrackuri') {
-			$.post('db/?cmd=spop-addtrackuri', { 'path': path }, function(data) {}, 'json');
-
-        }
-        if ($this.data('cmd') == 'spop-playplaylistindex') {
-			$.post('db/?cmd=spop-playplaylistindex', { 'path': path }, function(data) {}, 'json');
-
-        }
-        if ($this.data('cmd') == 'spop-addplaylistindex') {
-			$.post('db/?cmd=spop-addplaylistindex', { 'path': path }, function(data) {}, 'json');
-
-        }
         if ($this.data('cmd') == 'spop-searchtitle') {
 			$('#db-search-keyword').val('track:' + title);
 			getDB('search', '', 'file');
-
         }
         if ($this.data('cmd') == 'spop-searchartist') {
 			$('#db-search-keyword').val('artist:' + artist);
 			getDB('search', '', 'file');
-
         }
         if ($this.data('cmd') == 'spop-searchalbum') {
 			$('#db-search-keyword').val('album:' + album);
 			getDB('search', '', 'file');
-
         }
+
         if ($this.data('cmd') == 'spop-stop') {
 			$.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
-
         }
-    });
-
-    // scroll buttons
-    $('.db-firstPage').click(function(){
-        $.scrollTo(0 , 500);
-    });
-    $('.db-prevPage').click(function(){
-        var scrolloffset = '-=' + $(window).height() + 'px';
-        $.scrollTo(scrolloffset , 500);
-    });
-    $('.db-nextPage').click(function(){
-        var scrolloffset = '+=' + $(window).height() + 'px';
-        $.scrollTo(scrolloffset , 500);
-    });
-    $('.db-lastPage').click(function(){
-        $.scrollTo('100%', 500);
-    });
-
-    $('.pl-firstPage').click(function(){
-        $.scrollTo(0 , 500);
-    });
-    $('.pl-prevPage').click(function(){
-        var scrollTop = $(window).scrollTop();
-        var scrolloffset = scrollTop - $(window).height();
-        $.scrollTo(scrolloffset , 500);
-    });
-    $('.pl-nextPage').click(function(){
-        var scrollTop = $(window).scrollTop();
-        var scrolloffset = scrollTop + $(window).height();
-        $.scrollTo(scrolloffset , 500);
-    });
-    $('.pl-lastPage').click(function(){
-        $.scrollTo('100%', 500);
     });
 
     // multipurpose debug buttons
@@ -498,6 +413,7 @@ jQuery(document).ready(function($){ 'use strict';
     if (url.match('#')) {
         $('#menu-bottom a[href=#'+url.split('#')[1]+']').tab('show') ;
     }
+
     // do not scroll with HTML5 history API
     $('#menu-bottom a').on('shown', function (e) {
         if(history.pushState) {

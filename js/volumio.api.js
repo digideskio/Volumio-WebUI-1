@@ -378,7 +378,7 @@ function parseResponse(inputArr,respType,i,inpath) {
 	return content;
 } // end parseResponse()
 
-function getDB(cmd, path, browsemode, uplevel){
+function getDB(cmd, path, browsemode, uplevel, callback){
 	if (cmd == 'filepath') {
 		$.post('db/?cmd=filepath', { 'path': path }, function(data) {
 			populateDB(data, path, uplevel);
@@ -392,8 +392,7 @@ function getDB(cmd, path, browsemode, uplevel){
 		}, 'json');
 
 	} else {
-		$.post('db/?cmd=' + cmd, { 'path': path }, function(path) {
-		}, 'json');
+		$.post('db/?cmd=' + cmd, { 'path': path }, callback, 'json');
 	}
 }
 
