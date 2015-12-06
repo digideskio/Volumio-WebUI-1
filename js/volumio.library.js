@@ -76,7 +76,8 @@ function updatePanelsTabs() {
     var $menuBottom = $("#menu-bottom");
     var $visiblePanels = $menuBottom.find("li:visible");
     if ($visiblePanels.length > 0) {
-        var panelWidth = 100 / $visiblePanels.length;
+        var panelWidth = Math.round(100000 / $visiblePanels.length) / 1000;
+        console.log(panelWidth);
         var $menuLinks = $menuBottom.find("a");
         $menuLinks.width(panelWidth + "%");
         var $menuVisibleLinks = $menuBottom.find("a:visible");
