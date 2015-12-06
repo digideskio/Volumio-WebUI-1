@@ -281,6 +281,8 @@ a.back-btn {
 	text-decoration: none;
 	text-align: center;
 	color: #fff;
+	border-right: 1px solid #000;
+	box-sizing: border-box;
 }
 #menu-bottom a:hover, #menu-bottom a:focus {
 	text-decoration: none;
@@ -315,7 +317,6 @@ a.btn-cmd {
 -------------------------------------------------------------- */
 
 #playlist, #database {
-	padding: 60px 0;
 	background: #0A0A0A;
 }
 .playlist, .database {
@@ -791,7 +792,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     color: #fff;
 }
 .form-actions {
-    background-color: #11181F;
+    background-color: inherit;
     border-top: 1px solid #000F1D;
 }
 legend {
@@ -1114,6 +1115,10 @@ body { background: #cf0; } */
 }
 #lib-content .tab-content {
     height: 100%;
+}
+
+.tab-content {
+	margin-top: 60px;
 }
 
 #database a .fa,
