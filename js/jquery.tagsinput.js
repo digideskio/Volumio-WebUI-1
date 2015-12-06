@@ -19,11 +19,11 @@
 	var delimiter = new Array();
 	var tags_callbacks = new Array();
 	$.fn.doAutosize = function(o){
-	    var minWidth = $(this).data('minwidth'),
-	        maxWidth = $(this).data('maxwidth'),
+	    var input = $(this),
+			minWidth = input.data('minwidth'),
+	        maxWidth = input.data('maxwidth'),
 	        val = '',
-	        input = $(this),
-	        testSubject = $('#'+$(this).data('tester_id'));
+	        testSubject = $('#'+ input.data('tester_id'));
 	
 	    if (val === (val = input.val())) {return;}
 	
@@ -44,12 +44,14 @@
 
 
   };
-  $.fn.resetAutosize = function(options){
+  $.fn.resetAutosize = function(options) {
+	  console.log("auto resize");
+	  var $this = $(this);
     // alert(JSON.stringify(options));
-    var minWidth =  $(this).data('minwidth') || options.minInputWidth || $(this).width(),
-        maxWidth = $(this).data('maxwidth') || options.maxInputWidth || ($(this).closest('.tagsinput').width() - options.inputPadding),
+    var minWidth =  $this.data('minwidth') || options.minInputWidth || $this.width(),
+        maxWidth = $this.data('maxwidth') || options.maxInputWidth || ($this.closest('.tagsinput').width() - options.inputPadding),
         val = '',
-        input = $(this),
+        input = $this,
         testSubject = $('<tester/>').css({
             position: 'absolute',
             top: -9999,
@@ -61,7 +63,7 @@
             letterSpacing: input.css('letterSpacing'),
             whiteSpace: 'nowrap'
         }),
-        testerId = $(this).attr('id')+'_autosize_tester';
+        testerId = $this.attr('id')+'_autosize_tester';
     if(! $('#'+testerId).length > 0){
       testSubject.attr('id', testerId);
       testSubject.appendTo('body');
@@ -74,11 +76,13 @@
   };
   
 	$.fn.addTag = function(value,options) {
+		var $that = $(this);
 			options = jQuery.extend({focus:false,callback:true},options);
 			this.each(function() { 
-				var id = $(this).attr('id');
+				var $this = $(this);
+				var id = $this.attr('id');
 
-				var tagslist = $(this).val().split(delimiter[id]);
+				var tagslist = $this.val().split(delimiter[id]);
 				if (tagslist[0] == '') { 
 					tagslist = new Array();
 				}
@@ -86,7 +90,7 @@
 				value = jQuery.trim(value);
 		
 				if (options.unique) {
-					var skipTag = $(this).tagExist(value);
+					var skipTag = $this.tagExist(value);
 					if(skipTag == true) {
 					    //Marks fake input as not_valid to let styling it
     				    $('#'+id+'_tag').addClass('not_valid');
@@ -126,7 +130,7 @@
 					{
 						var i = tagslist.length;
 						var f = tags_callbacks[id]['onChange'];
-						f.call(this, $(this), tagslist[i-1]);
+						f.call(this, $this, tagslist[i-1]);
 					}					
 				}
 		
@@ -138,9 +142,10 @@
 	$.fn.removeTag = function(value) { 
 			value = unescape(value);
 			this.each(function() { 
-				var id = $(this).attr('id');
+				var $this = $(this);
+				var id = $this.attr('id');
 	
-				var old = $(this).val().split(delimiter[id]);
+				var old = $this.val().split(delimiter[id]);
 					
 				$('#'+id+'_tagsinput .tag').remove();
 				str = '';
@@ -162,43 +167,48 @@
 		};
 	
 	$.fn.tagExist = function(val) {
-		var id = $(this).attr('id');
-		var tagslist = $(this).val().split(delimiter[id]);
+		var $this = $(this);
+		var id = $this.attr('id');
+		var tagslist = $this.val().split(delimiter[id]);
 		return (jQuery.inArray(val, tagslist) >= 0); //true when tag exists, false when not
 	};
 	
 	// clear all existing tags and import new ones from a string
 	$.fn.importTags = function(str) {
-                id = $(this).attr('id');
+        var $this = $(this),
+			id = $this.attr('id');
+			
 		$('#'+id+'_tagsinput .tag').remove();
 		$.fn.tagsInput.importTags(this,str);
 	}
 		
 	$.fn.tagsInput = function(options) { 
-    var settings = jQuery.extend({
-      interactive:true,
-      defaultText:'',
-      minChars:0,
-      width:'',
-      height:'',
-      autocomplete: {selectFirst: false },
-      'hide':true,
-      'delimiter':',',
-      'unique':true,
-      removeWithBackspace:true,
-      placeholderColor:'#666666',
-      autosize: true,
-      comfortZone: 20,
-      inputPadding: 6*2
-    },options);
+		var settings = jQuery.extend({
+		interactive:true,
+		defaultText:'',
+		minChars:0,
+		width:'',
+		height:'',
+		autocomplete: {selectFirst: false },
+		'hide':true,
+		'delimiter':',',
+		'unique':true,
+		removeWithBackspace:true,
+		placeholderColor:'#666666',
+		autosize: true,
+		comfortZone: 20,
+		inputPadding: 6*2
+		},options);
 
 		this.each(function() { 
+			var $this = $(this);
+			
 			if (settings.hide) { 
-				$(this).hide();				
+				$this.hide();				
 			}
-			var id = $(this).attr('id');
-			if (!id || delimiter[$(this).attr('id')]) {
-				id = $(this).attr('id', 'tags' + new Date().getTime()).attr('id');
+			var id = $this.attr('id');
+			if (!id || delimiter[$this.attr('id')]) {
+				id = $this.attr('id', 'tags' + new Date().getTime()).attr('id');
 			}
 			
 			var data = jQuery.extend({
@@ -305,14 +315,15 @@
 				//Delete last tag on backspace
 				data.removeWithBackspace && $(data.fake_input).bind('keydown', function(event)
 				{
-					if(event.keyCode == 8 && $(this).val() == '')
+					var $this = $(this);
+					if(event.keyCode == 8 && $this.val() == '')
 					{
 						 event.preventDefault();
-						 var last_tag = $(this).closest('.tagsinput').find('.tag:last').text();
-						 var id = $(this).attr('id').replace(/_tag$/, '');
+						 var last_tag = $this.closest('.tagsinput').find('.tag:last').text();
+						 var id = $this.attr('id').replace(/_tag$/, '');
 						 last_tag = last_tag.replace(/[\s\u00a0]+x$/, '');
 						 $('#' + id).removeTag(escape(last_tag));
-						 $(this).trigger('focus');
+						 $this.trigger('focus');
 					}
 				});
 				$(data.fake_input).blur();
@@ -329,7 +340,6 @@
 		});
 			
 		return this;
-	
 	};
 	
 	$.fn.tagsInput.updateTagsField = function(obj,tagslist) { 
