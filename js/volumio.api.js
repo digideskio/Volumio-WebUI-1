@@ -210,11 +210,13 @@ var MPDFile = new Vue({
                         ], function() {
                 
             });
+            
+            gotoPlayback();
             //notify('add', song.title);
 	    },
         playSpotifyTrack: function (track) {
             sendCommand("spop-playtrackuri", track.SpopTrackUri, function(data) {
-                $("#open-playback").find("a").click();
+                gotoPlayback();
                 getPlaylist();
             });
     
@@ -233,6 +235,10 @@ var MPDFile = new Vue({
         }
 	}
 });	
+
+function gotoPlayback() {
+    $("#open-playback").find("a").click();
+}
 
 function sendCommands(commands, callback, fail) {
     $.each(commands, function(index, data) {
