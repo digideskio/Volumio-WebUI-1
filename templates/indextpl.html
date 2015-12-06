@@ -77,7 +77,7 @@
 			    </li>
 				<li v-for="dir in mpdDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
-						<i class="fa sx" v-bind:class="{'fa-microphone' : dir.directory == 'WEBRADIO', 'fa-code-fork': dir.directory == 'NAS', 'fa-usb': dir.directory == 'USB', 'fa-spinner': dir.directory == 'RAMPLAY'}"></i>
+						<i class="fa sx" v-bind:class="{'icon-root': ['WEBRADIO', 'USB', 'SPOTIFY', 'RAMPLAY', 'NAS'].indexOf(dir.directory) !== -1, 'fa-microphone' : dir.directory == 'WEBRADIO', 'fa-code-fork': dir.directory == 'NAS', 'fa-usb': dir.directory == 'USB', 'fa-spinner': dir.directory == 'RAMPLAY'}"></i>
 					</div>
 					<div class="db-action">
 						<a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu">
