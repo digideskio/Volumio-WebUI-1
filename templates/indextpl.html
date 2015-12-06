@@ -89,7 +89,7 @@
 							{{ dir.DisplayName }}
 						</template>
 						<template v-if="!dir.DisplayName">
-							{{ dir.directory.substr(dir.directory.indexOf('/') + 1, dir.directory.length - dir.directory.indexOf('/') + 1); }}
+							{{ dir.directory.substr(dir.directory.lastIndexOf('/') + 1, dir.directory.length - dir.directory.lastIndexOf('/') + 1); }}
 						</template>
 					</div>
 				</li>	
