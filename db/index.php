@@ -168,10 +168,10 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 				break;
 			default:
 				$spopCommandPos = strpos($commandName, "spop-");
-				die(var_dump($commandName));
+				
 				if($spopCommandPos != -1) 
 				{
-					$spopCommand = substr($commandName, $spopCommandPos + 1, strlen($commandName) - $spopCommandPos + 1);
+					$spopCommand = substr($commandName, 5, strlen($commandName) - 5);
 				
 					if (isset($_POST['path']) && $_POST['path'] != '') 
 					{
