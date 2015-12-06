@@ -69,10 +69,10 @@
 							{{ file.Title }}
 						</template>
 						<template v-if="!file.Title">
-							{{ file.file }}
+							{{ file.file.substr(file.file.lastIndexOf('/') + 1, file.file.length - file.file.lastIndexOf('/') + 1); }}
 						</template>
 						<em class="songtime"> {{ file.Time }}</em>
-						<span> {{ file.Artist - file.Album }}</span>
+						<span>{{ file.Artist }} - {{ file.Album }}</span>
 					</div>
 			    </li>
 				<li v-for="dir in mpdDirectories" data-path="{{ dir.directory }}">
