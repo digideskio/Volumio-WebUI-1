@@ -193,21 +193,13 @@ function parsePath(str) {
 	return songpath;
 }
 
-var MPDFile = new Vue({
+var DatabaseVol = new Vue({
 	el: '#database',
 	data: {
         isLibrary: false,
-		files: [],
-        mpdDirectories: [],
-        spotifyTracks: [],
-        spotifyDirectories: []
+		spotifyTracks: []
 	},
 	methods: {
-	    playSong: function (song) {
-            getDB('spop-stop');
-            getDB('addplay', song.file);
-            //notify('add', song.title);
-	    },
         playSpotifyTrack: function (track) {
             getDB("spop-playtrackuri", track.SpopTrackUri, null, null, function(data) {
                 $("#open-playback").find("a").click();
@@ -226,6 +218,77 @@ var MPDFile = new Vue({
         }
 	}
 });	
+
+var DirectoriesVol = new Vue({
+	el: '#directories',
+	data: {
+        isLibrary: false,
+        mpdDirectories: []
+	},
+	methods: {
+	}
+});	
+
+
+var FilesVol = new Vue({
+	el: '#files',
+	data: {
+        isLibrary: false,
+		files: []
+	},
+	methods: {
+        playSong: function (song) {
+            getDB('spop-stop');
+            getDB('addplay', song.file);
+            //notify('add', song.title);
+	    }
+	}
+});	
+
+var SpotifyDirectoriessVol = new Vue({
+	el: '#spotifyDirectories',
+	data: {
+        isLibrary: false,
+		spotifyDirectories: []
+	},
+	methods: {
+	}
+});	
+
+
+// var MPDFile = new Vue({
+// 	el: '#database',
+// 	data: {
+//         isLibrary: false,
+// 		files: [],
+//         mpdDirectories: [],
+//         spotifyTracks: [],
+//         spotifyDirectories: []
+// 	},
+// 	methods: {
+// 	    playSong: function (song) {
+//             getDB('spop-stop');
+//             getDB('addplay', song.file);
+//             //notify('add', song.title);
+// 	    },
+//         playSpotifyTrack: function (track) {
+//             getDB("spop-playtrackuri", track.SpopTrackUri, null, null, function(data) {
+//                 $("#open-playback").find("a").click();
+//                 getPlaylist();
+//             });
+    
+//             // $.each($parent.siblings(), function(index, song) {
+//             //     var songPath = song.dataset.path;
+    
+//             //     if(songPath) {
+//             //         getDB("spop-addtrackuri", songPath);
+//             //     }
+//             // });
+    
+//             //getPlaylist();
+//         }
+// 	}
+// });	
 
 function getDB(cmd, path, browsemode, uplevel, callback, fail){
 
@@ -271,11 +334,11 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 function populateDB(data, path, uplevel, keyword){
 	if (path) GUI.currentpath = path;
     
-    MPDFile.files = [];
-    MPDFile.mpdDirectories = [];
-    MPDFile.spotifyTracks = [];
-    MPDFile.spotifyDirectories = [];
-    MPDFile.isLibrary = false;
+    FilesVol.files = [];
+    DirectoriesVol.mpdDirectories = [];
+    DatabaseVol.spotifyTracks = [];
+    SpotifyDirectoriessVol.spotifyDirectories = [];
+    //MPDFile.isLibrary = false;
 	//var DBlist = $('ul.database');
 	//DBlist.html('');
 
@@ -296,20 +359,20 @@ function populateDB(data, path, uplevel, keyword){
         //$("#db-back").hide();
 
         if (library && library.isEnabled && !library.displayAsTab) {
-            MPDFile.isLibrary = true;
+            //MPDFile.isLibrary = true;
         }
     }
 
 	for (var i = 0; i < data.length; i++) {
         var dataItem = data[i];
         if (dataItem.Type == 'MpdFile') {
-            MPDFile.files.push(dataItem);
+            FilesVol.files.push(dataItem);
         } else if (dataItem.Type == 'MpdDirectory')  {
-            MPDFile.mpdDirectories.push(dataItem);            
+            DirectoriesVol.mpdDirectories.push(dataItem);            
         } else if (dataItem.Type == 'SpopTrack') {
-            MPDFile.spotifyTracks.push(dataItem);            
+            DatabaseVol.spotifyTracks.push(dataItem);            
         } else if (dataItem.Type == 'SpopDirectory') {
-            MPDFile.spotifyDirectories.push(dataItem);            
+            SpotifyDirectoriessVol.spotifyDirectories.push(dataItem);            
         }
 	}
 

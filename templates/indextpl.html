@@ -52,9 +52,8 @@
 	
 	<!-- -------------------- DATABASE PANEL -------------------- -->
 	<div id="panel-sx" class="tab-pane">
-		<div id="database">
+		<div id="files">
 			<ul class="database">
-				
 				<li v-for="file in files" data-path="{{ file.file }}">
 					<div class="db-icon db-browse" v-bind:class="{ 'db-other': file.Time === undefined, 'db-song' : file.Time !== undefined }">
 						<i class="fa fa-music sx db-browse"></i>
@@ -75,6 +74,10 @@
 						<span> {{ file.Artist - file.Album }}</span>
 					</div>
 			    </li>
+			</ul>
+		</div>
+		<div id="directories">
+			<ul class="database">
 				<li v-for="dir in mpdDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
 						<i class="fa sx" v-bind:class="{'icon-root': ['WEBRADIO', 'USB', 'SPOTIFY', 'RAMPLAY', 'NAS'].indexOf(dir.directory) !== -1, 'fa-microphone' : dir.directory == 'WEBRADIO', 'fa-code-fork': dir.directory == 'NAS', 'fa-usb': dir.directory == 'USB', 'fa-spinner': dir.directory == 'RAMPLAY'}"></i>
@@ -93,6 +96,10 @@
 						</template>
 					</div>
 				</li>	
+			</ul>
+		</div>
+		<div id="database">
+			<ul class="database">
 				<li v-for="track in spotifyTracks" data-path="{{ track.SpopTrackUri }}">
 					<!--content += '" data-artist="';
 				content += inputArr[i].Artist;
@@ -112,7 +119,11 @@
 						{{ track.Title }} <em class="songtime"> {{ track.Time }}</em>
 						<span> {{ track.Artist }} - {{ track.Album }}</span>
 					</div>
-				</li>		
+				</li>
+			</ul>
+		</div>
+		<div id="spotifyDirectories">
+			<ul class="database">	
 				<li v-for="dir in spotifyDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
 						<i class="fa sx" v-bind:class="{ 'fa-folder-open' : dir.SpopPlaylistIndex === undefined && dir.directory !== 'SPOTIFY', 'fa-list-ol': dir.SpopPlaylistIndex !== undefined, 'fa-spotify' : dir.directory == 'SPOTIFY', 'icon-root' : dir.directory == 'SPOTIFY'}"></i>
