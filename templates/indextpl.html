@@ -55,7 +55,7 @@
 		<div id="database">
 			<ul class="database">
 				
-				<li id="db-{{ $index + 1 }}" v-for="file in files" data-path="{{ file.file }}">
+				<li v-for="file in files" data-path="{{ file.file }}">
 					<div class="db-icon db-browse" v-bind:class="{ 'db-other': file.Time === undefined, 'db-song' : file.Time !== undefined }">
 						<i class="fa fa-music sx db-browse"></i>
 					</div>
@@ -75,7 +75,7 @@
 						<span> {{ file.Artist - file.Album }}</span>
 					</div>
 			    </li>
-				<li id="db-{{ $index + 1 }}" v-for="dir in mpdDirectories" data-path="{{ dir.directory }}">
+				<li v-for="dir in mpdDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
 						<i class="fa sx" v-bind:class="{'fa-microphone' : dir.directory == 'WEBRADIO', 'fa-code-fork': dir.directory == 'NAS', 'fa-usb-o': dir.directory == 'USB', 'fa-spinner': dir.directory == 'RAMPLAY'}"></i>
 					</div>
@@ -93,14 +93,14 @@
 						</span>
 					</div>
 				</li>	
-				<li id="db-{{ $index + 1 }}" v-for="track in spotifyTracks" data-path="{{ track.SpopTrackUri }}">
+				<li v-for="track in spotifyTracks" data-path="{{ track.SpopTrackUri }}">
 					<!--content += '" data-artist="';
 				content += inputArr[i].Artist;
 				content += '" data-album="';
 				content += inputArr[i].Album;
 				content += '" data-title="';
 				content += inputArr[i].Title;-->
-					<div class="db-icon db-spop db-browse">
+					<div class="db-icon db-browse">
 						<i class="fa fa-spotify sx db-browse"></i>
 					</div>
 					<div class="db-action">
@@ -108,12 +108,12 @@
 							<i class="fa fa-ellipsis-v"></i>
 						</a>
 					</div>
-					<div class="db-entry db-spop db-browse">
+					<div class="db-entry db-browse" v-on:click="playSpotifyTrack(track)">
 						{{ track.Title }} <em class="songtime"> {{ track.Time }}</em>
 						<span> {{ track.Artist }} - {{ track.Album }}</span>
 					</div>
 				</li>		
-				<li id="db-{{ $index + 1 }}" v-for="dir in spotifyDirectories" data-path="{{ dir.directory }}">
+				<li v-for="dir in spotifyDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
 						<i class="fa sx" v-bind:class="{ 'fa-folder-open' : dir.SpopPlaylistIndex === undefined && dir.directory !== 'SPOTIFY', 'fa-list-ol': dir.SpopPlaylistIndex !== undefined, [fa-spotify, icon-root] : dir.directory == 'SPOTIFY'}"></i>
 					</div>
@@ -125,12 +125,12 @@
 						</div>
 					</template>
 					<div class="db-entry db-folder db-browse">
-						<span v-if="dir.DisplayName">
+						<template v-if="dir.DisplayName">
 							{{ dir.DisplayName }}
-						</span>
-						<span v-if="!dir.DisplayName">
+						</template>
+						<template v-if="!dir.DisplayName">
 							{{ dir.directory }}
-						</span>
+						</template>
 					</div>
 				</li>
 				<li v-if="isLibrary" id="#db-plug-lib" class="db-plugin" onclick="showLibraryView()">

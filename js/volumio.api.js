@@ -205,7 +205,23 @@ var MPDFile = new Vue({
 	methods: {
 	    playSong: function (song) {
 	      //getDB("spop-goto", song.index);
-	    }
+	    },
+        playSpotifyTrack: function (track) {
+            getDB("spop-playtrackuri", track.SpopTrackUri, null, null, function(data) {
+                $("#open-playback").find("a").click();
+                getPlaylist();
+            });
+    
+            // $.each($parent.siblings(), function(index, song) {
+            //     var songPath = song.dataset.path;
+    
+            //     if(songPath) {
+            //         getDB("spop-addtrackuri", songPath);
+            //     }
+            // });
+    
+            //getPlaylist();
+        }
 	}
 });	
 
