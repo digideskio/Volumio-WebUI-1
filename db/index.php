@@ -14,7 +14,8 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 	}  
 	else 
 	{
-		switch ($_GET['cmd']) 
+		$commandName = $_GET['cmd'];
+		switch ($commandName) 
 		{
 			case 'filepath':
 				if (isset($_POST['path']) && $_POST['path'] != '') 
@@ -165,22 +166,24 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 					echo sendSpopCommand($spop, "add " . $sSpopPlaylistIndex);
 				}
 				break;
-			case 'spop-qls':
-				echo json_encode(sendSpopCommand($spop, "qls"));
-				break;
-			case 'spop-goto':
-				if (isset($_POST['path']) && $_POST['path'] != '') 
+			default:
+				$spopCommandPos = strpos($commandName, "spop-");
+				if($spopCommandPos != -1) 
 				{
-					echo json_encode(sendSpopCommand($spop, "goto " . $_POST['path']));
+					$spopCommand = substr($commandName, $spopCommandPos + 1, strlen($commandName) - $spopCommandPos + 1);
+				
+					if (isset($_POST['path']) && $_POST['path'] != '') 
+					{
+						$spopCommand .= " " . $_POST['path'];
+					}
+					
+					if (isset($_POST['p2']) && $_POST['p2'] != '') 
+					{
+						$spopCommand .= " " . $_POST['p2'];
+					}
+					
+					echo json_encode(sendSpopCommand($spop, $spopCommand));
 				}
-				break;
-			case 'spop-qrm':
-				if (isset($_POST['path']) && $_POST['path'] != '') 
-				{
-					echo json_encode(sendSpopCommand($spop, "qrm " . $_POST['path']));
-				}
-			case 'spop-stop':
-				echo json_encode(sendSpopCommand($spop, "stop"));
 				break;
 		}
 	}
