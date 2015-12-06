@@ -64,7 +64,8 @@ html, body {
 
 .playback-controls .fa-play,
 .playback-controls .fa-pause {
-	font-size: 12px;
+	font-size: 20px;
+	color: #FFF;
 }
 
 #currentartist, #currentsong, #currentalbum, #elapsed, #countdown-display {
