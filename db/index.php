@@ -182,6 +182,8 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 					{
 						$spopCommand .= " " . $_POST['p2'];
 					}
+
+					die(var_dump($spopCommand));
 					
 					echo json_encode(sendSpopCommand($spop, $spopCommand));
 				}
