@@ -250,15 +250,18 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 			$("#open-panel-sx a").click();
 		};
 	}
+    
+    var uri = "db/?cmd=" + cmd;
 
-	$.post('db/?cmd=' + cmd, data, callback, 'json').fail(function(a, b, c) {
+	$.post(uri, data, callback, 'json').fail(function(a, b, c) {
 		console.error("Error: command " + cmd + ", path: " + path);
 		console.log(a);
 		console.log(b);
 		console.log(c);
-	}).done(function(data) {
-        console.log("Got data from getDB:");
+	}).done(function(response) {
+        console.debug("Got data from getDB: " + uri + " with data:");
         console.log(data);
+        console.log(response);
     });
 }
 
