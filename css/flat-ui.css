@@ -71,9 +71,9 @@ h6 {
 
 .btn {
   border: none;
-  background: rgb(6, 31, 58);
+  background: rgb(6, 31, 58, 0.75);
   color: white;
-  font-size: 22px;
+  font-size: 18px;
   text-decoration: none;
   text-shadow: none;
   -webkit-box-shadow: none;
