@@ -217,18 +217,18 @@ var MPDFile = new Vue({
         playSpotifyTrack: function (track) {
             sendCommand("spop-playtrackuri", track.SpopTrackUri, function(data) {
                 gotoPlayback();
-                getPlaylist();
+                //getPlaylist();
             });
     
-            // $.each($parent.siblings(), function(index, song) {
-            //     var songPath = song.dataset.path;
+            $.each(this.spotifyTracks, function(index, track) {
+                var trackUri = track.SpopTrackUri;
     
-            //     if(songPath) {
-            //         sendCommand("spop-addtrackuri", { path: songPath });
-            //     }
-            // });
+                if(trackUri) {
+                    sendCommand("spop-addtrackuri", { path: trackUri });
+                }
+            });
     
-            //getPlaylist();
+            getPlaylist();
         },
         openDirectory: function (dir) {
             getDB('filepath', dir.directory, 'file', 0);
