@@ -77,7 +77,7 @@
 			    </li>
 				<li v-for="dir in mpdDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
-						<i class="fa sx" v-bind:class="{'fa-microphone' : dir.directory == 'WEBRADIO', 'fa-code-fork': dir.directory == 'NAS', 'fa-usb-o': dir.directory == 'USB', 'fa-spinner': dir.directory == 'RAMPLAY'}"></i>
+						<i class="fa sx" v-bind:class="{'fa-microphone' : dir.directory == 'WEBRADIO', 'fa-code-fork': dir.directory == 'NAS', 'fa-usb': dir.directory == 'USB', 'fa-spinner': dir.directory == 'RAMPLAY'}"></i>
 					</div>
 					<div class="db-action">
 						<a href="#notarget" title="Actions" data-toggle="context" data-target="#context-menu">
@@ -85,12 +85,12 @@
 						</a>
 					</div>
 					<div class="db-entry db-folder db-browse">
-						<span v-if="dir.DisplayName">
+						<template v-if="dir.DisplayName">
 							{{ dir.DisplayName }}
-						</span>
-						<span v-if="!dir.DisplayName">
+						</template>
+						<template v-if="!dir.DisplayName">
 							{{ dir.directory }}
-						</span>
+						</template>
 					</div>
 				</li>	
 				<li v-for="track in spotifyTracks" data-path="{{ track.SpopTrackUri }}">
@@ -115,7 +115,7 @@
 				</li>		
 				<li v-for="dir in spotifyDirectories" data-path="{{ dir.directory }}">
 					<div class="db-icon db-folder db-browse">
-						<i class="fa sx" v-bind:class="{ 'fa-folder-open' : dir.SpopPlaylistIndex === undefined && dir.directory !== 'SPOTIFY', 'fa-list-ol': dir.SpopPlaylistIndex !== undefined, 'fa-spotify' : dir.directory == 'SPOTIFY'}"></i>
+						<i class="fa sx" v-bind:class="{ 'fa-folder-open' : dir.SpopPlaylistIndex === undefined && dir.directory !== 'SPOTIFY', 'fa-list-ol': dir.SpopPlaylistIndex !== undefined, 'fa-spotify' : dir.directory == 'SPOTIFY', 'icon-root' : dir.directory == 'SPOTIFY'}"></i>
 					</div>
 					<template v-if="dir.SpopPlaylistIndex !== undefined">
 						<div class="db-action">
