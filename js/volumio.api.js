@@ -219,7 +219,7 @@ var MPDFile = new Vue({
 	    },
         playSpotifyTrack: function (track) {
             sendCommand("spop-playtrackuri", track.SpopTrackUri, function(data) {
-                gotoPlayback();
+                gotoPlayback(track);
                 //getPlaylist();
             });
     
@@ -239,8 +239,16 @@ var MPDFile = new Vue({
 	}
 });	
 
-function gotoPlayback() {
+function gotoPlayback(track) {
     $("#open-playback").find("a").click();
+    
+    if (track) {
+        sendCommand("uimage", { path: track.SpopTrackUri }, function(data) {
+            console.log("Image=");
+            console.log(data);
+            //$("#playback").css("background-image", data);
+        });
+    }
 }
 
 function sendCommands(commands, callback, fail) {
