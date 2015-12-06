@@ -252,15 +252,16 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 	}
     
     var uri = "db/?cmd=" + cmd;
-
+    
+    var err = new Error();
+    console.error(err.stack)
 	$.post(uri, data, callback, 'json').fail(function(a, b, c) {
 		console.error("Error: command " + cmd + ", path: " + path);
 		console.log(a);
 		console.log(b);
 		console.log(c);
 	}).done(function(response) {
-        var err = new Error();
-        console.log(err.stack);
+        
         console.debug("Got data from getDB: " + uri + " with data:");
         console.log(data);
         console.log(response);
