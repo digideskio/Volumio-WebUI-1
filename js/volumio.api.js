@@ -243,7 +243,7 @@ function gotoPlayback(track) {
     $("#open-playback").find("a").click();
     
     if (track) {
-        sendCommand("uimage", { path: track.SpopTrackUri }, function(data) {
+        sendCommand("spop-uimage", { path: track.SpopTrackUri }, function(data) {
             console.log("Image=");
             console.log(data);
             //$("#playback").css("background-image", data);
