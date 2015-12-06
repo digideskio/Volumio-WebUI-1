@@ -1,108 +1,91 @@
-<?php
-/*
- *      PlayerUI Copyright (C) 2013 Andrea Coiutti & Simone De Gregori
- *		 Tsunamp Team
- *      http://www.tsunamp.com
- *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with TsunAMP; see the file COPYING.  If not, see
- *  <http://www.gnu.org/licenses/>.
- *
- *
- *	UI-design/JS code by: 	Andrea Coiutti (aka ACX)
- * PHP/JS code by:			Simone De Gregori (aka Orion)
- * 
- * file:							player_lib.php
- * version:						1.1
- *
- */
- 
+<?php 
 // Predefined daemon Response messages
 define("MPD_RESPONSE_ERR", "ACK");
 define("MPD_RESPONSE_OK",  "OK");
 
 // Spotify daemon communication functions
-function openSpopSocket($host, $portSpop) {
+function openSpopSocket($host, $portSpop) 
+{
 	$sock = stream_socket_client('tcp://'.$host.':'.$portSpop.'', $errorno, $errorstr, 30 );
 
-	if ($sock) {
+	if ($sock) 
+	{
 		// First response is typically "spop [version]"
 		$response = fgets($sock);
-
 	}
 
 	return $sock;
 }
 
-function closeSpopSocket($sock) {
+function closeSpopSocket($sock) 
+{
 	sendSpopCommand($sock,"bye");
 	fclose($sock);
-
 }
 
-function sendSpopCommand($sock, $cmd) {
-	if ($sock) {
+function sendSpopCommand($sock, $cmd) 
+{
+	if ($sock) 
+	{
 		$cmd = $cmd."\n";
 		fputs($sock, $cmd);
 
-		while(!feof($sock)) {
+		while(!feof($sock))
+		{
 			// fgets() may time out during the wait for response from commands like 'idle'.
 			// This loop will keep reading until a response is received, or until the socket closes.
 			$output = fgets($sock);
 
-			if ($output) {
+			if ($output) 
+			{
 				break;
-
 			}
-
 		}
 
 		return _parseSpopResponse($output);
-
 	}
-
 }
 
 // v2
-function openMpdSocket($host, $port) {
-$sock = stream_socket_client('tcp://'.$host.':'.$port.'', $errorno, $errorstr, 30 );
-$response = readMpdResponse($sock);
-	if ($response = '') {
-	sysCmd('command/shell.sh '.$response);
-	exit;
-	} else {
+function openMpdSocket($host, $port) 
+{
+	$sock = stream_socket_client('tcp://'.$host.':'.$port.'', $errorno, $errorstr, 30 );
+	$response = readMpdResponse($sock);
+	
+	if ($response = '') 
+	{
+		sysCmd('command/shell.sh '.$response);
+		exit;
+	}
+	
 	return $sock;
-	}
-} //end openMpdSocket()
+}
 
-function closeMpdSocket($sock) {
-sendMpdCommand($sock,"close");
-fclose($sock);
+function closeMpdSocket($sock) 
+{
+	sendMpdCommand($sock,"close");
+	fclose($sock);
 }
 
 // v2
-function sendMpdCommand($sock,$cmd) {
-	if ($cmd == 'cmediafix') {
+function sendMpdCommand($sock,$cmd) 
+{
+	if ($cmd == 'cmediafix') 
+	{
 		$cmd = "pause\npause\n";
 		fputs($sock, $cmd);
-	} else {
+	} 
+	else 
+	{
 		$cmd = $cmd."\n";
 		fputs($sock, $cmd);	
 	}
 }
 
-function chainMpdCommands($sock, $commands) {
-	foreach ($commands as $command) {
+function chainMpdCommands($sock, $commands) 
+{
+	foreach ($commands as $command) 
+	{
 		fputs($sock, $command."\n");
 		fflush($sock);
 		// MPD seems to be disoriented when it receives several commands chained. Need to sleep a little bit
@@ -112,103 +95,139 @@ function chainMpdCommands($sock, $commands) {
 }
 
 // v3
-function readMpdResponse($sock) {
-$output = "";
-			while(!feof($sock)) {
-				$response =  fgets($sock,1024);
-				$output .= $response;
-					if (strncmp(MPD_RESPONSE_OK,$response,strlen(MPD_RESPONSE_OK)) == 0) {
-					break;
-					}
-					if (strncmp(MPD_RESPONSE_ERR,$response,strlen(MPD_RESPONSE_ERR)) == 0) {
-					$output = "MPD error: $response";
-					break;
-					}
-			}
-return $output;
+function readMpdResponse($sock) 
+{
+	$output = "";
+	while (!feof($sock)) 
+	{
+		$response =  fgets($sock, 1024);
+		$output .= $response;
+		
+		if (strncmp(MPD_RESPONSE_OK, $response, strlen(MPD_RESPONSE_OK)) == 0) 
+		{
+			break;
+		}
+		
+		if (strncmp(MPD_RESPONSE_ERR, $response, strlen(MPD_RESPONSE_ERR)) == 0) 
+		{
+			$output = "MPD error: $response";
+			break;
+		}
+	}
+	
+	return $output;
 }
 
-function loadAllLib($sock) {
+function loadAllLib($sock)
+ {
 	$flat = _loadDirForLib($sock, array(), "");
 	return json_encode(_organizeJsonLib($flat));
 }
 
-function _loadDirForLib($sock, $flat, $dir) {
+function _loadDirForLib($sock, $flat, $dir) 
+{
 	sendMpdCommand($sock, "lsinfo \"".html_entity_decode($dir)."\"");
 	$resp = readMpdResponse($sock);
 
-	if (!is_null($resp)) {
+	if (!is_null($resp)) 
+	{
 		$lines = explode("\n", $resp);
 		$iItem = 0;
 		$skip = true;
-		for ($iLine = 0; $iLine < count($lines); $iLine++) {
+		for ($iLine = 0; $iLine < count($lines); $iLine++) 
+		{
 			list($element, $value) = explode(": ", $lines[$iLine], 2);
-			if ($element == "file") {
+			if ($element == "file") 
+			{
 				$skip = false;
 				$iItem = count($flat);
-			} else if ($element == "directory") {
+			} 
+			else if ($element == "directory") 
+			{
 				$flat = _loadDirForLib($sock, $flat, $value);
 				$skip = true;
-			} else if ($element == "playlist") {
+			} 
+			else if ($element == "playlist") 
+			{
 				$skip = true;
 			}
-			if (!$skip) {
+			
+			if (!$skip) 
+			{
 				$flat[$iItem][$element] = $value;
 			}
 		} 
 	}
+	
 	return $flat;
 }
 
-function _organizeJsonLib($flat) {
+function _organizeJsonLib($flat) 
+{
 	// Build json like "{Genre1: {Artist1: {Album1: [{song1}, {song2}], Album2:...}, Artist2:...}, Genre2:...}
 	$lib = array();
-	foreach ($flat as $songData) {
+	foreach ($flat as $songData) 
+	{
 		$genre = $songData["Genre"] ? $songData["Genre"] : "Unknown";
 		$artist = $songData["AlbumArtist"] ? $songData["AlbumArtist"] : ($songData["Artist"] ? $songData["Artist"] : "Unknown");
 		$album = $songData["Album"] ? $songData["Album"] : "Unknown";
 
-		if (!$lib[$genre]) {
+		if (!$lib[$genre]) 
+		{
 			$lib[$genre] = array();
 		}
-		if (!$lib[$genre][$artist]) {
+		
+		if (!$lib[$genre][$artist]) 
+		{
 			$lib[$genre][$artist] = array();
 		}
-                if (!$lib[$genre][$artist][$album]) {
-                        $lib[$genre][$artist][$album] = array();
-                }
+		
+		if (!$lib[$genre][$artist][$album]) 
+		{
+			$lib[$genre][$artist][$album] = array();
+		}
+		
 		$songDataLight = array(	"file" => $songData['file'],
 					"display" => ($songData['Track'] ? $songData['Track']." - " : "")
 						.$songData['Title']);
+						
 		array_push($lib[$genre][$artist][$album], $songDataLight);
 	}
+	
 	return $lib;
 }
 
-function playAll($sock, $json) {
-	if (count($json) > 0) {
+function playAll($sock, $json) 
+{
+	if (count($json) > 0) 
+	{
 		// Clear, add first file and play
-	        $commands = array();
+	    $commands = array();
 		array_push($commands, "clear");
 		array_push($commands, "add \"".html_entity_decode($json[0]['file'])."\"");
 		array_push($commands, "play");
-	        chainMpdCommands($sock, $commands);
+	    chainMpdCommands($sock, $commands);
 
 		// Then add remaining
 		$commands = array();
-		for ($i = 1; $i < count($json); $i++) {
-	                array_push($commands, "add \"".html_entity_decode($json[$i]['file'])."\"");
-	        }
-	        chainMpdCommands($sock, $commands);
+		for ($i = 1; $i < count($json); $i++) 
+		{
+			array_push($commands, "add \"".html_entity_decode($json[$i]['file'])."\"");
+		}
+		
+		chainMpdCommands($sock, $commands);
 	}
 }
 
-function enqueueAll($sock, $json) {
+function enqueueAll($sock, $json) 
+{
 	$commands = array();
-        foreach ($json as $song) {
-                $path = $song["file"];
+    foreach ($json as $song) 
+	{
+		$path = $song["file"];
 		array_push($commands, "add \"".html_entity_decode($path)."\"");
-        }
+    }
+	
 	chainMpdCommands($sock, $commands);
 }
 
@@ -392,7 +411,7 @@ function searchDB($sock,$querytype,$query) {
 	//$response =  htmlentities(readMpdResponse($sock),ENT_XML1,'UTF-8');
 	//$response = htmlspecialchars(readMpdResponse($sock));
 	$response = readMpdResponse($sock);
-	die(var_dump($response));
+	
 	return _parseFileListResponse($response);
 }
 
