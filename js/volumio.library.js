@@ -73,10 +73,11 @@ function disableLibrary() {
 
 // Update CSS of panels tabs according to what is displayed and what isn't
 function updatePanelsTabs() {
-    var visiblePanels = $("#menu-bottom li:visible");
-    if (visiblePanels.length > 0) {
-        var $menuBottom = $("#menu-bottom");
-        var panelWidth = Math.round(100000 / visiblePanels.length) / 1000;
+    var $menuBottom = $("#menu-bottom");
+    var $visiblePanels = $menuBottom.find("li:visible");
+    console.log($visiblePanels.length);
+    if ($visiblePanels.length > 0) {
+        var panelWidth = Math.round(100000 / $visiblePanels.length) / 1000;
         var $menuLinks = $menuBottom.find("a");
         $menuLinks.width(panelWidth + "%");
         var $menuVisibleLinks = $menuBottom.find("a:visible");

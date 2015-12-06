@@ -293,10 +293,6 @@ a.back-btn {
 
 /* Playback panel
 -------------------------------------------------------------- */
-
-#playback {
-	padding: 50px 0;
-}
 #timeknob, #timeflow {
 	background-color: #0A0A0A;
 }
