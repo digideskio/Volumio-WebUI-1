@@ -19,6 +19,7 @@
 	var delimiter = new Array();
 	var tags_callbacks = new Array();
 	$.fn.doAutosize = function(o){
+		console.log("do autosize");
 	    var input = $(this),
 			minWidth = input.data('minwidth'),
 	        maxWidth = input.data('maxwidth'),
@@ -201,6 +202,7 @@
 		},options);
 
 		this.each(function() { 
+			console.log("do autosize");
 			var $this = $(this);
 			
 			if (settings.hide) { 
