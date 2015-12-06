@@ -79,7 +79,7 @@ function updatePanelsTabs() {
         var panelWidth = Math.round(100000 / $visiblePanels.length) / 1000;
         console.log(panelWidth);
         var $menuLinks = $menuBottom.find("a");
-        $menuLinks.width(panelWidth + "%");
+        $menuLinks.css("width", panelWidth + "% !important;");
         var $menuVisibleLinks = $menuBottom.find("a:visible");
         $menuVisibleLinks.filter(":odd").addClass("odd");
         $menuVisibleLinks.filter(":even").removeClass("odd");

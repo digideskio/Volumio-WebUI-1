@@ -409,7 +409,7 @@ jQuery(document).ready(function($){ 'use strict';
     // do not scroll with HTML5 history API
     $('#menu-bottom a').on('shown', function (e) {
         if(history.pushState) {
-            history.pushState(null, null, e.target.hash);
+            //history.pushState(null, null, e.target.hash);
         } else {
             window.location.hash = e.target.hash; //Polyfill for old browsers
         }
