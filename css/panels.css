@@ -16,6 +16,10 @@ html, body {
 #container {
 	height: 100%;
 }
+
+#main-container {
+	margin: 40px 0;
+}
 .container {
 	padding: 20px 0;
 }
@@ -55,7 +59,6 @@ html, body {
 
 .playback-controls {
 	text-align: center;
-	margin: 20px 0;
 }
 
 .playback-controls .btn {

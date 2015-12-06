@@ -125,6 +125,7 @@ if(isset($_POST['radio-name']) && isset($_POST['radio-url'])) {
 <script src="js/icon-font-ie7-24.js"></script>
 <![endif]-->
 
+</div>
 <?php
 // write backend response on UI Notify popup
 if (isset($_SESSION['notify']) && $_SESSION['notify'] != '') {
