@@ -10,6 +10,7 @@ jQuery(document).ready(function($){ 'use strict';
     updateGUI(GUI.MpdState);
     getDB('filepath', GUI.currentpath, 'file');
     $.pnotify.defaults.history = false;
+    getPlaylist();
 
     // hide "connecting" layer
     if (GUI.state != 'disconnected') {
