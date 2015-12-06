@@ -67,7 +67,8 @@ html, body {
 	font-size: 20px;
 }
 
-.playback-controls .fa {
+.playback-controls .fa, 
+.playback-controls .btn {
 	background: inherit;
 	color: #FFF;
 	border: 0;
