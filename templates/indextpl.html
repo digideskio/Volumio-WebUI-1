@@ -63,7 +63,7 @@
 							<i class="fa fa-ellipsis-v"></i>
 						</a>
 					</div>
-					<div class="db-entry db-browse" v-bind:class="{ 'db-other': file.Time === undefined, 'db-song' : file.Time !== undefined }" v-bind:click="playSong(file)">
+					<div class="db-entry db-browse" v-bind:class="{ 'db-other': file.Time === undefined, 'db-song' : file.Time !== undefined }" v-on:click="playSong(file)">
 						<template v-if="file.Title">
 							{{ file.Title }}
 						</template>
@@ -87,7 +87,7 @@
 							<i class="fa fa-ellipsis-v"></i>
 						</a>
 					</div>
-					<div class="db-entry db-folder db-browse" v-bind:click="openDirectory(dir)">
+					<div class="db-entry db-folder db-browse" v-on:click="openDirectory(dir)">
 						<template v-if="dir.DisplayName">
 							{{ dir.DisplayName }}
 						</template>
@@ -135,7 +135,7 @@
 							</a>
 						</div>
 					</template>
-					<div class="db-entry db-folder db-browse" v-bind:click="openDirectory(dir)">
+					<div class="db-entry db-folder db-browse" v-on:click="openDirectory(dir)">
 						<template v-if="dir.DisplayName">
 							{{ dir.DisplayName }}
 						</template>

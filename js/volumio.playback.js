@@ -297,53 +297,53 @@ jQuery(document).ready(function($){ 'use strict';
     var $database = $("#database").find(".database");
 
     // click on database entry
-    $database.on('click', '.db-spop', function() {
-        var $this = $(this);
-        var $parent = $this.parent();
-        toggleActive($this, $parent);
-        var path = $parent.data('path');
-        getDB("spop-playtrackuri", path, null, null, function(data) {
-            $("#open-playback").find("a").click();
-            getPlaylist();
-        });
+    // $database.on('click', '.db-spop', function() {
+    //     var $this = $(this);
+    //     var $parent = $this.parent();
+    //     toggleActive($this, $parent);
+    //     var path = $parent.data('path');
+    //     getDB("spop-playtrackuri", path, null, null, function(data) {
+    //         $("#open-playback").find("a").click();
+    //         getPlaylist();
+    //     });
 
-        $.each($parent.siblings(), function(index, song) {
-            var songPath = song.dataset.path;
+    //     $.each($parent.siblings(), function(index, song) {
+    //         var songPath = song.dataset.path;
 
-            if(songPath) {
-                getDB("spop-addtrackuri", songPath);
-            }
-        });
+    //         if(songPath) {
+    //             getDB("spop-addtrackuri", songPath);
+    //         }
+    //     });
 
-        getPlaylist();
-        //notify('add', path);
-    });
+    //     getPlaylist();
+    //     //notify('add', path);
+    // });
 
-    $database.on('click', '.db-browse', function() {
-        var $this = $(this);
-        var $parent = $this.parent();
-        toggleActive($this, $parent);
-        if (!$this.hasClass('sx')) {
-            if ($this.hasClass('db-folder')) {
-                var path = $parent.data('path');
-                var entryID = $parent.attr('id');
-                // entryID = entryID.replace('db-','');
-                // GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
-                // ++GUI.currentDBpos[10];
-                getDB('filepath', path, 'file', 0);
-            }
-        }
-    });
+    // $database.on('click', '.db-browse', function() {
+    //     var $this = $(this);
+    //     var $parent = $this.parent();
+    //     toggleActive($this, $parent);
+    //     if (!$this.hasClass('sx')) {
+    //         if ($this.hasClass('db-folder')) {
+    //             var path = $parent.data('path');
+    //             var entryID = $parent.attr('id');
+    //             // entryID = entryID.replace('db-','');
+    //             // GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
+    //             // ++GUI.currentDBpos[10];
+    //             getDB('filepath', path, 'file', 0);
+    //         }
+    //     }
+    // });
 
     // click on ADD button
-    $database.on('click', '.db-action', function() {
-        var $song = $(this).parent();
+    // $database.on('click', '.db-action', function() {
+    //     var $song = $(this).parent();
 
-        GUI.DBentry[0] = $song.attr('data-path');
-        GUI.DBentry[3] = $song.attr('data-title');
-        GUI.DBentry[4] = $song.attr('data-artist');
-        GUI.DBentry[5] = $song.attr('data-album');
-    });
+    //     GUI.DBentry[0] = $song.attr('data-path');
+    //     GUI.DBentry[3] = $song.attr('data-title');
+    //     GUI.DBentry[4] = $song.attr('data-artist');
+    //     GUI.DBentry[5] = $song.attr('data-album');
+    // });
 
     // click search results in DB
     $database.on('click', '.search-results', function() {
