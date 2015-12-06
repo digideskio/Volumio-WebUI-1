@@ -375,18 +375,17 @@ function updateGUI(objectInputState){
 	var $elapsed = $("#elapsed");
 	var $total = $('#total');
 	var $playlistItem = $("#playlist").find('.playlist li');
-	var $playI = $("#play").find("i");
+	var $playI = $("#play").find("i").eq(1);
 
     // check MPD status
     if (objectInputState['state'] == 'play') {
-        $playI.removeClass('fa fa-play').addClass('fa fa-pause');
+        $playI.removeClass('fa-play').addClass('fa-pause');
 
     } else if (objectInputState['state'] == 'pause') {
-        //$('#playlist-position').html('Not playing');
-        $playI.removeClass('fa fa-pause').addClass('fa fa-play');
+        $playI.removeClass('fa-pause').addClass('fa-play');
 
     } else if (objectInputState['state'] == 'stop') {
-        $playI.removeClass('fa fa-pause').addClass('fa fa-play');
+        $playI.removeClass('fa-pause').addClass('fa-play');
         $('#countdown-display').countdown('destroy');
         $elapsed.html('00:00');
         $total.html('');
