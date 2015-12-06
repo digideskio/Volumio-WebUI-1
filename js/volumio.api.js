@@ -250,11 +250,13 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 		console.log(a);
 		console.log(b);
 		console.log(c);
-	});
+	}).done(function(data) {
+        console.log("Got data from getDB:");
+        console.log(data);
+    });
 }
 
 function populateDB(data, path, uplevel, keyword){
-	console.log(data);
 	if (path) GUI.currentpath = path;
     
     MPDFile.files = [];

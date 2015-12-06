@@ -392,6 +392,7 @@ function searchDB($sock,$querytype,$query) {
 	//$response =  htmlentities(readMpdResponse($sock),ENT_XML1,'UTF-8');
 	//$response = htmlspecialchars(readMpdResponse($sock));
 	$response = readMpdResponse($sock);
+	die(var_dump($response));
 	return _parseFileListResponse($response);
 }
 
@@ -610,7 +611,6 @@ function _parseFileListResponse($resp) {
 				$plistArray[$plCounter]["file"] = $plistFile;
 				$plistArray[$plCounter]["fileext"] = parseFileStr($plistFile,'.');
 				$plistArray[$plCounter]["Type"] = "MpdFile";
-
 			} else if ( $element == "directory") {
 				$dirCounter++;
 				$dirArray[$dirCounter]["directory"] = $value;
