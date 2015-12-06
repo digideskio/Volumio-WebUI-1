@@ -87,7 +87,7 @@
 							<i class="fa fa-ellipsis-v"></i>
 						</a>
 					</div>
-					<div class="db-entry db-folder db-browse">
+					<div class="db-entry db-folder db-browse" v-bind:click="openDirectory(dir)">
 						<template v-if="dir.DisplayName">
 							{{ dir.DisplayName }}
 						</template>
@@ -135,7 +135,7 @@
 							</a>
 						</div>
 					</template>
-					<div class="db-entry db-folder db-browse">
+					<div class="db-entry db-folder db-browse" v-bind:click="openDirectory(dir)">
 						<template v-if="dir.DisplayName">
 							{{ dir.DisplayName }}
 						</template>

@@ -226,6 +226,9 @@ var DirectoriesVol = new Vue({
         mpdDirectories: []
 	},
 	methods: {
+        openDirectory: function (dir) {
+            getDB('filepath', dir.directory, 'file', 0);
+        }
 	}
 });	
 
