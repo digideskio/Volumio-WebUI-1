@@ -65,7 +65,12 @@ html, body {
 .playback-controls .fa-play,
 .playback-controls .fa-pause {
 	font-size: 20px;
+}
+
+.playback-controls .fa {
+	background: inherit;
 	color: #FFF;
+	border: 0;
 }
 
 #currentartist, #currentsong, #currentalbum, #elapsed, #countdown-display {
