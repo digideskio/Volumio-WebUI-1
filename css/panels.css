@@ -69,7 +69,7 @@ html, body {
 #currentsong {
 	font-size: 30px;
 	font-weight: bold;
-	color: #00793F;
+	color: #007F0B;
 }
 #playlist-position {
 	color: #8FA7BF;
@@ -219,7 +219,7 @@ html, body {
 #menu-top .dropdown-menu > li.active > a,
 #context-menus .dropdown-menu > li > a:hover,
 #context-menus .dropdown-menu > li.active > a {
-	background: #00793F;
+	background: #007F0B;
 }
 #menu-top a, #context-menus .dropdown-menu a {
 	font-size: 20px;
@@ -267,7 +267,7 @@ a.back-btn {
 	padding: 0;
 }
 #menu-bottom li.active a {
-	background: #00793F;
+	background: #007F0B;
 }
 #menu-bottom a {
 	display: block;
@@ -358,7 +358,7 @@ a.btn-cmd {
 }
 .playlist .active, .database .active { /* era: .playlist li.active, .database li.active */
 	color: #fff;
-	background: #00793F;
+	background: #007F0B;
 }
 .playlist .active span, .database .active span { /* era: .playlist li.active span, .database li.active span */
 	color: #E0E0E0;
@@ -378,7 +378,7 @@ a.btn-cmd {
 	height: 19px;
 	line-height: 40px;
 	padding: 15px 0 5px 10px;
-	color: #00793F;
+	color: #007F0B;
 }
 .songtime {
 	padding-left: 10px;
@@ -411,7 +411,7 @@ a.btn-cmd {
 }
 .keyword {
 	font-weight: bold;
-	color: #00793F;
+	color: #007F0B;
 }
 #pl-filter-results {
 	margin: 0 30px 0 10px;
@@ -486,7 +486,7 @@ a.btn-cmd {
 #db-browse .dropdown-menu > li > a:hover,
 #db-browse .dropdown-menu > li > a:focus,
 #db-browse .dropdown-menu > li.active > a {
-	background: #00793F;
+	background: #007F0B;
 }
 .btnlist a {
 	font-size: 16px;
@@ -683,7 +683,7 @@ ul.parsley-error-list li {
 -------------------------------------------------------------- */
 
 .ui-pnotify .alert {
-	background: #00793F;
+	background: #007F0B;
 	border: 0;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
@@ -716,7 +716,7 @@ ul.parsley-error-list li {
 	margin: 0;
 	padding: 0;
 	background: transparent;
-	color: #00793F;
+	color: #007F0B;
     text-decoration: underline;
 }
 .btn-link:hover, .btn-link:focus {
@@ -984,7 +984,7 @@ body { background: #cf0; } */
 }
 
 #lib-content li div.active {
-    background-color: #00793F;
+    background-color: #007F0B;
 }
 
 #lib-content span {
@@ -1082,7 +1082,7 @@ body { background: #cf0; } */
 
 
 .db-plugin li.active a {
-	background: #00793F;
+	background: #007F0B;
 }
 .db-plugin a {
 	text-decoration: none;
@@ -1099,7 +1099,7 @@ body { background: #cf0; } */
 }
 
 #lib-tabs li.active a {
-	background: #00793F;
+	background: #007F0B;
 }
 #lib-tabs a {
 	background: #7A848E;
