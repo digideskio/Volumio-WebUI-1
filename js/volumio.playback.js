@@ -347,7 +347,7 @@ jQuery(document).ready(function($){ 'use strict';
 
     // click search results in DB
     $database.on('click', '.search-results', function() {
-        getDB('filepath', GUI.currentpath);
+        sendCommand('filepath', GUI.currentpath);
     });
 
     $('.context-menu a').click(function(){
@@ -363,7 +363,7 @@ jQuery(document).ready(function($){ 'use strict';
                              'spop-addplaylistindex', 'spop-stop']
 
         if (validCommands.indexOf($this.data('cmd')) !== -1) {
-            getDB($this.data('cmd'), path);
+            sendCommand($this.data('cmd'), path);
             notify($this.data('cmd'), path);
         }
 

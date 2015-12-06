@@ -515,7 +515,7 @@ jQuery(document).ready(function($) {
         if (library.containerSongs) {
             pos += library.containerSongs.getOffset();
         }
-        getDB('addreplaceplay', library.allSongs[pos].file);
+        sendCommand('addreplaceplay', { path: library.allSongs[pos].file });
         notify('addreplaceplay', library.allSongs[pos].display);
     });
 
@@ -525,7 +525,7 @@ jQuery(document).ready(function($) {
         if (library.containerSongs) {
             pos += library.containerSongs.getOffset();
         }
-        getDB('add', library.allSongs[pos].file);
+        sendCommand('add', { path: library.allSongs[pos].file });
         notify('add', library.allSongs[pos].display);
     });
 
@@ -536,12 +536,12 @@ jQuery(document).ready(function($) {
 
     //click on PLAY ALL
     $('.lib-playall').click(function(e) {
-        getDB('playall', library.allSongs);
+        sendCommand('playall', { path: library.allSongs });
     });
 
     //click on ADD ALL
     $('.lib-addall').click(function(e) {
-        getDB('addall', library.allSongs);
+        sendCommand('addall', { path: library.allSongs });
     });
 
     // Resize event

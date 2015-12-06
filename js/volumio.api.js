@@ -22,10 +22,10 @@ var Playlist = new Vue({
 	},
 	methods: {
 	    playSong: function (song) {
-	      getDB("spop-goto", song.index);
+	      sendCommand("spop-goto", { "path": song.index });
 	    },
 	    removeSong: function (song) {
-	    	getDB("spop-qrm", song.index, null, null, function(data) {
+	    	sendCommand("spop-qrm", { "path": song.index }, function(data) {
 	    		console.log(data);
 	    		getPlaylist();
 	    	});
@@ -204,12 +204,16 @@ var MPDFile = new Vue({
 	},
 	methods: {
 	    playSong: function (song) {
-            getDB('spop-stop');
-            getDB('addplay', song.file);
+            sendCommands([
+                        { name: 'spop-stop' }, 
+                        { name: 'addplay', data: { path: song.file }}
+                        ], function() {
+                
+            });
             //notify('add', song.title);
 	    },
         playSpotifyTrack: function (track) {
-            getDB("spop-playtrackuri", track.SpopTrackUri, null, null, function(data) {
+            sendCommand("spop-playtrackuri", track.SpopTrackUri, function(data) {
                 $("#open-playback").find("a").click();
                 getPlaylist();
             });
@@ -218,7 +222,7 @@ var MPDFile = new Vue({
             //     var songPath = song.dataset.path;
     
             //     if(songPath) {
-            //         getDB("spop-addtrackuri", songPath);
+            //         sendCommand("spop-addtrackuri", { path: songPath });
             //     }
             // });
     
@@ -230,12 +234,30 @@ var MPDFile = new Vue({
 	}
 });	
 
-function getDB(cmd, path, browsemode, uplevel, callback, fail){
+function sendCommands(commands, callback, fail) {
+    $.each(commands, function(index, data) {
+        sendCommand(data.name, data.data);
+    });
+}
 
-	var data = {};
+function sendCommand(command, data, callback, fail) {
+    if(data) {
+        if(typeof data !== "object") {
+            data = { path: data };
+        }
+    }
     
-    if(path) {
-        data = { "path" : path };
+    getDB(command, data, null, null, callback, fail);
+}
+
+function getDB(cmd, commandData, browsemode, uplevel, callback, fail){
+    
+    var path = commandData;
+    
+    if(commandData) {
+        if(typeof commandData !== "object") {
+            commandData = { path: commandData };
+        }
     }
     
 	if (cmd == 'filepath') {
@@ -246,7 +268,7 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 
 	if (cmd == 'search') {
 		var keyword = $('#db-search-keyword').val();
-		data = { 'query': keyword };
+		commandData = { 'query': keyword };
 		cmd = "search&querytype=" + browsemode;
 		callback = function(data) {
 			populateDB(data, path, uplevel, keyword);
@@ -256,9 +278,7 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
     
     var uri = "db/?cmd=" + cmd;
     
-    var err = new Error();
-    console.error(err.stack)
-	$.post(uri, data, callback, 'json').fail(function(a, b, c) {
+	$.post(uri, commandData, callback, 'json').fail(function(a, b, c) {
 		console.error("Error: command " + cmd + ", path: " + path);
 		console.log(a);
 		console.log(b);
@@ -266,7 +286,7 @@ function getDB(cmd, path, browsemode, uplevel, callback, fail){
 	}).done(function(response) {
         
         console.debug("Got data from getDB: " + uri + " with data:");
-        console.log(data);
+        console.log(commandData);
         console.log(response);
     });
 }
