@@ -245,6 +245,7 @@ function gotoPlayback(track) {
     if (track) {
         sendCommand("spop-uimage", { path: track.SpopTrackUri }, function(data) {
             console.log("Image=");
+            $("#playback").append('<img src="data:image/png;base64,' + data.data + '">');
             console.log(data.data);
             //$("#playback").css("background-image", data);
         });
