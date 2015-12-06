@@ -554,6 +554,7 @@ a.btn-cmd {
 }
 
 #webradio-add {
+	display: none;
     margin: 0px 0 0px 0px;
     float: right;
 }
