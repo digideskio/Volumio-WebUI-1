@@ -247,8 +247,7 @@ function gotoPlayback(track) {
             console.log("Image=");
             //$("#playback").append('<img src="data:image/png;base64,' + data.data + '">');
             console.log(data.data);
-            $("#playback").css("background", "url(data:image/gif;base64," + data.data + ") no-repeat center center fixed")
-                          .css("background-size", "cover");
+            $("#playback").css("background", "url(data:image/gif;base64," + data.data + ") no-repeat 50% 30% fixed");
         });
     }
 }
