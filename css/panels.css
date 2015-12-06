@@ -62,6 +62,11 @@ html, body {
 	width: 60px;
 }
 
+.playback-controls .fa-play,
+.playback-controls .fa-pause {
+	font-size: 12px;
+}
+
 #currentartist, #currentsong, #currentalbum, #elapsed, #countdown-display {
 	display: block;
 }
