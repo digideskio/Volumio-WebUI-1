@@ -327,9 +327,9 @@ jQuery(document).ready(function($){ 'use strict';
             if ($this.hasClass('db-folder')) {
                 var path = $parent.data('path');
                 var entryID = $parent.attr('id');
-                entryID = entryID.replace('db-','');
-                GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
-                ++GUI.currentDBpos[10];
+                // entryID = entryID.replace('db-','');
+                // GUI.currentDBpos[GUI.currentDBpos[10]] = entryID;
+                // ++GUI.currentDBpos[10];
                 getDB('filepath', path, 'file', 0);
             }
         }
