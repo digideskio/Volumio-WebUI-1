@@ -276,6 +276,7 @@ jQuery(document).ready(function($){ 'use strict';
     $('#open-panel-dx a').click(function(){
         var current = parseInt(GUI.MpdState['song']);
         customScroll('pl', current, 200); // runs when tab ready!
+        getPlaylist();
     });
 
     // DATABASE
