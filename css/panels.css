@@ -47,6 +47,9 @@ html, body {
 
 /* App
 -------------------------------------------------------------- */
+#playback-info {
+	background: rgba(0,0,0,0.2);
+}
 
 .playback-controls {
 	text-align: center;
