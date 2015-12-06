@@ -50,11 +50,12 @@ html, body {
 #playback-info {
 	background: rgba(0,0,0,0.6);
     padding: 0 0 10px;
+	margin: 260px 0;
 }
 
 .playback-controls {
 	text-align: center;
-	margin: 220px 0 20px;
+	margin: 20px 0;
 }
 
 .playback-controls .btn {
@@ -71,9 +72,8 @@ html, body {
 	margin-bottom: 5px;
 }
 #currentsong {
-	font-size: 30px;
+	font-size: 20px;
 	font-weight: bold;
-	color: #007F0B;
 }
 #playlist-position {
 	color: #8FA7BF;

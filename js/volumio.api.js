@@ -427,7 +427,7 @@ function updateGUI(objectInputState){
     }
     $('#currentartist').html(objectInputState['currentartist']);
     $('#currentsong').html(objectInputState['currentsong']);
-    $('#currentalbum').html(objectInputState['currentalbum']);
+    //$('#currentalbum').html(objectInputState['currentalbum']);
     if (objectInputState['repeat'] == 1) {
         $('#repeat').addClass('btn-primary');
     } else {
