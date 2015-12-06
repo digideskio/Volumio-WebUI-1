@@ -360,7 +360,7 @@ jQuery(document).ready(function($){ 'use strict';
         var validCommands = ['add', 'addplay', 'addreplaceplay',
                              'update', 'spop-playtrackuri', 'spop-addtrackuri',
                              'spop-playplaylistindex',
-                             'spop-addplaylistindex']
+                             'spop-addplaylistindex', 'spop-stop']
 
         if (validCommands.indexOf($this.data('cmd')) !== -1) {
             getDB($this.data('cmd'), path);
@@ -386,10 +386,6 @@ jQuery(document).ready(function($){ 'use strict';
         if ($this.data('cmd') == 'spop-searchalbum') {
 			$('#db-search-keyword').val('album:' + album);
 			getDB('search', '', 'file');
-        }
-
-        if ($this.data('cmd') == 'spop-stop') {
-			$.post('db/?cmd=spop-stop', {}, function(data) {}, 'json');
         }
     });
 

@@ -204,7 +204,9 @@ var MPDFile = new Vue({
 	},
 	methods: {
 	    playSong: function (song) {
-	      //getDB("spop-goto", song.index);
+            getDB('spop-stop');
+            getDB('addplay', song.file);
+            //notify('add', song.title);
 	    },
         playSpotifyTrack: function (track) {
             getDB("spop-playtrackuri", track.SpopTrackUri, null, null, function(data) {
@@ -227,8 +229,12 @@ var MPDFile = new Vue({
 
 function getDB(cmd, path, browsemode, uplevel, callback, fail){
 
-	var data = { "path" : path };
-
+	var data = {};
+    
+    if(path) {
+        data = { "path" : path };
+    }
+    
 	if (cmd == 'filepath') {
 		callback = function(data) {
 			populateDB(data, path, uplevel);
