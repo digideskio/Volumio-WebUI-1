@@ -1,32 +1,4 @@
 <?php
-/*
- *      PlayerUI Copyright (C) 2013 Andrea Coiutti & Simone De Gregori
- *		 Tsunamp Team
- *      http://www.tsunamp.com
- *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with RaspyFi; see the file COPYING.  If not, see
- *  <http://www.gnu.org/licenses/>.
- *
- *
- *	UI-design/JS code by: 	Andrea Coiutti (aka ACX)
- * PHP/JS code by:			Simone De Gregori (aka Orion)
- * 
- * file:							net-config.php
- * version:						1.0
- *
- */
-
 // common include
 include('inc/connection.php');
 playerSession('open',$db,'','');
@@ -37,24 +9,26 @@ playerSession('open',$db,'','');
 playerSession('open',$db,'','');
 
 // handle POST (reset)
-if (isset($_POST['reset']) && $_POST['reset'] == 1) {
-$eth0 = "iface eth0 inet dhcp\n";
-$value = array('ssid' => '', 'encryption' => '', 'password' => '');
-$dbh = cfgdb_connect($db);
-cfgdb_update('cfg_wifisec',$dbh,'',$value);
-$wifisec = cfgdb_read('cfg_wifisec',$dbh);
-$dbh = null;
-$_POST['eth0']['dhcp'] = 'true';
-$_POST['eth0']['ip'] = '';
-$_POST['eth0']['netmask'] = '';
-$_POST['eth0']['gw'] = '';
-$_POST['eth0']['dns1'] = '';
-$_POST['eth0']['dns2'] = '';
+if (isset($_POST['reset']) && $_POST['reset'] == 1) 
+{
+    $eth0 = "iface eth0 inet dhcp\n";
+    $value = array('ssid' => '', 'encryption' => '', 'password' => '');
+    $dbh = cfgdb_connect($db);
+    cfgdb_update('cfg_wifisec',$dbh,'',$value);
+    $wifisec = cfgdb_read('cfg_wifisec',$dbh);
+    $dbh = null;
+    $_POST['eth0']['dhcp'] = 'true';
+    $_POST['eth0']['ip'] = '';
+    $_POST['eth0']['netmask'] = '';
+    $_POST['eth0']['gw'] = '';
+    $_POST['eth0']['dns1'] = '';
+    $_POST['eth0']['dns2'] = '';
 }
 
 // handle POST
-if (isset($_POST) && !empty($_POST)) {
-$dbh  = cfgdb_connect($db);
+if (isset($_POST) && !empty($_POST)) 
+{
+    $dbh  = cfgdb_connect($db);
     // eth0
     if (isset($_POST['eth0']['dhcp']) && isset($_POST['eth0']['ip'])) {
         if ($_POST['eth0']['dhcp'] == 'true') {

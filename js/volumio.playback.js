@@ -24,40 +24,41 @@ jQuery(document).ready(function($){ 'use strict';
         var cmd;
         var $this = $(this);
         // stop
-        if ($this.attr('id') == 'stop') {
-            refreshTimer(0, 0, 'stop')
-			window.clearInterval(GUI.currentKnob);
-            $('.playlist li').removeClass('active');
-            $('#total').html('');
-        }
-        // play/pause
-        else if ($this.attr('id') == 'play') {
-            //if (json['currentsong'] != null) {
-                if (GUI.state == 'play') {
-                    cmd = 'pause';
-                    $('#countdown-display').countdown('pause');
-                } else if (GUI.state == 'pause') {
-                    cmd = 'play';
-                    $('#countdown-display').countdown('resume');
-                } else if (GUI.state == 'stop') {
-                    cmd = 'play';
-                    $('#countdown-display').countdown({since: 0, compact: true, format: 'MS'});
-                }
+        // if ($this.attr('id') == 'stop') {
+        //     refreshTimer(0, 0, 'stop')
+		// 	window.clearInterval(GUI.currentKnob);
+        //     $('.playlist li').removeClass('active');
+        //     $('#total').html('');
+        // }
+        // // play/pause
+        // else if ($this.attr('id') == 'play') {
+        //     //if (json['currentsong'] != null) {
+        //         if (GUI.state == 'play') {
+        //             cmd = 'pause';
+        //             $('#countdown-display').countdown('pause');
+        //         } else if (GUI.state == 'pause') {
+        //             cmd = 'play';
+        //             $('#countdown-display').countdown('resume');
+        //         } else if (GUI.state == 'stop') {
+        //             cmd = 'play';
+        //             $('#countdown-display').countdown({since: 0, compact: true, format: 'MS'});
+        //         }
 
-                window.clearInterval(GUI.currentKnob);
-                sendCmd(cmd);
+        //         window.clearInterval(GUI.currentKnob);
+        //         sendCmd(cmd);
 
-                return;
-        }
-        // previous/next
-        else if ($this.attr('id') == 'previous' || $this.attr('id') == 'next') {
-            GUI.halt = 1;
+        //         return;
+        // }
+        // // previous/next
+        // else if ($this.attr('id') == 'previous' || $this.attr('id') == 'next') {
+        //     GUI.halt = 1;
 
-			$('#countdown-display').countdown('pause');
-			window.clearInterval(GUI.currentKnob);
-        }
-        // step volume control
-        else if ($this.hasClass('btn-volume')) {
+		// 	$('#countdown-display').countdown('pause');
+		// 	window.clearInterval(GUI.currentKnob);
+        // }
+        // // step volume control
+        // else 
+        if ($this.hasClass('btn-volume')) {
             if (GUI.volume == null ) {
                 GUI.volume = $('#volume').val();
             }
@@ -85,7 +86,7 @@ jQuery(document).ready(function($){ 'use strict';
             return;
         }
 
-        // toggle buttons
+        //toggle buttons
         if ($this.hasClass('btn-toggle')) {
             if ($this.hasClass('btn-primary')) {
                 cmd = $this.attr('id') + ' 0';
@@ -96,6 +97,7 @@ jQuery(document).ready(function($){ 'use strict';
         } else {
             cmd = $this.attr('id');
         }
+        
         sendCmd(cmd);
     });
 

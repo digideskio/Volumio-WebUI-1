@@ -52,13 +52,15 @@ html, body {
 /* App
 -------------------------------------------------------------- */
 #playback-info {
-	background: rgba(0,0,0,0.6);
-    padding: 0 0 10px;
-	margin: 260px 0 0;
+	/*background: linear-gradient(to right, transparent, rgba(0,0,0,0.5), transparent);*/
+    padding: 10px 0;
+	margin: 0;
 }
 
 .playback-controls {
 	text-align: center;
+	/*background: linear-gradient(to right, transparent, rgba(0,0,0,0.5), transparent);*/
+	padding-bottom: 10px;
 }
 
 .playback-controls .btn {
@@ -72,8 +74,8 @@ html, body {
 
 .playback-controls .fa, 
 .playback-controls .btn {
-	background: inherit;
-	color: #989898;
+	background: transparent;
+	color: #FFF;
 	border: 0;
 }
 
@@ -87,9 +89,33 @@ html, body {
 	margin-bottom: 5px;
 }
 #currentsong {
-	font-size: 20px;
+	font-size: 24px;
 	font-weight: bold;
 }
+#playback {
+	z-index: 1;
+	position: absolute;
+    width: 100%;
+}
+#playbackCover.coverImage {
+  /*width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;*/
+}
+
+#playbackCover.coverImage::after {
+  content: "";
+  /*background: url(image.jpg);*/
+  opacity: 0.4;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+
 #playlist-position {
 	color: #8FA7BF;
 }
@@ -328,9 +354,6 @@ a.btn-cmd {
 /* Playlist and database panels
 -------------------------------------------------------------- */
 
-#playlist, #database {
-	background: #0A0A0A;
-}
 .playlist, .database {
 	display: block;
 	margin: 0 0 125px 0;
@@ -343,7 +366,6 @@ a.btn-cmd {
 	position: relative;
 	height: 60px;
 	margin: 0;
-	background: #0A0A0A;
 	border-bottom: 1px solid #4A4A4A;
 	color: #ddd;
 	cursor: pointer;

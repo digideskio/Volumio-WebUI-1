@@ -37,75 +37,50 @@ var Playlist = new Vue({
 // ----------------------------------------------------------------------------------------------------
 
 function sendCmd(inputcmd) {
-    $.ajax({
-        type : 'GET',
-        url : 'command/?cmd=' + inputcmd,
-        async : true,
-        cache : false,
-        success : function(data) {
-            GUI.halt = 1;
-        },
+    AjaxUtils.get('command/?cmd=' + inputcmd, {}, function(data) {
+        GUI.halt = 1;
     });
 }
 
 function sendPLCmd(inputcmd) {
-    $.ajax({
-        type : 'GET',
-        url : 'db/?cmd=' + inputcmd,
-        async : true,
-        cache : false,
-        success : function(data) {
-            GUI.halt = 1;
-        },
+    AjaxUtils.get("db/?cmd=" + inputcmd, {}, function(data) {
+        GUI.halt = 1;
     });
 }
 
 function backendRequest() {
-    $.ajax({
-        type : 'GET',
-        url : '_player_engine.php?state=' + GUI.MpdState['state'],
-        async : true,
-        cache : false,
-        success : function(data) {
-			GUI.MpdState = data;
-            renderUI();
-			$('#loader').hide();
+    AjaxUtils.get("_player_engine.php?state=" + GUI.MpdState['state'], {}, function(data) {
+        GUI.MpdState = data;
+        renderUI();
+        $('#loader').hide();
+        backendRequest();
+    }, function(a, b, c) {
+        setTimeout(function() {
+            GUI.state = 'disconnected';
+            $('#loader').show();
+            $('#countdown-display').countdown('pause');
+            window.clearInterval(GUI.currentKnob);
             backendRequest();
-        },
-        error : function() {
-            // setTimeout(function() {
-            //     GUI.state = 'disconnected';
-            //     $('#loader').show();
-            //     $('#countdown-display').countdown('pause');
-            //     window.clearInterval(GUI.currentKnob);
-            //     backendRequest();
-            // }, 2000);
-        }
+        }, 2000);
     });
 }
 
 function backendRequestSpop() {
-    $.ajax({
-        type : 'GET',
-        url : '_player_engine_spop.php?state=' + GUI.SpopState['state'],
-        async : true,
-        cache : false,
-        success : function(data) {
-			if (data != '') {
-				GUI.SpopState = data;
-				renderUI();
-	            backendRequestSpop();
-			} else {
-				setTimeout(function() {
-					backendRequestSpop();
-				}, 5000);
-			}
-        },
-        error : function() {
+    AjaxUtils.get("_player_engine_spop.php?state=" + GUI.SpopState['state'], {}, function(data) {
+        if (data != '') {
+            GUI.SpopState = data;
+            getSpopImage(data.uri);
+            renderUI();
+            backendRequestSpop();
+        } else {
             setTimeout(function() {
                 backendRequestSpop();
             }, 5000);
         }
+    }, function(a, b, c) {
+        setTimeout(function() {
+                backendRequestSpop();
+            }, 5000);
     });
 }
 
@@ -113,68 +88,17 @@ function toggleActive($ele, $parent) {
     if(!$parent) {
     	$parent = $ele.parent();
     }
-    //$ele.find('li').removeClass('active');
+    
     $parent.siblings().removeClass('active');
 
     $parent.addClass('active');
 }
 
-function renderUI() {
-	if (GUI.SpopState['state'] == 'play' || GUI.SpopState['state'] == 'pause') {
-	// If Spop is playing, temporarily redirect button control and title display to Spop
-	    GUI.state = GUI.SpopState['state'];
-
-		// Combine the Spop state array with the Mpd state array - any state variable defined by Spop will overwrite the corresponding Mpd state variable
-		var objectCombinedState = $.extend({}, GUI.MpdState, GUI.SpopState);
-	    updateGUI(objectCombinedState);
-		refreshTimer(parseInt(objectCombinedState['elapsed']), parseInt(objectCombinedState['time']), objectCombinedState['state']);
-		refreshKnob(objectCombinedState);
-
-	} else {
-	// Else UI should be connected to MPD status
-	    GUI.state = GUI.MpdState['state'];
-	    updateGUI(GUI.MpdState);
-		refreshTimer(parseInt(GUI.MpdState['elapsed']), parseInt(GUI.MpdState['time']), GUI.MpdState['state']);
-		refreshKnob(GUI.MpdState);
-
-	}
-
-    if (GUI.state != 'disconnected') {
-        $('#loader').hide();
-    }
-
-    if (GUI.MpdState['playlist'] != GUI.playlist) {
-    	//GUI.MpdState
-        getPlaylist();
-        GUI.playlist = GUI.MpdState['playlist'];
-    }
-
-    GUI.halt = 0;
-}
-
 // Non-caching version of getPlaylist
 function getPlaylist() {
-    $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        url: 'db/?cmd=spop-qls',
-        cache: false,
-        async: true,
-
-        success: function (data) {
-        	if(data) {
-        		Playlist.songs = data.tracks; 
-        	}
-            // var current = parseInt(json['song']);
-            // if (current != json && GUI.halt != 1) {
-            //     customScroll('pl', current, 200); // active current song
-            // }
-        },
-
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+    sendCommand("spop-qls", null, function(data) {
+        if(data) {
+            Playlist.songs = data.tracks; 
         }
     });
 }
@@ -211,10 +135,9 @@ var MPDFile = new Vue({
                         { name: 'spop-stop' }, 
                         { name: 'addplay', data: { path: song.file }}
                         ], function() {
-                
+                gotoPlayback();
             });
             
-            gotoPlayback();
             //notify('add', song.title);
 	    },
         playSpotifyTrack: function (track) {
@@ -239,22 +162,28 @@ var MPDFile = new Vue({
 	}
 });	
 
-function gotoPlayback(track) {
-    $("#open-playback").find("a").click();
-    
-    if (track) {
-        sendCommand("spop-uimage", { path: track.SpopTrackUri }, function(data) {
-            console.log("Image=");
-            //$("#playback").append('<img src="data:image/png;base64,' + data.data + '">');
-            console.log(data.data);
-            $("#playback").css("background", "url(data:image/gif;base64," + data.data + ") no-repeat 50% 20% fixed");
+function getSpopImage(uri) {
+    if (uri) {
+        sendCommand("spop-uimage", { path: uri, p2: 2 }, function(data) {
+            if (data) {
+                if (!data.error) {
+                    $("#dynamicCss").text("#playbackCover.coverImage:after{background:url(data:image/gif;base64," +data.data+ ") no-repeat center center fixed;background-size:cover;}");
+                    $("#playbackCover").addClass("coverImage");
+                }
+            }
         });
     }
 }
 
+function gotoPlayback(track) {
+    $("#open-playback").find("a").click();
+    
+    resetState();
+}
+
 function sendCommands(commands, callback, fail) {
     $.each(commands, function(index, data) {
-        sendCommand(data.name, data.data);
+        sendCommand(data.name, data.data, callback, fail);
     });
 }
 
@@ -268,7 +197,7 @@ function sendCommand(command, data, callback, fail) {
     getDB(command, data, null, null, callback, fail);
 }
 
-function getDB(cmd, commandData, browsemode, uplevel, callback, fail){
+function getDB(cmd, commandData, browsemode, uplevel, callback, fail) {
     
     var path = commandData;
     
@@ -296,46 +225,25 @@ function getDB(cmd, commandData, browsemode, uplevel, callback, fail){
     
     var uri = "db/?cmd=" + cmd;
     
-	$.post(uri, commandData, callback, 'json').fail(function(a, b, c) {
-		console.error("Error: command " + cmd + ", path: " + path);
-		console.log(a);
-		console.log(b);
-		console.log(c);
-	}).done(function(response) {
-        
-        console.debug("Got data from getDB: " + uri + " with data:");
-        console.log(commandData);
-        console.log(response);
+    AjaxUtils.post(uri, commandData, function(data) {
+        if (typeof callback === "function") {
+            callback(data);
+        }
     });
 }
 
 function populateDB(data, path, uplevel, keyword){
-	if (path) GUI.currentpath = path;
+	if (path)  {
+        GUI.currentpath = path;
+    }
     
     MPDFile.files = [];
     MPDFile.mpdDirectories = [];
     MPDFile.spotifyTracks = [];
     MPDFile.spotifyDirectories = [];
     MPDFile.isLibrary = false;
-	//var DBlist = $('ul.database');
-	//DBlist.html('');
 
-	if (keyword) {
-		var results = (data.length) ? data.length : '0';
-		var s = (data.length == 1) ? '' : 's';
-		var text = "" + results + ' result' + s + ' for "<em class="keyword">' + keyword + '</em>"';
-		//$("#db-back").attr("title", "Close search results and go back to the DB");
-		//$("#db-back-text").html(text);
-		//$("#db-back").show();
-
-	} else if (path != '') {
-		//$("#db-back").attr("title", "");
-		//$("#db-back-text").html("back");
-		//$("#db-back").show();
-
-	} else {
-        //$("#db-back").hide();
-
+	if (!keyword || path == '') {
         if (library && library.isEnabled && !library.displayAsTab) {
             MPDFile.isLibrary = true;
         }
@@ -369,8 +277,84 @@ function populateDB(data, path, uplevel, keyword){
 	}
 }
 
+var PlaybackVol = new Vue({
+	el: '#playback',
+	data: {
+		song: {}
+	},
+	methods: {
+	    playPause: function () {
+            var cmd = '';
+            if (GUI.state == 'play') {
+                cmd = 'pause';
+                $('#countdown-display').countdown('pause');
+            } else if (GUI.state == 'pause') {
+                cmd = 'play';
+                $('#countdown-display').countdown('resume');
+            } else if (GUI.state == 'stop') {
+                cmd = 'play';
+                $('#countdown-display').countdown({since: 0, compact: true, format: 'MS'});
+            }
+
+            window.clearInterval(GUI.currentKnob);
+            sendCmd(cmd);
+            resetState();
+            //sendCommand("spop-goto", { "path": this.song.index });
+	    },
+	    nav: function (direction) {
+	    	GUI.halt = 1;
+            //console.log("nav bitch");
+			$('#countdown-display').countdown('pause');
+			window.clearInterval(GUI.currentKnob);
+            
+            sendCmd(direction);
+            //resetState();
+	    }
+	}
+});
+
+function resetState() {
+    //backendRequest();
+    //backendRequestSpop();
+}
+
+function renderUI() {
+    console.log("does the ui render?");
+    console.log(GUI);
+    if (GUI.SpopState['state'] == 'play' || GUI.SpopState['state'] == 'pause') {
+       // If Spop is playing, temporarily redirect button control and title display to Spop
+        GUI.state = GUI.SpopState['state'];
+
+        // Combine the Spop state array with the Mpd state array - any state variable defined by Spop will overwrite the corresponding Mpd state variable
+        var objectCombinedState = $.extend({}, GUI.MpdState, GUI.SpopState);
+        updateGUI(objectCombinedState);
+        refreshTimer(parseInt(objectCombinedState['elapsed']), parseInt(objectCombinedState['time']), objectCombinedState['state']);
+        refreshKnob(objectCombinedState);
+    } else {
+       // Else UI should be connected to MPD status
+        GUI.state = GUI.MpdState['state'];
+        updateGUI(GUI.MpdState);
+        refreshTimer(parseInt(GUI.MpdState['elapsed']), parseInt(GUI.MpdState['time']), GUI.MpdState['state']);
+        refreshKnob(GUI.MpdState);
+    }
+
+    if (GUI.state != 'disconnected') {
+        $('#loader').hide();
+    }
+
+    if (GUI.MpdState['playlist'] != GUI.playlist) {
+        //GUI.MpdState
+        getPlaylist();
+        GUI.playlist = GUI.MpdState['playlist'];
+    }
+
+    GUI.halt = 0;
+}
+
 // update interface
-function updateGUI(objectInputState){
+function updateGUI(objectInputState) {
+    console.log("updating ui with state");
+    console.log(objectInputState);
 
 	var $elapsed = $("#elapsed");
 	var $total = $('#total');
@@ -424,9 +408,9 @@ function updateGUI(objectInputState){
     if (volume[0] && (volume[0].knobEvents === undefined || !volume[0].knobEvents.isSliding)) {
         volume.val((objectInputState['volume'] == '-1') ? 100 : objectInputState['volume']).trigger('change');
     }
-    $('#currentartist').html(objectInputState['currentartist']);
-    $('#currentsong').html(objectInputState['currentsong']);
-    //$('#currentalbum').html(objectInputState['currentalbum']);
+    console.log(objectInputState);
+    PlaybackVol.song = { Artist: objectInputState['currentartist'], Title: objectInputState['currentsong'] };
+
     if (objectInputState['repeat'] == 1) {
         $('#repeat').addClass('btn-primary');
     } else {

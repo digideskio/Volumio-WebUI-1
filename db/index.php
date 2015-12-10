@@ -24,7 +24,8 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 					{
 						$arraySpopSearchResults = querySpopDB($spop, 'filepath', $_POST['path']);
 						echo json_encode($arraySpopSearchResults);
-					} else 
+					} 
+					else 
 					{
 						$arrayMpdSearchResults = searchDB($mpd,'filepath',$_POST['path']);
 						echo json_encode($arrayMpdSearchResults);
