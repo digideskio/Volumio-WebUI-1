@@ -50,7 +50,12 @@ function sendPLCmd(inputcmd) {
 
 function backendRequest() {
     AjaxUtils.get("_player_engine.php?state=" + GUI.MpdState['state'], {}, function(data) {
+        console.log("BACKEND REQUEST");
+        console.log(data);
         GUI.MpdState = data;
+        if(data.base64) {
+            showCoverImage(data.base64);
+        }
         renderUI();
         $('#loader').hide();
         backendRequest();
@@ -66,7 +71,13 @@ function backendRequest() {
 }
 
 function backendRequestSpop() {
-    AjaxUtils.get("_player_engine_spop.php?state=" + GUI.SpopState['state'], {}, function(data) {
+    var state = GUI.SpopState['state'];
+    
+    if (state != 'pause' && state != 'play') {
+        removeCoverImage();
+    }
+    
+    AjaxUtils.get("_player_engine_spop.php?state=" + state, {}, function(data) {
         if (data != '') {
             GUI.SpopState = data;
             getSpopImage(data.uri);
@@ -134,7 +145,7 @@ var MPDFile = new Vue({
             sendCommands([
                         { name: 'spop-stop' }, 
                         { name: 'addplay', data: { path: song.file }}
-                        ], function() {
+                        ], function(data) {
                 gotoPlayback();
             });
             
@@ -162,17 +173,32 @@ var MPDFile = new Vue({
 	}
 });	
 
+function removeCoverImage() {
+    //$("#playbackCover").removeClass("coverImage");
+}
+
 function getSpopImage(uri) {
     if (uri) {
         sendCommand("spop-uimage", { path: uri, p2: 2 }, function(data) {
             if (data) {
                 if (!data.error) {
-                    $("#dynamicCss").text("#playbackCover.coverImage:after{background:url(data:image/gif;base64," +data.data+ ") no-repeat center center fixed;background-size:cover;}");
-                    $("#playbackCover").addClass("coverImage");
+                    showCoverImage(data.data);
                 }
             }
         });
     }
+}
+
+function showCoverImage(base64) {
+    var visible = $(".visible-phone:visible");
+    var backgroundSize = "contain";
+    
+    if(visible.length > 0) {
+        backgroundSize = "cover";
+    }
+    
+    $("#dynamicCss").text("#playbackCover.coverImage:after{background:url(data:image/gif;base64," + base64 + ") no-repeat 50% 0% fixed;background-size:" + backgroundSize + ";}");
+    $("#playbackCover").addClass("coverImage");
 }
 
 function gotoPlayback(track) {

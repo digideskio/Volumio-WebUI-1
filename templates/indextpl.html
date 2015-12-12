@@ -2,7 +2,7 @@
 
 	<!-- -------------------- PLAYBACK PANEL -------------------- -->
 	<div id="playbackCover"></div>
-	<div id="playbackOverlay"></div>	
+	<div id="playbackOverlay"></div>
 	<div id="playback" class="tab-pane active">
 		<div class="container txtmid">
 			<div id="playback-info">
@@ -86,12 +86,7 @@
 						</a>
 					</div>
 					<div class="db-entry db-browse" v-bind:class="{ 'db-other': file.Time === undefined, 'db-song' : file.Time !== undefined }" v-on:click="playSong(file)">
-						<template v-if="file.Title">
-							{{ file.Title }}
-						</template>
-						<template v-if="!file.Title">
-							{{ file.file.substr(file.file.lastIndexOf('/') + 1, file.file.length - file.file.lastIndexOf('/') + 1); }}
-						</template>
+						{{ file.Title === undefined ? file.Name === undefined ? file.file : file.Name : file.Title }}
 						<em class="songtime"> {{ file.Time }}</em>
 						<span>{{ file.Artist }} - {{ file.Album }}</span>
 					</div>
@@ -146,12 +141,7 @@
 						</div>
 					</template>
 					<div class="db-entry db-folder db-browse" v-on:click="openDirectory(dir)">
-						<template v-if="dir.DisplayName">
-							{{ dir.DisplayName }}
-						</template>
-						<template v-if="!dir.DisplayName">
-							{{ dir.directory }}
-						</template>
+						{{ dir.DisplayName === undefined ? dir.directory : dir.DisplayName }}
 					</div>
 				</li>
 				<li v-if="isLibrary" id="#db-plug-lib" class="db-plugin" onclick="showLibraryView()">
@@ -261,3 +251,4 @@
 		</ul>
 	</div>
 </div>
+<span class="visible-phone"></span>

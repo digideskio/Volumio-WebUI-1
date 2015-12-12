@@ -424,23 +424,26 @@ function querySpopDB($sock, $queryType, $queryString)
 
 function searchDB($sock,$querytype,$query) 
 {
-	switch ($querytype) {
-	case "filepath":
-		if (isset($query) && !empty($query)){
-		sendMpdCommand($sock,"lsinfo \"".html_entity_decode($query)."\"");
+	switch ($querytype) 
+	{
+		case "filepath":
+			if (isset($query) && !empty($query))
+			{
+				sendMpdCommand($sock,"lsinfo \"".html_entity_decode($query)."\"");
+				break;
+			} 
+			else 
+			{
+				sendMpdCommand($sock,"lsinfo");
+				break;
+			}
+		case "album":
+		case "artist":
+		case "title":
+		case "file":
+			sendMpdCommand($sock,"search ".$querytype." \"".html_entity_decode($query)."\"");
+			//sendMpdCommand($sock,"search any \"".html_entity_decode($query)."\"");
 		break;
-		} else {
-		sendMpdCommand($sock,"lsinfo");
-		break;
-		}
-	case "album":
-	case "artist":
-	case "title":
-	case "file":
-		sendMpdCommand($sock,"search ".$querytype." \"".html_entity_decode($query)."\"");
-		//sendMpdCommand($sock,"search any \"".html_entity_decode($query)."\"");
-	break;
-	
 	}
 	
 	//$response =  htmlentities(readMpdResponse($sock),ENT_XML1,'UTF-8');
