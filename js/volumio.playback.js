@@ -362,7 +362,7 @@ jQuery(document).ready(function($){ 'use strict';
         GUI.DBentry[0] = '';
         var $this = $(this);
         var validCommands = ['add', 'addplay', 'addreplaceplay',
-                             'update', 'spop-playtrackuri', 'spop-addtrackuri',
+                             'update', 'spop-uplay', 'spop-uadd',
                              'spop-playplaylistindex',
                              'spop-addplaylistindex', 'spop-stop']
 

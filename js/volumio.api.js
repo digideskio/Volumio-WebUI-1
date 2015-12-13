@@ -165,17 +165,17 @@ var MPDFile = new Vue({
             
             //notify('add', song.title);
 	    },
-        playSpotifyTrack: function (track) {
-            sendCommand("spop-playtrackuri", track.SpopTrackUri, function(data) {
-                gotoPlayback(track);
+        playSpotifyTrack: function (playTrack) {
+            sendCommand("spop-uplay", playTrack.SpopTrackUri, function(data) {
+                gotoPlayback(playTrack);
                 //getPlaylist();
             });
     
             $.each(this.spotifyTracks, function(index, track) {
                 var trackUri = track.SpopTrackUri;
-    
-                if(trackUri) {
-                    sendCommand("spop-addtrackuri", { path: trackUri });
+
+                if (trackUri && track.SpopTrackUri != playTrack.SpopTrackUri) {
+                    sendCommand("spop-uadd", { path: trackUri });
                 }
             });
     
