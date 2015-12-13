@@ -134,23 +134,7 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 				{
 					echo json_encode(enqueueAll($mpd,$_POST['path']));
 				}
-				break;
-	
-			case 'spop-playtrackuri':
-				if (isset($_POST['path']) && $_POST['path'] != '') 
-				{
-					sendMpdCommand($mpd,'stop');
-					echo json_encode(sendSpopCommand($spop, "uplay " . $_POST['path']));
-				}
-				break;
-	
-			case 'spop-addtrackuri':
-				if (isset($_POST['path']) && $_POST['path'] != '') 
-				{
-					echo json_encode(sendSpopCommand($spop, "uadd " . $_POST['path']));
-				}
-				break;
-	
+				break;	
 			case 'spop-playplaylistindex':
 				if (isset($_POST['path']) && $_POST['path'] != '') 
 				{
@@ -182,6 +166,13 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 					if (isset($_POST['p2']) && $_POST['p2'] != '') 
 					{
 						$spopCommand .= " " . $_POST['p2'];
+					}
+					
+					// stop any mpd playback					
+					$playBackCommands = array("play", "stop", "next", "prev", "goto", "add");
+					if (in_array($spopCommand, $playBackCommands))
+					{
+						sendMpdCommand($mpd, 'stop');
 					}
 					
 					echo json_encode(sendSpopCommand($spop, $spopCommand));

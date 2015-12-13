@@ -390,6 +390,7 @@ function getTrackInfo($sock,$songID)
 	return _parseFileListResponse($track);
 }
 
+// TODO Justus check which one to get?
 function getPlayQueue($sock) 
 {
 	sendMpdCommand($sock,"playlistinfo");

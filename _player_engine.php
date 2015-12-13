@@ -48,7 +48,7 @@ else
 	} 
 	// -----  check and compare GUI state with Backend state  ----  //
 
-	$curTrack = getTrackInfo($mpd,$status['song']);
+	$curTrack = getTrackInfo($mpd, $status['song']);
 	
 	foreach($curTrack[0] as $key => $value)
 	{
@@ -60,16 +60,7 @@ else
 		$status[$key] = $value;
 	}
 	
-	$fileName = "/mnt/" . str_replace("\\", "/", $status['file']);
-	$path = substr($fileName, 0, strrpos($fileName, '/') + 1) . "Folder.jpg";
-	$type = pathinfo($path, PATHINFO_EXTENSION);
-	$data = file_get_contents($path);
-	
-	if($data)
-	{
-		$base64 = base64_encode($data);
-		$status['base64'] = $base64;
-	}
+	$status['base64'] = getBase64AlbumArt($status["file"]);
 	
 	if (isset($status['Title'])) 
 	{
@@ -124,4 +115,35 @@ else
 	closeMpdSocket($mpd);
 }
 
+function getBase64AlbumArt($file) 
+{
+	$fileName = "/mnt/" . str_replace("\\", "/", $file);
+	$basePath = substr($fileName, 0, strrpos($fileName, '/') + 1);
+
+	return findAlbumArtInFolder($basePath);
+}
+
+function findAlbumArtInFolder($path)
+{
+	$possibleAlbumArtFiles = array("Folder.jpg", "AlbumArt*.*");
+	$filesInDirectory = scandir($path);
+	
+	foreach ($possibleAlbumArtFiles as $file)
+	{
+		$albumArtMatches = preg_grep("/" . $file . "/", $filesInDirectory);
+		
+		foreach ($albumArtMatches as $albumArtFile)
+		{
+			$pathToCoverPhoto = $path . $albumArtFile;
+			$data = file_get_contents($pathToCoverPhoto);
+			
+			if($data) 
+			{
+				return base64_encode($data);
+			}
+		}
+	}
+	
+	return "";
+}
 ?>

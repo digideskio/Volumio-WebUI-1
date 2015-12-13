@@ -18,18 +18,25 @@
 var Playlist = new Vue({
 	el: '#playlist',
 	data: {
-		songs: []
+		mpdSongs: [],
+		spotifySongs: []
 	},
 	methods: {
-	    playSong: function (song) {
+	    playSpotifySong: function (song) {
 	      sendCommand("spop-goto", { "path": song.index });
 	    },
-	    removeSong: function (song) {
+	    removeSpotifySong: function (song) {
 	    	sendCommand("spop-qrm", { "path": song.index }, function(data) {
 	    		console.log(data);
 	    		getPlaylist();
 	    	});
-	    }
+	    },
+        playMpdSong: function (song) {
+            sendCmd("play " + song.index);
+        },
+        removeMpdSong: function (song) {
+            sendCmd("trackremove&songid=" + song.index);
+        }
 	}
 });
 
@@ -109,7 +116,14 @@ function toggleActive($ele, $parent) {
 function getPlaylist() {
     sendCommand("spop-qls", null, function(data) {
         if(data) {
-            Playlist.songs = data.tracks; 
+            Playlist.spotifySongs = data.tracks; 
+        }
+    });
+    
+    sendCommand("playlist", null, function(data) {
+        if(data) {
+            console.log(data);
+            Playlist.mpdSongs = data.tracks; 
         }
     });
 }
