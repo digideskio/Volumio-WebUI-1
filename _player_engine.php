@@ -144,6 +144,8 @@ function findAlbumArtInFolder($path)
 		}
 	}
 	
+	//$response = http_
+	
 	return "";
 }
 ?>

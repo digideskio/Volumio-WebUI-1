@@ -62,8 +62,8 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 				{
 					$status = _parseStatusResponse(MpdStatus($mpd));
 					$pos = $status['playlistlength'] ;
-					addQueue($mpd,$_POST['path']);
-					sendMpdCommand($mpd,'play '.$pos);
+					addQueue($mpd, $_POST['path']);
+					sendMpdCommand($mpd, 'play ' . $pos);
 					echo json_encode(readMpdResponse($mpd));
 				}
 				break;
@@ -156,7 +156,7 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 				
 				if($spopCommandPos != -1) 
 				{
-					$spopCommand = substr($commandName, 5, strlen($commandName) - 5);
+					$spopCommand = trim(substr($commandName, 5, strlen($commandName) - 5));
 				
 					if (isset($_POST['path']) && $_POST['path'] != '') 
 					{
@@ -169,10 +169,10 @@ if (isset($_GET['cmd']) && $_GET['cmd'] != '')
 					}
 					
 					// stop any mpd playback					
-					$playBackCommands = array("play", "stop", "next", "prev", "goto", "add");
+					$playBackCommands = array("play", "stop", "next", "prev", "goto", "add", "uplay", "uadd");
 					if (in_array($spopCommand, $playBackCommands))
 					{
-						sendMpdCommand($mpd, 'stop');
+						sendMpdCommand($mpd, "stop");
 					}
 					
 					echo json_encode(sendSpopCommand($spop, $spopCommand));

@@ -1,0 +1,32 @@
+{
+    "name": "volumio/volumio",
+    "description": "Volumio",
+    "keywords": ["music", "volumio"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.4.4",
+        "guzzlehttp/guzzle": "5.3.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+    },
+    "autoload-dev": {
+    },
+    "scripts": {
+        "post-install-cmd": [
+        ],
+        "pre-update-cmd": [
+        ],
+        "post-update-cmd": [
+        ],
+        "post-root-package-install": [
+        ],
+        "post-create-project-cmd": [
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}

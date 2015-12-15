@@ -123,7 +123,7 @@ function getPlaylist() {
     sendCommand("playlist", null, function(data) {
         if(data) {
             console.log(data);
-            Playlist.mpdSongs = data.tracks; 
+            Playlist.mpdSongs = data; 
         }
     });
 }
@@ -183,6 +183,31 @@ var MPDFile = new Vue({
         },
         openDirectory: function (dir) {
             getDB('filepath', dir.directory, 'file', 0);
+        },
+        getFileName: function (file) {
+            var title = file.Title;
+            
+            if (!title) {
+                title = file.Name;
+                
+                if (!title) {
+                    var lastIndex = file.file.lastIndexOf('/') + 1;
+                    title = file.file.substr(lastIndex, file.file.length - lastIndex - 4);
+                }
+            }
+            
+            return title;
+        },
+        getAlbumArtist: function (file) {
+            var albumArtist = "";
+            
+            if (file.Artist && file.Album) {
+                albumArtist = file.Artist + " - " + file.Album;
+            } else if(file.Artist) {
+                albumArtist = file.Artist;
+            }
+            
+            return albumArtist;
         }
 	}
 });	
